@@ -12,6 +12,9 @@ public class GameManager : Singleton<GameManager> {
 	[SerializeField] float gravity;
 	public float Gravity { get { return gravity; } }
 
+	[SerializeField] float speedOfLight;
+	public float SpeedOfLight {  get { return speedOfLight; } }
+
 	void Start() {
 		ChangeState(GameState.Initiating);
 		Player = GameObject.FindGameObjectWithTag("Player").transform;

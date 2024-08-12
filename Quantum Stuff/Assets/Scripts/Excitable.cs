@@ -6,10 +6,14 @@ public class Excitable : MonoBehaviour {
 	private void Update() {
 		Energy -= Time.deltaTime;
 
-		if (Energy < 0) Energy = 0;
+		if (Energy < 0) {
+			Energy = 0;
+			print("Depleted");
+		}
     }
 
 	public virtual void Excite(float energy) {
 		Energy += energy;
+		print("Energy: " + energy);
 	}
 }
