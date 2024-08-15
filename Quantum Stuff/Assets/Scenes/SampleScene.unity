@@ -1224,6 +1224,7 @@ GameObject:
   - component: {fileID: 2129102921}
   - component: {fileID: 2129102922}
   - component: {fileID: 2129102924}
+  - component: {fileID: 2129102925}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1388,6 +1389,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0caec609f858348a785170085fd0ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castWidth: 0.2
-  reach: 0
   holdingPoint: {fileID: 1375503648}
+--- !u!114 &2129102925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129102915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12b3c464b98606f43849bd69a844b9d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  castWidth: 0
+  reach: 0

@@ -1,41 +1,39 @@
 using UnityEngine;
 
 public class PickUp : MonoBehaviour {
-    [SerializeField] float castWidth;
-    [SerializeField] float reach;
     [SerializeField] Transform holdingPoint;
-
-    Transform _camera;
 
     bool _holding = false;
     ILiftable _item;
     Transform _itemTranform;
 
-    void Start() {
-        _camera = Camera.main.transform;
-    }
+    public ILiftable Item { get { return _item; } }
 
-    void Update() {
-        if (!Input.GetKeyDown(KeyCode.E)) return;
+    public void Drop() {
+        if (!_holding) return;
 
-        if (_holding) {
-            _item.Drop();
-            _item = null;
+		_item.Drop();
+		_item = null;
 
-			_itemTranform.SetParent(null);
-            _itemTranform = null;
+		_itemTranform.SetParent(null);
+		_itemTranform = null;
 
-			_holding = !_holding;
-		} else if (Physics.SphereCast(_camera.position, castWidth, _camera.forward, out RaycastHit info, reach) && 
-                   info.collider.TryGetComponent(out _item)) {
-            _item.PickUp();
+		_holding = false;
+	}
 
-            _itemTranform = info.transform;
+    public void PickUpItem(ILiftable item, Transform itemTransform) {
+        if (_holding)
+            Drop();
 
-            _itemTranform.SetParent(holdingPoint);
-            _itemTranform.position = holdingPoint.position;
+        _item = item;
 
-			_holding = !_holding;
-		}
-    }
+		_item.PickUp();
+
+        _itemTranform = itemTransform;
+
+		_itemTranform.SetParent(holdingPoint);
+		_itemTranform.position = holdingPoint.position;
+
+		_holding = true;
+	}
 }
