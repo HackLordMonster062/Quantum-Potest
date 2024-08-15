@@ -5,16 +5,16 @@ public class FrequencyDoor : MonoBehaviour, IInteractable {
 
 	MeshRenderer _renderer;
 
-	private void Awake() {
+	private void Start() {
 		_renderer = GetComponent<MeshRenderer>();
 
-		_renderer.material.color = Color.HSVToRGB(1f / frequency, 1, 1);
+		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
 	}
 
 	public bool Interact(ILiftable item) {
 		ColorParticle key = item as ColorParticle;
 
-		if (key != null && frequency == key.Frequency) {
+		if (key != null && key.HasFrequency(frequency)) {
 			gameObject.SetActive(false);
 			return true;
 		}
