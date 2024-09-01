@@ -8,7 +8,6 @@ public class Excitable : MonoBehaviour {
 
 		if (Energy < 0) {
 			Energy = 0;
-			print("Depleted");
 		}
     }
 
