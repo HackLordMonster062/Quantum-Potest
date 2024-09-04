@@ -1213,6 +1213,7 @@ GameObject:
   - component: {fileID: 1218228305}
   - component: {fileID: 1218228304}
   - component: {fileID: 1218228303}
+  - component: {fileID: 1218228309}
   m_Layer: 0
   m_Name: GenericParticle (1)
   m_TagString: Untagged
@@ -1340,13 +1341,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218228302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.08, y: 0.96, z: 10.15}
+  m_LocalPosition: {x: -6.08, y: 7.84, z: 10.15}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218228309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218228302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0962d70519047d43807da292321b71c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springDistance: 2
 --- !u!1 &1224382000
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,6 +4470,7 @@ GameObject:
   - component: {fileID: 1840499185}
   - component: {fileID: 1840499184}
   - component: {fileID: 1840499186}
+  - component: {fileID: 1840499187}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4506,6 +4521,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxFrequency: 10
   colorSwitchTime: 0.1
+--- !u!114 &1840499187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840499183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a42f58bfd906344b913d07c062350ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 2
 --- !u!1 &1925766308
 GameObject:
   m_ObjectHideFlags: 0
