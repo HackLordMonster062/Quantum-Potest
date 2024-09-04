@@ -5,13 +5,19 @@ public class Excitable : MonoBehaviour {
 
 	float _timer;
 
+	Renderer _renderer;
+	Color _baseColor;
+
 	protected bool depleted = true;
 
 	protected virtual void Awake() {
-
+		_renderer = GetComponent<Renderer>();
+		_baseColor = _renderer.material.GetColor("_EmissionColor");
 	}
 
 	protected virtual void Update() {
+		_renderer.material.SetColor("_EmissionColor", _baseColor * (Energy + 1));
+
 		if (depleted) return;
 
 		_timer -= Time.deltaTime;
