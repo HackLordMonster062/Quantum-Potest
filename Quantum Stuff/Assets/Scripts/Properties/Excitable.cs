@@ -1,31 +1,46 @@
 using UnityEngine;
 
 public class Excitable : MonoBehaviour {
-	public float Energy { get; protected set; }
+	public int Energy { get; protected set; }
+
+	float _timer;
 
 	protected bool depleted = true;
+
+	protected virtual void Awake() {
+
+	}
 
 	protected virtual void Update() {
 		if (depleted) return;
 
-		Energy -= Time.deltaTime;
+		_timer -= Time.deltaTime;
 
-		if (Energy < 0) {
-			Energy = 0;
-			
-			Deplete();
+		if (_timer < 0) {
+			_timer = PhysicsManager.instance.DecayTime;
+
+			Energy--;
+			Decay();
+
+			if (Energy <= 0) {
+				Energy = 0;
+
+				Deplete();
+			}
 		}
     }
 
-	public virtual void Excite(float energy) {
+	public virtual void Excite(int energy) {
 		Energy += energy;
-		print("Energy: " + energy);
 		depleted = false;
+
+		_timer = PhysicsManager.instance.DecayTime;
+	}
+
+	protected virtual void Decay() {
 	}
 
 	protected virtual void Deplete() {
 		depleted = true;
-
-		print("Depleted");
 	}
 }

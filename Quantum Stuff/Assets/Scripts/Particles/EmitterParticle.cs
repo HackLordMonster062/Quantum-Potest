@@ -14,8 +14,8 @@ public class EmitterParticle : Excitable {
 		Instantiate(PrefabManager.instance.Particles.Photon, shootingPoint, transform.rotation);
 	}
 
-	protected override void Deplete() {
-		base.Deplete();
+	protected override void Decay() {
+		base.Decay();
 
         ShootPhoton();
 	}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5077552796672055182}
   - component: {fileID: 7899215395868722360}
   - component: {fileID: 2160489011892468909}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Photon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
