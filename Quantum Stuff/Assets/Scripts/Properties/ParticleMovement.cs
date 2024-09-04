@@ -2,17 +2,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ParticleMovement : MonoBehaviour {
+public class ParticleMovement : MonoBehaviour, ILiftable {
 	[SerializeField] float maxDistance;
 	[SerializeField] float repulsionStrength;
 
 	Vector3[] directions;
 
 	Rigidbody _rb;
+	Collider _collider;
 
     void Awake() {
         _rb = GetComponent<Rigidbody>();
         _rb.useGravity = false;
+
+		_collider = GetComponent<Collider>();
 
 		directions = GenerateSymmetricalRingDirections(3, 4);
     }
@@ -55,5 +58,15 @@ public class ParticleMovement : MonoBehaviour {
 		directions.Add(Vector3.down);
 
 		return directions.ToArray();
+	}
+
+	public void PickUp() {
+		_rb.isKinematic = true;
+		_collider.enabled = false;
+	}
+
+	public void Drop() {
+		_rb.isKinematic = false;
+		_collider.enabled = true;
 	}
 }
