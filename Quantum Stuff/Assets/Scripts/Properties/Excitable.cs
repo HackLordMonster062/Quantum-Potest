@@ -23,7 +23,7 @@ public class Excitable : MonoBehaviour {
 		_timer -= Time.deltaTime;
 
 		if (_timer < 0) {
-			_timer = PhysicsManager.instance.DecayTime;
+			_timer = PhysicsManager.instance.RelaxtationTime;
 
 			Energy--;
 			Decay();
@@ -40,7 +40,7 @@ public class Excitable : MonoBehaviour {
 		Energy += energy;
 		depleted = false;
 
-		_timer = PhysicsManager.instance.DecayTime;
+		_timer = PhysicsManager.instance.RelaxtationTime;
 	}
 
 	protected virtual void Decay() {

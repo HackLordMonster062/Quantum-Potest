@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public class EmitterParticle : Excitable {
+	[SerializeField] float shootingPointDistance;
 
 	protected override void Update() {
 		base.Update();
@@ -9,7 +10,7 @@ public class EmitterParticle : Excitable {
 	}
 
 	void ShootPhoton() {
-        Vector3 shootingPoint = transform.position + transform.forward;
+        Vector3 shootingPoint = transform.position + transform.forward * shootingPointDistance;
 
 		Instantiate(PrefabManager.instance.Particles.Photon, shootingPoint, transform.rotation);
 	}

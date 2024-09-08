@@ -28,12 +28,14 @@ public class PlayerMovement : MonoBehaviour {
 		_xRotation = 90;
 	}
 
-	void Update() {
+	void FixedUpdate() {
 		_direction = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
 		_direction = Vector3.ClampMagnitude(_direction, 1);
 
 		_rb.velocity = (_direction * walkSpeed).Modify(y: _rb.velocity.y);
+	}
 
+	void Update() {
 		_xInput = Input.GetAxis("Mouse X") * sensitivity;
 		_yInput = -Input.GetAxis("Mouse Y") * sensitivity;
 
