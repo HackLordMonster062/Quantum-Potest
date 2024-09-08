@@ -9,6 +9,7 @@ public class ParticleBehavior : MonoBehaviour, ILiftable {
 	[Space]
 	[SerializeField] float maxDistance;
 	[SerializeField] float repulsionStrength;
+	[SerializeField] LayerMask repulsionMask = ~0;
 
 	Vector3[] directions;
 
@@ -30,7 +31,7 @@ public class ParticleBehavior : MonoBehaviour, ILiftable {
 		Vector3 repulsionForce = Vector3.zero;
 
 		foreach (Vector3 direction in directions) {
-			if (Physics.Raycast(transform.position, direction, out RaycastHit hit, maxDistance)) {
+			if (Physics.Raycast(transform.position, direction, out RaycastHit hit, maxDistance, repulsionMask, QueryTriggerInteraction.Ignore)) {
 				_force = 1;
 
 				if (hit.collider.TryGetComponent<ParticleBehavior>(out var other)) _force = Mathf.Clamp(other.mass / mass, 0, 1);
