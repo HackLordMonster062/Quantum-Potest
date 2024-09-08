@@ -2,18 +2,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ParticleMovement : MonoBehaviour, ILiftable {
+public class ParticleBehavior : MonoBehaviour, ILiftable {
+	[SerializeField] float mass;
+	public float Mass { get { return mass; } }
+
+	[Space]
 	[SerializeField] float maxDistance;
 	[SerializeField] float repulsionStrength;
 
 	Vector3[] directions;
 
-	Rigidbody _rb;
+	public Rigidbody Rb { get; private set; }
 	Collider _collider;
 
+	float _force;
+
     void Awake() {
-        _rb = GetComponent<Rigidbody>();
-        _rb.useGravity = false;
+        Rb = GetComponent<Rigidbody>();
+        Rb.useGravity = false;
 
 		_collider = GetComponent<Collider>();
 
@@ -25,15 +31,19 @@ public class ParticleMovement : MonoBehaviour, ILiftable {
 
 		foreach (Vector3 direction in directions) {
 			if (Physics.Raycast(transform.position, direction, out RaycastHit hit, maxDistance)) {
+				_force = 1;
+
+				if (hit.collider.TryGetComponent<ParticleBehavior>(out var other)) _force = Mathf.Clamp(other.mass / mass, 0, 1);
+
 				Vector3 dir = transform.position - hit.point;
 
-				repulsionForce += dir.normalized * (repulsionStrength / hit.distance);
+				repulsionForce += dir.normalized * (repulsionStrength / hit.distance) * _force;
 			}
 		}
 
-		_rb.AddForce(repulsionForce, ForceMode.Acceleration);
+		Rb.AddForce(repulsionForce, ForceMode.Acceleration);
 
-		_rb.AddForce(Vector3.down * PhysicsManager.instance.Gravity);
+		Rb.AddForce(Vector3.down * PhysicsManager.instance.Gravity);
 	}
 
 	Vector3[] GenerateSymmetricalRingDirections(int ringCount, int pointsPerRing) {
@@ -61,12 +71,12 @@ public class ParticleMovement : MonoBehaviour, ILiftable {
 	}
 
 	public void PickUp() {
-		_rb.isKinematic = true;
+		Rb.isKinematic = true;
 		_collider.enabled = false;
 	}
 
 	public void Drop() {
-		_rb.isKinematic = false;
+		Rb.isKinematic = false;
 		_collider.enabled = true;
 	}
 }
