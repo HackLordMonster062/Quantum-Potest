@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class FrequencyDoor : MonoBehaviour, IInteractable {
+public class FrequencyDoor : MonoBehaviour {
 	[SerializeField] int frequency;
+	public int Frequency => frequency;
 
 	MeshRenderer _renderer;
 
@@ -11,14 +12,7 @@ public class FrequencyDoor : MonoBehaviour, IInteractable {
 		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
 	}
 
-	public bool Interact(ILiftable item) {
-		ColorParticle key = item as ColorParticle;
+	public void Annihilate() {
 
-		if (key != null && key.HasFrequency(frequency)) {
-			gameObject.SetActive(false);
-			return true;
-		}
-
-		return false;
-    }
+	}
 }

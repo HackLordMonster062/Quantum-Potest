@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ParticleBehavior : MonoBehaviour, ILiftable {
+public class ParticleBehavior : MonoBehaviour {
 	[SerializeField] float mass;
 	public float Mass { get { return mass; } }
 

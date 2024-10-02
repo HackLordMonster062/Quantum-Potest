@@ -2,8 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ColorParticle : MonoBehaviour, ILiftable {
+public class ColorParticle : MonoBehaviour {
 	[SerializeField] List<int> frequencies;
+	[SerializeField] float checkingRadius;
+	[SerializeField] LayerMask coloredObjectsLayer;
 
 	Rigidbody _rb;
 	Collider _collider;
@@ -27,17 +29,18 @@ public class ColorParticle : MonoBehaviour, ILiftable {
 	}
 
 	public void Update() {
-		if (_hasCollapsed) return;
+		UpdateColor();
 
-		if (_timer <= 0) {
-			_currColorIndex = (_currColorIndex + 1) % frequencies.Count;
+		Collider[] colliders = Physics.OverlapSphere(transform.position, checkingRadius, coloredObjectsLayer);
 
-			SetColor(frequencies[_currColorIndex]);
+		foreach (Collider collider in colliders) {
+			if (collider.TryGetComponent(out FrequencyDoor door) && HasFrequency(door.Frequency)) { // TODO: Generalize
+				SetColor(door.Frequency);
+				_hasCollapsed = true;
 
-			_timer = VisualManager.instance.ColorSwitchTime;
+				door.Annihilate();
+			}
 		}
-
-		_timer -= Time.deltaTime;
 	}
 
 	public bool HasFrequency(int frequency) {
@@ -60,13 +63,17 @@ public class ColorParticle : MonoBehaviour, ILiftable {
 		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
 	}
 
-	public void PickUp() {
-		_rb.isKinematic = true;
-		_collider.enabled = false;
-	}
+	private void UpdateColor() {
+		if (_hasCollapsed) return;
 
-	public void Drop() {
-		_rb.isKinematic = false;
-		_collider.enabled = true;
+		if (_timer <= 0) {
+			_currColorIndex = (_currColorIndex + 1) % frequencies.Count;
+
+			SetColor(frequencies[_currColorIndex]);
+
+			_timer = VisualManager.instance.ColorSwitchTime;
+		}
+
+		_timer -= Time.deltaTime;
 	}
 }
