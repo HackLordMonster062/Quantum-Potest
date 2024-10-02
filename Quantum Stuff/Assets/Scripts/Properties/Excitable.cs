@@ -3,15 +3,15 @@ using UnityEngine;
 public class Excitable : MonoBehaviour {
 	public int Energy { get; protected set; }
 
-	float _timer;
+	float _glowingTimer;
 
-	Renderer _renderer;
+	protected MeshRenderer _renderer;
 	Color _baseColor;
 
 	protected bool depleted = true;
 
 	protected virtual void Awake() {
-		_renderer = GetComponent<Renderer>();
+		_renderer = GetComponent<MeshRenderer>();
 		_baseColor = _renderer.material.GetColor("_EmissionColor");
 	}
 
@@ -20,10 +20,10 @@ public class Excitable : MonoBehaviour {
 
 		if (depleted) return;
 
-		_timer -= Time.deltaTime;
+		_glowingTimer -= Time.deltaTime;
 
-		if (_timer < 0) {
-			_timer = PhysicsManager.instance.RelaxtationTime;
+		if (_glowingTimer < 0) {
+			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 
 			Energy--;
 			Decay();
@@ -40,7 +40,7 @@ public class Excitable : MonoBehaviour {
 		Energy += energy;
 		depleted = false;
 
-		_timer = PhysicsManager.instance.RelaxtationTime;
+		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 	}
 
 	protected virtual void Decay() {

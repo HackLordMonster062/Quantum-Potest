@@ -539,7 +539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencies: 0100000002000000
-  checkingRadius: 1.5
+  minRadius: 1.5
+  radiusLeaps: 1
   coloredObjectsLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1363,7 +1364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162ed4d6b5bbaed49a54ec353a3a4967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdingHeight: 1.2
+  holdingHeight: 1
+  pullingForce: 100
+  dampingForce: 5
 --- !u!65 &1776691119
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1526,7 +1529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 2
-  relaxationTime: 0
+  relaxationTime: 0.5
 --- !u!114 &1840499188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2007,7 +2010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3804696130200000732, guid: 5fa28d7415adf614b99303f13b6c6aaa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9186578016809177926, guid: 5fa28d7415adf614b99303f13b6c6aaa, type: 3}
       propertyPath: repulsionMask.m_Bits

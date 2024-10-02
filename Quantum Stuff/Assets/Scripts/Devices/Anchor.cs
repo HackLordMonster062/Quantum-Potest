@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Anchor : MonoBehaviour {
     [SerializeField] float holdingHeight;
+    [SerializeField] float pullingForce;
+    [SerializeField] float dampingForce;
 
     ParticleBehavior _particle; 
 
@@ -9,12 +11,14 @@ public class Anchor : MonoBehaviour {
         
     }
 
-    void Update() {
+    void FixedUpdate() {
         if (_particle == null) return;
 
         Vector3 target = transform.position + transform.up * holdingHeight;
 
-        _particle.Rb.AddForce(target - _particle.transform.position);
+        Vector3 damping = -_particle.Rb.velocity * dampingForce;
+
+        _particle.Rb.AddForce((target - _particle.transform.position) * pullingForce + damping);
     }
 
 	private void OnTriggerEnter(Collider other) {

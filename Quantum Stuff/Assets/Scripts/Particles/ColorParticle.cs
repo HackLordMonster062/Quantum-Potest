@@ -2,25 +2,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ColorParticle : MonoBehaviour {
+public class ColorParticle : Excitable {
 	[SerializeField] List<int> frequencies;
-	[SerializeField] float checkingRadius;
+	[SerializeField] float minRadius;
+	[SerializeField] float radiusLeaps;
 	[SerializeField] LayerMask coloredObjectsLayer;
 
 	Rigidbody _rb;
 	Collider _collider;
-	MeshRenderer _renderer;
 
 	bool _hasCollapsed = false;
 	int _currColor;
 	int _currColorIndex;
 	float _timer;
 
-	private void Awake() {
+	float _checkingRadius;
+
+	protected override void Awake() {
+		base.Awake();
+
 		_rb = GetComponent<Rigidbody>();
 		_collider = GetComponent<Collider>();
-
-		_renderer = GetComponent<MeshRenderer>();
 	}
 
 	private void Start() {
@@ -28,10 +30,14 @@ public class ColorParticle : MonoBehaviour {
 		SetColor(frequencies[_currColorIndex]);
 	}
 
-	public void Update() {
+	protected override void Update() {
+		base.Update();
+
 		UpdateColor();
 
-		Collider[] colliders = Physics.OverlapSphere(transform.position, checkingRadius, coloredObjectsLayer);
+		_checkingRadius = minRadius + radiusLeaps * Energy;
+
+		Collider[] colliders = Physics.OverlapSphere(transform.position, _checkingRadius, coloredObjectsLayer);
 
 		foreach (Collider collider in colliders) {
 			if (collider.TryGetComponent(out FrequencyDoor door) && HasFrequency(door.Frequency)) { // TODO: Generalize

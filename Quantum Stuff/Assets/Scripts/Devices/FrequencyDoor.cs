@@ -13,6 +13,6 @@ public class FrequencyDoor : MonoBehaviour {
 	}
 
 	public void Annihilate() {
-
+		Destroy(gameObject);
 	}
 }
