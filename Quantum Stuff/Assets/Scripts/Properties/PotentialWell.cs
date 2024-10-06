@@ -6,21 +6,25 @@ public class PotentialWell : MonoBehaviour {
     [SerializeField] float maxDistance;
     [SerializeField] float forceMultiplier;
 
-    HashSet<ParticleBehavior> captured;
+    HashSet<ParticleBehavior> _captured;
+
+    bool _enabled = true;
 
     void Awake() {
-        captured = new ();
+        _captured = new ();
     }
 
     void Update() {
+        if (!_enabled) return;
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, captureDistance);
 
         foreach (Collider collider in colliders) {
             if (collider.TryGetComponent<ParticleBehavior>(out var particle))
-                captured.Add(particle);
+                _captured.Add(particle);
         }
 
-        foreach (ParticleBehavior particle in captured) {
+        foreach (ParticleBehavior particle in _captured) {
             Vector3 delta = particle.transform.position - transform.position;
             float distance = delta.magnitude;
 
@@ -36,5 +40,15 @@ public class PotentialWell : MonoBehaviour {
                 particle.Rb.AddForce(force);
             }
         }
+    }
+
+    public void Enable() {
+        _enabled = true;
+    }
+
+    public void Disable() {
+        _enabled = false;
+
+        _captured.Clear();
     }
 }

@@ -26,4 +26,10 @@ public class Anchor : MonoBehaviour {
             _particle = other.GetComponent<ParticleBehavior>();
         }
 	}
+
+    public void Activate(int energy) {
+        if (_particle != null && _particle.TryGetComponent(out Excitable excitable)) {
+            excitable.Excite(energy);
+        }
+    }
 }
