@@ -67,6 +67,7 @@ public class ColorParticle : Excitable {
 	private void SetColor(int frequency) {
 		_currColor = frequency;
 		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
+		_baseColor = VisualManager.instance.FrequencyToColor(frequency) / 2;
 	}
 
 	private void UpdateColor() {

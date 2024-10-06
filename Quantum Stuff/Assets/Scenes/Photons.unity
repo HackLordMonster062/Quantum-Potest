@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -538,9 +538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a055954854a825349b582925abfee33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequencies: 0100000002000000
+  frequencies: 0100000003000000
   minRadius: 1.5
-  radiusLeaps: 1
+  radiusLeaps: 0.5
   coloredObjectsLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df896882ef985404482bbd6795e6ce46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 2
+  frequency: 3
 --- !u!65 &1669780813
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1515,7 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxFrequency: 10
-  colorSwitchTime: 0.1
+  colorSwitchTime: 0.15
 --- !u!114 &1840499187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1553,6 +1553,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1683655579434365754, guid: fe7aab89993668d4aacf8524b864e630, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68afa7a310388784f9163b9042bf8149, type: 2}
     - target: {fileID: 2736746662892120389, guid: fe7aab89993668d4aacf8524b864e630, type: 3}
       propertyPath: mass
       value: 1

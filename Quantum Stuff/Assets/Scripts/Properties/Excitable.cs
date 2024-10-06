@@ -6,7 +6,7 @@ public class Excitable : MonoBehaviour {
 	float _glowingTimer;
 
 	protected MeshRenderer _renderer;
-	Color _baseColor;
+	protected Color _baseColor;
 
 	protected bool depleted = true;
 
