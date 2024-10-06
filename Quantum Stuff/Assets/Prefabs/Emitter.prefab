@@ -4843,6 +4843,7 @@ GameObject:
   - component: {fileID: 7761100118562903774}
   - component: {fileID: 9186578016809177926}
   - component: {fileID: 6685650616544878494}
+  - component: {fileID: 3770591334957026572}
   m_Layer: 0
   m_Name: Emitter
   m_TagString: Untagged
@@ -4981,7 +4982,7 @@ MonoBehaviour:
   repulsionStrength: 1.5
   repulsionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
 --- !u!114 &6685650616544878494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4995,3 +4996,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootingPointDistance: 0.7
+--- !u!114 &3770591334957026572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3804696130200000732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea14df7fde9db54296da42512c0e5c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

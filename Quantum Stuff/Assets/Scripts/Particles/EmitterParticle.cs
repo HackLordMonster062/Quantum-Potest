@@ -5,8 +5,6 @@ public class EmitterParticle : Excitable {
 
 	protected override void Update() {
 		base.Update();
-
-		transform.eulerAngles = transform.eulerAngles.Modify(x: 0, z: 0);
 	}
 
 	void ShootPhoton() {
