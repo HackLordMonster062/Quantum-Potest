@@ -1,18 +1,12 @@
 using UnityEngine;
 
-public class SwitchDoor : MonoBehaviour {
-    [SerializeField] PressurePlate trigger;
+public class SwitchDoor : Activatable {
 
-    void Start() {
-        trigger.OnTrigger += Open;
-        trigger.OnUntrigger += Close;
-    }
-
-    void Close() {
-        gameObject.SetActive(true);
-    }
-
-    void Open() {
+    protected override void Activate() {
         gameObject.SetActive(false);
+    }
+
+    protected override void Deactivate() {
+        gameObject.SetActive(true);
     }
 }
