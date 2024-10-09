@@ -1585,6 +1585,7 @@ GameObject:
   - component: {fileID: 1840499186}
   - component: {fileID: 1840499187}
   - component: {fileID: 1840499188}
+  - component: {fileID: 1840499189}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1664,6 +1665,18 @@ MonoBehaviour:
   particles:
     photon: {fileID: 8878864109784432405, guid: e791a10e9b28e5b49840a2ef08080c6c, type: 3}
     emitter: {fileID: 3804696130200000732, guid: 5fa28d7415adf614b99303f13b6c6aaa, type: 3}
+--- !u!114 &1840499189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1840499183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6b029dba2ee1b458a48f3113cf4c11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1992784701
 PrefabInstance:
   m_ObjectHideFlags: 0

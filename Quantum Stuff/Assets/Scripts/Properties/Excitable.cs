@@ -1,6 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Excitable : MonoBehaviour {
+	public event Action<Excitable, int> OnExcite;
+
 	public int Energy { get; protected set; }
 
 	float _glowingTimer;
@@ -41,6 +44,8 @@ public class Excitable : MonoBehaviour {
 		depleted = false;
 
 		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
+
+		OnExcite?.Invoke(this, energy);
 	}
 
 	protected virtual void Decay() {

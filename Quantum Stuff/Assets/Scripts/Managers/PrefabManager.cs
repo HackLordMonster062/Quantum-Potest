@@ -1,6 +1,11 @@
 using System;
 using UnityEngine;
 
+public class PrefabManager : Singleton<PrefabManager> {
+	[SerializeField] ParticlePM particles;
+	public ParticlePM Particles { get { return particles; } }
+}
+
 [Serializable]
 public class ParticlePM {
 	[SerializeField] GameObject photon;
