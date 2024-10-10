@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using static UnityEngine.ParticleSystem;
 
 public class EntanglementManager : Singleton<EntanglementManager> {
     Dictionary<int, List<Excitable>> _groups;
@@ -13,18 +14,24 @@ public class EntanglementManager : Singleton<EntanglementManager> {
         _particleIDs = new();
     }
 
-    public void RegisterPair(Excitable particle) {
-        int id;
+    public void RegisterPair(Excitable particle1, Excitable particle2) {
+        bool doesExist1 = _particleIDs.TryGetValue(particle1, out int id1);
+        bool doesExist2 = _particleIDs.TryGetValue(particle2, out int id2);
 
-        if (!_particleIDs.TryGetValue(particle, out id))
-            id = _currID++;
+        if (doesExist1 && doesExist2)
+            MergeGroups(id1, id2);
+        else if (doesExist1)
+            RegisterParticle(particle2, id1);
+        else if (doesExist2)
+            RegisterParticle(particle1, id2);
+        else {
+            int id = _currID++;
 
-        if (!_groups.ContainsKey(id))
-            _groups[id] = new List<Excitable>();
+			_groups[id] = new List<Excitable>();
 
-        _groups[id].Add(particle);
-
-        particle.OnExcite += UpdateGroup;
+			RegisterParticle(particle1, id);
+			RegisterParticle(particle2, id);
+		}
     }
 
     public void UnregisterParticle(Excitable particle) {
@@ -39,6 +46,23 @@ public class EntanglementManager : Singleton<EntanglementManager> {
         if (_groups[id].Count <= 1)
             _groups.Remove(id);
     }
+
+    void MergeGroups(int id1, int id2) {
+        var secList = _groups[id2];
+
+        foreach (var particle in secList) {
+            _groups[id1].Add(particle);
+            _particleIDs[particle] = id1;
+        }
+
+        _groups.Remove(id2);
+    }
+
+    void RegisterParticle(Excitable particle, int id) {
+        _groups[id].Add(particle);
+        _particleIDs[particle] = id;
+		particle.OnExcite += UpdateGroup;
+	}
 
     void UpdateGroup(Excitable caller, int value) {
         var group = _groups[_particleIDs[caller]];
