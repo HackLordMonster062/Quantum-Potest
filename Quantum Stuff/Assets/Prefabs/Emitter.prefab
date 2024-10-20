@@ -4977,7 +4977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0962d70519047d43807da292321b71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 0
+  mass: 1
   maxDistance: 0.7
   repulsionStrength: 1.5
   repulsionMask:

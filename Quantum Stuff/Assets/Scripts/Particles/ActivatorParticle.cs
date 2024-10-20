@@ -31,8 +31,8 @@ public class ActivatorParticle : Excitable {
 		}
 	}
 
-	public override void Excite(int energy) {
-		base.Excite(energy);
+	public override void Excite(int energy, bool invoke = true) {
+		base.Excite(energy, invoke);
 
 		foreach (Activatable device in devices) {
 			print("Activated");

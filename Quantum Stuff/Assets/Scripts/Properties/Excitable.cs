@@ -39,13 +39,13 @@ public class Excitable : MonoBehaviour {
 		}
     }
 
-	public virtual void Excite(int energy) {
+	public virtual void Excite(int energy, bool invoke=true) {
 		Energy += energy;
 		depleted = false;
 
 		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 
-		OnExcite?.Invoke(this, energy);
+		if (invoke) OnExcite?.Invoke(this, energy);
 	}
 
 	protected virtual void Decay() {

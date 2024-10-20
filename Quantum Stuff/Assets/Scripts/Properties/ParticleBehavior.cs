@@ -38,7 +38,7 @@ public class ParticleBehavior : MonoBehaviour {
 
 				Vector3 dir = transform.position - hit.point;
 
-				repulsionForce += dir.normalized * (repulsionStrength / hit.distance) * _force;
+				repulsionForce += dir.normalized * (repulsionStrength / (hit.distance + .1f)) * _force;
 			}
 		}
 

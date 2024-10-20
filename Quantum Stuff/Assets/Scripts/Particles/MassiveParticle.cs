@@ -10,8 +10,8 @@ public class MassiveParticle : Excitable {
         _potentialWell = GetComponent<PotentialWell>();
     }
 
-	public override void Excite(int energy) {
-		base.Excite(energy);
+	public override void Excite(int energy, bool invoke = true) {
+		base.Excite(energy, invoke);
 
         Energy = 1;
 
