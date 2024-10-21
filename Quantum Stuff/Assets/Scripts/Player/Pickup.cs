@@ -18,7 +18,8 @@ public class Pickup : MonoBehaviour {
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
             if (Physics.SphereCast(_camera.position, castWidth, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
-				info.collider.TryGetComponent(out _particle);
+				if (info.collider.TryGetComponent(out _particle))
+					_particle.PickUp();
 			}
         }
 
@@ -30,10 +31,14 @@ public class Pickup : MonoBehaviour {
 
 			return;
 		}
+    }
+
+	private void FixedUpdate() {
+		if (_particle == null) return;
 
 		Vector3 diff = _camera.position + _camera.forward * reach - _particle.transform.position;
 		Vector3 damping = -_particle.Rb.velocity * dampingForce;
 
 		_particle.Rb.AddForce(diff * pullingForce + damping);
-    }
+	}
 }

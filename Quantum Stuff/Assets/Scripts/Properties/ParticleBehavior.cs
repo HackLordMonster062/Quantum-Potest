@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ParticleBehavior : MonoBehaviour {
+	public event Action OnPickedUp;
+
 	[SerializeField] float mass;
 	public float Mass { get { return mass; } }
 
@@ -72,12 +75,6 @@ public class ParticleBehavior : MonoBehaviour {
 	}
 
 	public void PickUp() {
-		Rb.isKinematic = true;
-		_collider.enabled = false;
-	}
-
-	public void Drop() {
-		Rb.isKinematic = false;
-		_collider.enabled = true;
+		OnPickedUp?.Invoke();
 	}
 }

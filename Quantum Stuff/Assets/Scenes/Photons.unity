@@ -2200,7 +2200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castWidth: 0.2
   reach: 1.5
-  pullingForce: 50
+  pullingForce: 100
   dampingForce: 5
   maxReleaseSpeed: 4
 --- !u!1001 &1388448269680173006
@@ -2423,7 +2423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4733374081693612797, guid: 7ad50001b444043468d3dcc6849e69ef, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6176458068256655357, guid: 7ad50001b444043468d3dcc6849e69ef, type: 3}
       propertyPath: m_RootOrder

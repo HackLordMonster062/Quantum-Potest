@@ -1,15 +1,13 @@
 using UnityEngine;
 
-public class Anchor : MonoBehaviour {
+public class Anchor : Activatable {
     [SerializeField] float holdingHeight;
     [SerializeField] float pullingForce;
     [SerializeField] float dampingForce;
 
-    ParticleBehavior _particle; 
+    ParticleBehavior _particle;
 
-    void Start() {
-        
-    }
+    bool _isEnabled = true;
 
     void FixedUpdate() {
         if (_particle == null) return;
@@ -24,12 +22,25 @@ public class Anchor : MonoBehaviour {
 	private void OnTriggerEnter(Collider other) {
 		if (_particle == null) {
             _particle = other.GetComponent<ParticleBehavior>();
+
+            if (_particle != null ) {
+                _particle.OnPickedUp += Release;
+
+                if (other.GetComponent<ActivatorParticle>() != null)
+                    _isEnabled = false;
+            }
         }
 	}
 
-    public void Activate(int energy) {
-        if (_particle != null && _particle.TryGetComponent(out Excitable excitable)) {
-            excitable.Excite(energy);
+    void Release() {
+        _particle.OnPickedUp -= Release;
+        _particle = null;
+        _isEnabled = true;
+    }
+
+    public override void Activate() {
+        if (_isEnabled && _particle != null && _particle.TryGetComponent(out Excitable excitable)) {
+            excitable.Excite(1);
         }
     }
 }
