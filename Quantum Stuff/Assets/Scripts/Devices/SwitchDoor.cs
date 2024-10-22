@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SwitchDoor : Activatable {
 
-    protected override void Activate() {
+    public override void Activate() {
         gameObject.SetActive(false);
     }
 

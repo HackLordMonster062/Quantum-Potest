@@ -2,26 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Activatable : MonoBehaviour {
-	protected List<ActivatorParticle> _activators;
+	float _timer = 0;
 
-	private void Awake() {
-		_activators = new List<ActivatorParticle>();
-	}
+	protected virtual void Update() {
+		_timer -= Time.deltaTime;
 
-	public void AddActivator(ActivatorParticle activator) {
-		_activators.Add(activator);
+		if (_timer < 0) {
+			_timer = PhysicsManager.instance.RelaxtationTime;
 
-		if (_activators.Count == 1)
-			Activate();
-	}
-
-	public void RemoveActivator(ActivatorParticle activator) {
-		_activators.Remove(activator);
-
-		if (_activators.Count == 0)
 			Deactivate();
+		}
 	}
 
-	protected abstract void Activate();
-	protected abstract void Deactivate();
+	public abstract void Activate();
+	protected virtual void Deactivate() { }
 }

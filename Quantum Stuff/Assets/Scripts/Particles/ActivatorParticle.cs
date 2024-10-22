@@ -15,36 +15,21 @@ public class ActivatorParticle : Excitable {
 	private void OnTriggerEnter(Collider other) {
 		if (other.TryGetComponent(out Activatable device)) {
 			devices.Add(device);
-
-			if (!depleted) {
-				device.AddActivator(this);
-			}
 		}
 	}
 
 	private void OnTriggerExit(Collider other) {
 		if (other.TryGetComponent(out Activatable device)) {
-			print("Removed: " + other);
 			devices.Remove(device);
-
-			device.RemoveActivator(this);
 		}
 	}
 
 	public override void Excite(int energy, bool invoke = true) {
-		base.Excite(energy, invoke);
+		base.Excite(0, invoke);
 
 		foreach (Activatable device in devices) {
+			device.Activate();
 			print("Activated");
-			device.AddActivator(this);
-		}
-	}
-
-	protected override void Deplete() {
-		base.Deplete();
-
-		foreach (Activatable device in devices) {
-			device.RemoveActivator(this);
 		}
 	}
 }
