@@ -26,7 +26,7 @@ public class Anchor : Activatable {
             if (_particle != null ) {
                 _particle.OnPickedUp += Release;
 
-                if (other.GetComponent<ActivatorParticle>() != null)
+                if (other.GetComponentInChildren<ActivatorParticle>() != null)
                     _isEnabled = false;
             }
         }

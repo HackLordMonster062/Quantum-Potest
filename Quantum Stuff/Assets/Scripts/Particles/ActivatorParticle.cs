@@ -1,14 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivatorParticle : Excitable {
-	[SerializeField] float activationRange;
-
+public class ActivatorParticle : MonoBehaviour {
 	List<Activatable> devices;
 
-	protected override void Awake() {
-		base.Awake();
-
+	void Awake() {
 		devices = new List<Activatable>();
 	}
 
@@ -24,12 +20,9 @@ public class ActivatorParticle : Excitable {
 		}
 	}
 
-	public override void Excite(int energy, bool invoke = true) {
-		base.Excite(0, invoke);
-
+	public void Excite() {
 		foreach (Activatable device in devices) {
 			device.Activate();
-			print("Activated");
 		}
 	}
 }
