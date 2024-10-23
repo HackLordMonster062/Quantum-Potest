@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class SpinDevice : MonoBehaviour {
+public class SpinDevice : Anchor {
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.TryGetComponent(out Rotateable particle)) {
+	public override void Activate() {
+		if (_isEnabled && _particle != null && _particle.TryGetComponent(out Rotateable particle)) {
 			particle.FlipSpin();
 		}
 	}
