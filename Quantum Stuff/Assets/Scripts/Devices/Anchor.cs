@@ -5,9 +5,9 @@ public class Anchor : Activatable {
     [SerializeField] float pullingForce;
     [SerializeField] float dampingForce;
 
-    ParticleBehavior _particle;
+    protected ParticleBehavior _particle;
 
-    bool _isEnabled = true;
+    protected bool _isEnabled = true;
 
     void FixedUpdate() {
         if (_particle == null) return;

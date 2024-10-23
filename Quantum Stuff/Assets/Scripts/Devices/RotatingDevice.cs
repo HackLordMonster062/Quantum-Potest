@@ -1,10 +1,11 @@
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
-public class RotatingDevice : MonoBehaviour {
+public class RotatingDevice : Anchor {
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.TryGetComponent(out Rotateable particle)) {
-            particle.Rotate();
-        }
+	public override void Activate() {
+		if (_isEnabled && _particle != null && _particle.TryGetComponent(out Rotateable particle)) {
+			particle.Rotate();
+		}
 	}
 }
