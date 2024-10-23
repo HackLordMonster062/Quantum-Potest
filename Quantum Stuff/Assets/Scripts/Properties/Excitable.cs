@@ -1,19 +1,57 @@
+using System;
 using UnityEngine;
 
 public class Excitable : MonoBehaviour {
-	public float Energy { get; protected set; }
+	public event Action<Excitable, int> OnExcite;
 
-	private void Update() {
-		Energy -= Time.deltaTime;
+	public int Energy { get; protected set; }
 
-		if (Energy < 0) {
-			Energy = 0;
-			print("Depleted");
+	float _glowingTimer;
+
+	protected MeshRenderer _renderer;
+	protected Color _baseColor;
+
+	protected bool depleted = true;
+
+	protected virtual void Awake() {
+		_renderer = GetComponent<MeshRenderer>();
+		_baseColor = _renderer.material.GetColor("_EmissionColor");
+	}
+
+	protected virtual void Update() {
+		_renderer.material.SetColor("_EmissionColor", _baseColor * (Energy + 1));
+
+		if (depleted) return;
+
+		_glowingTimer -= Time.deltaTime;
+
+		if (_glowingTimer < 0) {
+			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
+
+			Energy--;
+			Decay();
+
+			if (Energy <= 0) {
+				Energy = 0;
+
+				Deplete();
+			}
 		}
     }
 
-	public virtual void Excite(float energy) {
+	public virtual void Excite(int energy, bool invoke=true) {
 		Energy += energy;
-		print("Energy: " + energy);
+		depleted = false;
+
+		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
+
+		if (invoke) OnExcite?.Invoke(this, energy);
+	}
+
+	protected virtual void Decay() {
+	}
+
+	protected virtual void Deplete() {
+		depleted = true;
 	}
 }

@@ -1,23 +1,11 @@
 using UnityEngine;
 
-public class PhotonShooter : MonoBehaviour {
-    [SerializeField] Rigidbody photonPrefab;
-    [SerializeField] Transform shootingPoint;
-    [SerializeField] float shootingInterval;
+public class PhotonShooter : Activatable {
+    [SerializeField] float shootingPointDistance;
 
-    float _timer;
+	public override void Activate() {
+		Vector3 shootingPoint = transform.position + transform.forward * shootingPointDistance;
 
-    void Start() {
-        
-    }
-
-    void Update() {
-        _timer -= Time.deltaTime;
-
-        if (_timer <= 0) {
-            _timer = shootingInterval;
-
-            Instantiate(photonPrefab, shootingPoint.position, shootingPoint.rotation);
-        }
-    }
+		Instantiate(PrefabManager.instance.Particles.Photon, shootingPoint, transform.rotation);
+	}
 }

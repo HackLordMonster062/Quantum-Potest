@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5077552796672055182}
   - component: {fileID: 7899215395868722360}
   - component: {fileID: 2160489011892468909}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Photon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7345c9f31d549284faac9142f9bcd462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energy: 2
+  energy: 1
 --- !u!54 &2160489011892468909
 Rigidbody:
   m_ObjectHideFlags: 0

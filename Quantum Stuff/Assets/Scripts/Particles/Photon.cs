@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody))]
 public class Photon : MonoBehaviour {
-	[SerializeField] float energy;
+	[SerializeField] int energy;
 
 	Rigidbody _rb;
 
