@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4324780737692287163}
   - component: {fileID: 5993237808099357702}
   - component: {fileID: 3932459865280771970}
+  - component: {fileID: 6477478139717463648}
   m_Layer: 0
   m_Name: MassiveParticle
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7710199932088923909
 MeshFilter:
@@ -168,3 +169,16 @@ MonoBehaviour:
   captureDistance: 3
   maxDistance: 3.5
   forceMultiplier: 0.3
+  effectiveMass: 2
+--- !u!114 &6477478139717463648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300840142957477681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb2c20f4930f5244bd4bf5fac6adaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
