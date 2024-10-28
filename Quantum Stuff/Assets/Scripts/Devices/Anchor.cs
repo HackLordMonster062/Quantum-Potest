@@ -24,7 +24,7 @@ public class Anchor : Activatable {
             _particle = other.GetComponent<ParticleBehavior>();
 
             if (_particle != null ) {
-                _particle.OnPickedUp += Release;
+                _particle.OnPickedUp += Pickup;
 
                 if (other.GetComponentInChildren<ActivatorParticle>() != null)
                     _isEnabled = false;
@@ -32,15 +32,11 @@ public class Anchor : Activatable {
         }
 	}
 
-    void Release() {
-        _particle.OnPickedUp -= Release;
-        _particle = null;
-        _isEnabled = true;
+    protected virtual void Pickup() {
+        
     }
 
-    public override void Activate() {
-        if (_isEnabled && _particle != null && _particle.TryGetComponent(out Excitable excitable)) {
-            excitable.Excite(1);
-        }
-    }
+	public override void Activate() {
+		
+	}
 }
