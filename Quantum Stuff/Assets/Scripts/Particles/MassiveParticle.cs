@@ -2,6 +2,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(PotentialWell))]
 public class MassiveParticle : Excitable {
+    [SerializeField] int activationEnergy;
+
     PotentialWell _potentialWell;
 
     protected override void Awake() {
@@ -11,9 +13,8 @@ public class MassiveParticle : Excitable {
     }
 
 	public override void Excite(int energy, bool invoke = true) {
-		base.Excite(energy, invoke);
-
-        Energy = 1;
+        Energy = 0;
+		base.Excite(activationEnergy, invoke);
 
         _potentialWell.Disable();
 	}

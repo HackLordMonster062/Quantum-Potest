@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1208807473822434319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3318650010360784024}
+  - component: {fileID: 2299577703230331314}
+  - component: {fileID: 4333397843373290468}
+  - component: {fileID: 4779383328140538997}
+  - component: {fileID: 6821755336554048917}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3318650010360784024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208807473822434319}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2299577703230331314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208807473822434319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2367f2cad12fc5c4aa8d170a820f60b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 1
+  speedOfLight: 10
+--- !u!114 &4333397843373290468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208807473822434319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ee3be9f13d6b1c4b9887370b771cbb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxFrequency: 10
+  colorSwitchTime: 0.15
+--- !u!114 &4779383328140538997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208807473822434319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a42f58bfd906344b913d07c062350ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravity: 2
+  relaxationTime: 1
+--- !u!114 &6821755336554048917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208807473822434319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e369ecda5b1845443a22d58a3c099053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles:
+    photon: {fileID: 8878864109784432405, guid: e791a10e9b28e5b49840a2ef08080c6c, type: 3}
+    emitter: {fileID: 3804696130200000732, guid: 5fa28d7415adf614b99303f13b6c6aaa, type: 3}
+    massiveParticle: {fileID: 3300840142957477681, guid: f200bc81186648741a35c68a6f0be010, type: 3}
+    coloredKey: {fileID: 6556632404400085821, guid: 25516505757b7ba4b8b0ffb864485249, type: 3}
+    activatorParticle: {fileID: 8760019562901906771, guid: 1d3e51b02e5d0c24f8f9f8c6fa060643, type: 3}
+  devices:
+    anchor: {fileID: 4733374081693612797, guid: 7ad50001b444043468d3dcc6849e69ef, type: 3}
+    rotator: {fileID: 6521792228723204711, guid: 40a1b7cf22135a74ba80c906eb94a1ed, type: 3}
+    spinner: {fileID: 1794827272260350151, guid: 97fa898d8650a3b43a645af570ea950c, type: 3}
+    photonShooter: {fileID: 7922279664754373131, guid: 736694fddf3fd9741a53a44249ed2ea1, type: 3}
+    coloredDoor: {fileID: 6312224402923510118, guid: ac58b6c650673e04f823179d4c2cf1d5, type: 3}

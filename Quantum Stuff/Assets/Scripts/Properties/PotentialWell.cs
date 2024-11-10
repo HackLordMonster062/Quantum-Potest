@@ -5,6 +5,7 @@ public class PotentialWell : MonoBehaviour {
     [SerializeField] float captureDistance;
     [SerializeField] float maxDistance;
     [SerializeField] float forceMultiplier;
+    [SerializeField] float effectiveMass;
 
     HashSet<ParticleBehavior> _captured;
 
@@ -20,7 +21,7 @@ public class PotentialWell : MonoBehaviour {
         Collider[] colliders = Physics.OverlapSphere(transform.position, captureDistance);
 
         foreach (Collider collider in colliders) {
-            if (collider.TryGetComponent<ParticleBehavior>(out var particle))
+            if (collider.TryGetComponent<ParticleBehavior>(out var particle) && particle.Mass < effectiveMass)
                 _captured.Add(particle);
         }
 
