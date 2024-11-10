@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Anchor : Activatable {
+public abstract class Anchor : Activatable {
     [SerializeField] float holdingHeight;
     [SerializeField] float pullingForce;
     [SerializeField] float dampingForce;
@@ -33,10 +33,12 @@ public class Anchor : Activatable {
 	}
 
     protected virtual void Pickup() {
-        
-    }
+		_particle.OnPickedUp -= Pickup;
+        Release();
+	}
 
-	public override void Activate() {
-		
+    protected void Release() {
+		_particle = null;
+		_isEnabled = true;
 	}
 }
