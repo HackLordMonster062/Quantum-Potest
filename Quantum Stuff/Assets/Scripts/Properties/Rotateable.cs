@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Rotateable : MonoBehaviour {
+public class Rotateable : MonoBehaviour, IRotateable {
 	Spin _spin = Spin.Horizontal;
 
 	Vector3 _horizontalDirection = Vector3.zero;
