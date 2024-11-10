@@ -21,10 +21,12 @@ public class Spectron : Excitable, IRotateable {
 
 		_checkingRadius = minRadius + radiusLeaps * Energy;
 
+		if (!_hasCollapsed) return;
+
 		Collider[] colliders = Physics.OverlapSphere(transform.position, _checkingRadius, coloredObjectsLayer);
 
 		foreach (Collider collider in colliders) {
-			if (collider.TryGetComponent(out FrequencyDoor door) && _hasCollapsed && _currColor == door.Frequency) {
+			if (collider.TryGetComponent(out FrequencyDoor door) && _currColor == door.Frequency) {
 				door.Annihilate();
 			}
 		}
@@ -36,6 +38,11 @@ public class Spectron : Excitable, IRotateable {
 		foreach (int frequency in frequencies) {
 			if (frequency <= maxFreq) 
 				filteredList.Add(frequency);
+		}
+
+		if (filteredList.Count <= 0) {
+			Annihilate();
+			return;
 		}
 
 		frequencies = filteredList;
@@ -59,6 +66,10 @@ public class Spectron : Excitable, IRotateable {
 		_currColor = frequency;
 		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
 		_baseColor = VisualManager.instance.FrequencyToColor(frequency) / 2;
+	}
+
+	void Annihilate() {
+		Destroy(gameObject);
 	}
 
 	public void Rotate() { }

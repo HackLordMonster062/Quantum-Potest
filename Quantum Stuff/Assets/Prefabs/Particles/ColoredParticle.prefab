@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a055954854a825349b582925abfee33f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequencies: 0100000003000000
+  frequencies: 01000000020000000300000004000000
   minRadius: 1.5
   radiusLeaps: 0.5
   coloredObjectsLayer:
