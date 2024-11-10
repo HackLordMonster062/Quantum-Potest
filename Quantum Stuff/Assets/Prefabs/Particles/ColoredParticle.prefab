@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3388687339661320554}
   - component: {fileID: 5543477640235835023}
   - component: {fileID: 4692424145324275168}
-  - component: {fileID: 7505363832867384163}
+  - component: {fileID: 2579252882941115622}
   m_Layer: 0
   m_Name: ColoredParticle
   m_TagString: Untagged
@@ -153,7 +153,7 @@ MonoBehaviour:
   repulsionMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7505363832867384163
+--- !u!114 &2579252882941115622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,10 +162,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6556632404400085821}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a055954854a825349b582925abfee33f, type: 3}
+  m_Script: {fileID: 11500000, guid: bf443ee6d49fdd44b8aa5b0ea5d66cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequencies: 01000000020000000300000004000000
+  frequencies: 010000000200000003000000
   minRadius: 1.5
   radiusLeaps: 0.5
   coloredObjectsLayer:
