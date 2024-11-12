@@ -45,12 +45,14 @@ public class Spectron : Excitable, IRotateable {
 			return;
 		}
 
+		if (filteredList.Count == 1) {
+			_hasCollapsed = true;
+		}
+
 		frequencies = filteredList;
 	}
 
 	private void UpdateColor() {
-		if (_hasCollapsed) return;
-
 		if (_timer <= 0) {
 			_currColorIndex = (_currColorIndex + 1) % frequencies.Count;
 

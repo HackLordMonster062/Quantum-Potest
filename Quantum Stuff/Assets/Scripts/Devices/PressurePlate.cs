@@ -1,11 +1,17 @@
 using UnityEngine;
 
 public class PressurePlate : Trigger {
+	int inside = 0;
+
 	private void OnTriggerEnter(Collider other) {
-		Activate();
+		inside++;
+		if (inside == 1)
+			Activate();
 	}
 
 	private void OnTriggerExit(Collider other) {
-		Deactivate();
+		inside--;
+		if (inside == 0) 
+			Deactivate();
 	}
 }
