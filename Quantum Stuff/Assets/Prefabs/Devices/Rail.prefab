@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 178706303753844380}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 9126842083670048380}
   - component: {fileID: 6003751319544184980}
   - component: {fileID: 2214528605006449188}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RailController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28379f070c34a4aa7f4dd7aa25e4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: {fileID: 0}
   device: {fileID: 9151477090064255491}
   pathPoints:
   - {fileID: 367641390230920588}
@@ -167,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 367641390230920588}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9151477090064255491}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DeviceHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9170559710574617545}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

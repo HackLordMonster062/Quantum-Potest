@@ -1,10 +1,10 @@
 public class ActivatorParticleParent : Particle {
-	ActivatorParticle _activatorScript;
+	ActivatorParticleChild _activatorScript;
 
 	protected override void Awake() {
 		base.Awake();
 
-		_activatorScript = GetComponentInChildren<ActivatorParticle>();
+		_activatorScript = GetComponentInChildren<ActivatorParticleChild>();
 	}
 
 	public override void Excite(int energy, bool invoke = true) {
