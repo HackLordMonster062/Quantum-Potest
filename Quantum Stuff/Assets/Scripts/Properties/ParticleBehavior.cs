@@ -17,15 +17,13 @@ public class ParticleBehavior : MonoBehaviour {
 	Vector3[] directions;
 
 	public Rigidbody Rb { get; private set; }
-	Collider _collider;
+	public bool IsPickedUp { get; private set; }
 
 	float _force;
 
     void Awake() {
         Rb = GetComponent<Rigidbody>();
         Rb.useGravity = false;
-
-		_collider = GetComponent<Collider>();
 
 		directions = GenerateSymmetricalRingDirections(3, 4);
     }
@@ -75,6 +73,11 @@ public class ParticleBehavior : MonoBehaviour {
 	}
 
 	public void PickUp() {
+		IsPickedUp = true;
 		OnPickedUp?.Invoke();
+	}
+
+	public void Drop() {
+		IsPickedUp = false;
 	}
 }

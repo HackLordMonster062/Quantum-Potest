@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spectron : Excitable, IRotateable {
+public class Spectron : Particle, IRotateable {
 	[SerializeField] List<int> frequencies;
 	[SerializeField] float minRadius;
 	[SerializeField] float radiusLeaps;

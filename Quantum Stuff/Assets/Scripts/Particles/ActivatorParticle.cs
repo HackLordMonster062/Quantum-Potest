@@ -2,27 +2,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ActivatorParticle : MonoBehaviour {
-	List<Activatable> devices;
+	List<Activatable> _devices;
+
+	int _currDevice = 0;
 
 	void Awake() {
-		devices = new List<Activatable>();
+		_devices = new List<Activatable>();
 	}
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.TryGetComponent(out Activatable device)) {
-			devices.Add(device);
+			_devices.Add(device);
 		}
 	}
 
 	private void OnTriggerExit(Collider other) {
 		if (other.TryGetComponent(out Activatable device)) {
-			devices.Remove(device);
+			_devices.Remove(device);
 		}
 	}
 
 	public void Excite() {
-		foreach (Activatable device in devices) {
-			device.Activate();
-		}
+		_currDevice = (_currDevice + 1) % _devices.Count;
+
+		_devices[_currDevice].Activate();
 	}
 }

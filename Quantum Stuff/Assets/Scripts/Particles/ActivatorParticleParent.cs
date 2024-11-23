@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ActivatorParticleParent : Excitable {
+public class ActivatorParticleParent : Particle {
 	ActivatorParticle _activatorScript;
 
 	protected override void Awake() {
