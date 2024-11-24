@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2654803448853595585}
   - component: {fileID: 5984126852678403508}
   - component: {fileID: 7642548555042404067}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spinner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7c04fae504b394f86d499193ef9410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: {fileID: 0}
   holdingHeight: 1
   pullingForce: 100
   dampingForce: 5

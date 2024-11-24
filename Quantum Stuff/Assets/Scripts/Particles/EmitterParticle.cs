@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EmitterParticle : Excitable {
+public class EmitterParticle : Particle {
 	[SerializeField] float shootingPointDistance;
 
 	protected override void Update() {

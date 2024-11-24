@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ActivatorParticleParent : Excitable {
-	ActivatorParticle _activatorScript;
+public class ActivatorParticleParent : Particle {
+	ActivatorParticleChild _activatorScript;
 
 	protected override void Awake() {
 		base.Awake();
 
-		_activatorScript = GetComponentInChildren<ActivatorParticle>();
+		_activatorScript = GetComponentInChildren<ActivatorParticleChild>();
 	}
 
 	public override void Excite(int energy, bool invoke = true) {

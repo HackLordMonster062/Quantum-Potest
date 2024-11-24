@@ -1,28 +1,26 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivatorParticle : MonoBehaviour {
-	List<Activatable> devices;
+public class ActivatorParticle : Particle {
+    [SerializeField] float activationRadius;
+    [SerializeField] LayerMask devicesMask;
 
-	void Awake() {
-		devices = new List<Activatable>();
-	}
+	int _currDevice = 0;
 
-	private void OnTriggerEnter(Collider other) {
-		if (other.TryGetComponent(out Activatable device)) {
-			devices.Add(device);
-		}
-	}
+	public override void Excite(int energy, bool invoke = true) {
+		base.Excite(0, invoke);
 
-	private void OnTriggerExit(Collider other) {
-		if (other.TryGetComponent(out Activatable device)) {
-			devices.Remove(device);
-		}
-	}
+		Collider[] colliders = Physics.OverlapSphere(transform.position, activationRadius, devicesMask, QueryTriggerInteraction.Ignore);
 
-	public void Excite() {
-		foreach (Activatable device in devices) {
-			device.Activate();
+		int index = 0;
+		_currDevice %= colliders.Length;
+
+		foreach (Collider collider in colliders) {
+			if (index != _currDevice) {
+				index++;
+			} else if (collider.TryGetComponent(out Activatable device) && !(device is Anchor && (device as Anchor) == _anchor)) {
+				device.Activate();
+				_currDevice++;
+			}
 		}
 	}
 }

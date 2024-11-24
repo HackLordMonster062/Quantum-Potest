@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8691541625395576237}
   - component: {fileID: 8657672377415749534}
   - component: {fileID: 6865353736710860035}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daf1a4bfcb2938c4390a5e292ff10308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: {fileID: 0}
   holdingHeight: 1
   pullingForce: 100
   dampingForce: 5

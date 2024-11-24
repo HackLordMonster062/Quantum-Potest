@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8741301857747063336}
   - component: {fileID: 1894220618553433296}
   - component: {fileID: 9195258261393640133}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EmitterGuide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4841,7 +4841,7 @@ GameObject:
   - component: {fileID: 2607108468727534179}
   - component: {fileID: 5552493447898604779}
   - component: {fileID: 8112157672398867034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Emitter Device
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4947,4 +4947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3201399cfa9da2c4fa6d70d37a9037eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trigger: {fileID: 0}
   shootingPointDistance: 0.7
+  isStream: 0

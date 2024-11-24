@@ -1,3 +1,3 @@
-public class PolaroidReceiver : Excitable {
+public class PolaroidReceiver : Particle {
 	
 }
