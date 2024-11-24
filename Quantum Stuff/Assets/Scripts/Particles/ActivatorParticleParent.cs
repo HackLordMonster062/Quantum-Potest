@@ -1,10 +1,17 @@
 public class ActivatorParticleParent : Particle {
 	ActivatorParticleChild _activatorScript;
 
-	protected override void Awake() {
-		base.Awake();
-
+	void Start() {
 		_activatorScript = GetComponentInChildren<ActivatorParticleChild>();
+	}
+
+	public override bool TryCapture(Anchor capturer) {
+		if (base.TryCapture(capturer)) {
+			_activatorScript.SetAnchor(capturer);
+			return true;
+		}
+
+		return false;
 	}
 
 	public override void Excite(int energy, bool invoke = true) {

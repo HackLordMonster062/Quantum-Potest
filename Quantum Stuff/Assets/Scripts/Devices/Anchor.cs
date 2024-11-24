@@ -8,7 +8,7 @@ public abstract class Anchor : Activatable {
     protected Particle _particle;
 
     void FixedUpdate() {
-        if (_particle == null) return;
+        if (_particle == null || _particle.Behavior.IsPickedUp) return;
 
         Vector3 target = transform.position + transform.up * holdingHeight;
 
@@ -19,9 +19,10 @@ public abstract class Anchor : Activatable {
 
 	private void OnTriggerEnter(Collider other) {
 		if (_particle == null) {
-            _particle = other.GetComponent<Particle>();
+            Particle particle = other.GetComponent<Particle>();
 
-            if (_particle != null && _particle.TryCapture(this)) {
+            if (particle != null && particle.TryCapture(this)) {
+                _particle = particle;
                 _particle.Behavior.OnPickedUp += Pickup;
             }
         }
@@ -33,6 +34,7 @@ public abstract class Anchor : Activatable {
 	}
 
     protected void Release() {
+        _particle.Release();
 		_particle = null;
 	}
 }

@@ -11,10 +11,15 @@ public abstract class Particle : Excitable {
     }
 
     public virtual bool TryCapture(Anchor capturer) {
-        if (Behavior.IsPickedUp || _anchor != null) return false;
+        if (_anchor != null) return false;
 
         _anchor = capturer;
 
         return true;
+    }
+
+    public virtual void Release() {
+        if (_anchor != null)
+            _anchor = null;
     }
 }

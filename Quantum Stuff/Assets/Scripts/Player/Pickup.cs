@@ -26,6 +26,8 @@ public class Pickup : MonoBehaviour {
 		if (_particle == null) return;
 
 		if (Input.GetMouseButtonUp(0)) {
+			_particle.Drop();
+
 			_particle.Rb.velocity = Vector3.ClampMagnitude(_particle.Rb.velocity, maxReleaseSpeed);
 			_particle = null;
 
