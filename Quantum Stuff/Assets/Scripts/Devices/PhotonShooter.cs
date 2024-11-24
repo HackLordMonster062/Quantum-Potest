@@ -4,6 +4,7 @@ using UnityEngine;
 public class PhotonShooter : Activatable {
     [SerializeField] float shootingPointDistance;
 	[SerializeField] bool isStream;
+	[SerializeField] float streamRate;
 
 	private void Start() {
 		if (isStream) StartCoroutine(PhotonStream());
@@ -17,7 +18,7 @@ public class PhotonShooter : Activatable {
 
 	IEnumerator PhotonStream() {
 		while (true) {
-			yield return new WaitForSeconds(PhysicsManager.instance.RelaxtationTime);
+			yield return new WaitForSeconds(streamRate);
 
 			Activate();
 		}

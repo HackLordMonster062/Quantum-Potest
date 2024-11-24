@@ -26,8 +26,6 @@ public class Excitable : MonoBehaviour {
 		_glowingTimer -= Time.deltaTime;
 
 		if (_glowingTimer < 0) {
-			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
-
 			Energy--;
 			Decay();
 
@@ -40,15 +38,17 @@ public class Excitable : MonoBehaviour {
     }
 
 	public virtual void Excite(int energy, bool invoke=true) {
+		if (Energy == 0)
+			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
+
 		Energy += energy;
 		depleted = false;
-
-		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 
 		if (invoke) OnExcite?.Invoke(Energy);
 	}
 
 	protected virtual void Decay() {
+		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 	}
 
 	protected virtual void Deplete() {
