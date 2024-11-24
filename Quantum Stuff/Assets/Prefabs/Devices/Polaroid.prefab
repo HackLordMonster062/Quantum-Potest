@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 779227364716010489}
   - component: {fileID: 3240537736757019038}
   m_Layer: 9
-  m_Name: Emitter
+  m_Name: Reciever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -320,7 +320,7 @@ Transform:
   - {fileID: 1064687478443720178}
   - {fileID: 8186028527486217615}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2606935955815213682
 PrefabInstance:
