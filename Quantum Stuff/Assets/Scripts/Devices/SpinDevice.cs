@@ -1,9 +1,15 @@
 using UnityEngine;
 
-public class SpinDevice : Anchor {
+[RequireComponent(typeof(Anchor))]
+public class SpinDevice : Activatable {
+	Anchor _anchor;
+
+	private void Awake() {
+		_anchor = GetComponent<Anchor>();
+	}
 
 	public override void Activate() {
-		if (_particle != null && _particle.TryGetComponent(out IRotateable particle)) {
+		if (_anchor.Particle != null && _anchor.Particle.TryGetComponent(out IRotateable particle)) {
 			particle.FlipSpin();
 		}
 	}

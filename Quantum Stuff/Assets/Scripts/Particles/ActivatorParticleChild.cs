@@ -5,20 +5,21 @@ public class ActivatorParticleChild : MonoBehaviour {
 	List<Activatable> _devices;
 
 	int _currDevice = 0;
-	Anchor _anchor;
+	Capturer _capturer;
 
 	void Awake() {
 		_devices = new List<Activatable>();
 	}
 
-	public void SetAnchor(Anchor anchor) {
-		_anchor = anchor;
+	public void SetCapturer(Capturer capturer) {
+		_capturer = capturer;
 
-		_devices.Remove(anchor);
+		_devices.RemoveAll(device => device.TryGetComponent(out Capturer exCapturer) && exCapturer == capturer);
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		if (other.TryGetComponent(out Activatable device) && !(device is Anchor && (device as Anchor) == _anchor)) {
+		if (other.TryGetComponent(out Activatable device) && 
+			!(other.TryGetComponent(out Capturer capturer) && capturer == _capturer)) {
 			_devices.Add(device);
 		}
 	}

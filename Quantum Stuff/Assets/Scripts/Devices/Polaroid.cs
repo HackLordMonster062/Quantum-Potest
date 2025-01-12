@@ -1,11 +1,18 @@
 using UnityEngine;
 
-public class Polaroid : Anchor {
+[RequireComponent(typeof(Anchor))]
+public class Polaroid : Activatable {
     [SerializeField] PolaroidReceiver receiver;
 
     int _filterWidth;
 
-    void Start() {
+    Anchor _anchor;
+
+	private void Awake() {
+		_anchor = GetComponent<Anchor>();
+	}
+
+	void Start() {
         receiver.OnExcite += UpdateFilter;
     }
 
@@ -14,7 +21,7 @@ public class Polaroid : Anchor {
 	}
 
 	public override void Activate() {
-        if (_particle == null || !_particle.TryGetComponent(out Spectron spectron)) return;
+        if (_anchor.Particle == null || !_anchor.Particle.TryGetComponent(out Spectron spectron)) return;
 
         spectron.FilterColors(_filterWidth);
     }

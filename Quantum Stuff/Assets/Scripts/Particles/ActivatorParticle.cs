@@ -19,7 +19,7 @@ public class ActivatorParticle : Particle {
 		foreach (Collider collider in colliders) {
 			if (index != _currDevice) {
 				index++;
-			} else if (collider.TryGetComponent(out Activatable device) && !(device is Anchor && (device as Anchor) == _anchor)) {
+			} else if (collider.TryGetComponent(out Activatable device) /* && !(device is Anchor && (device as Anchor) == _anchor)*/) {
 				device.Activate();
 				_currDevice++;
 				break;

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 875013565127876544}
   - component: {fileID: 4083141710432149122}
   - component: {fileID: 4120663609605779164}
+  - component: {fileID: -8809321198589408723}
   m_Layer: 0
   m_Name: Activator Particle
   m_TagString: Untagged
@@ -166,6 +167,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f14709698b23e0b449fc65f7e4223378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8809321198589408723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760019562901906771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee24e7ffacac074cb15c68908d033c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  dampingAmount: 0.1
 --- !u!1 &9116135241911036817
 GameObject:
   m_ObjectHideFlags: 0

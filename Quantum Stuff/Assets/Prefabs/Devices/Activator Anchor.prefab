@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6744265248529634126}
   - component: {fileID: 5867481570069270740}
   - component: {fileID: 3270473608006307658}
+  - component: {fileID: 1923746455844537867}
   m_Layer: 9
   m_Name: Activator Anchor
   m_TagString: Untagged
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger: {fileID: 0}
+--- !u!114 &1923746455844537867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345572893201010548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 162ed4d6b5bbaed49a54ec353a3a4967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMass: 1
+  strength: 1
   holdingHeight: 1
   pullingForce: 100
-  dampingForce: 5

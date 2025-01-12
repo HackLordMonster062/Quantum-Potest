@@ -1,9 +1,15 @@
 using UnityEngine;
 
-public class ActivatorAnchor : Anchor {
+[RequireComponent(typeof(Anchor))]
+public class ActivatorAnchor : Activatable {
+	Anchor _anchor;
+
+	private void Awake() {
+		_anchor = GetComponent<Anchor>();
+	}
 
 	public override void Activate() {
-		if (_particle != null && _particle.TryGetComponent(out Excitable excitable)) {
+		if (_anchor.Particle != null && _anchor.Particle.TryGetComponent(out Excitable excitable)) {
 			excitable.Excite(1);
 		}
 	}

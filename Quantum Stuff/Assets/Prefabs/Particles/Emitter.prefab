@@ -4844,6 +4844,7 @@ GameObject:
   - component: {fileID: 9186578016809177926}
   - component: {fileID: 6685650616544878494}
   - component: {fileID: 3770591334957026572}
+  - component: {fileID: -3901024434263998556}
   m_Layer: 0
   m_Name: Emitter
   m_TagString: Untagged
@@ -5008,3 +5009,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea14df7fde9db54296da42512c0e5c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-3901024434263998556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3804696130200000732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee24e7ffacac074cb15c68908d033c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  dampingAmount: 0.1

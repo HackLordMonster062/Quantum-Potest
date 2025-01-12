@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 5993237808099357702}
   - component: {fileID: 3932459865280771970}
   - component: {fileID: 6477478139717463648}
+  - component: {fileID: -4879339664462577862}
+  - component: {fileID: 8123410273571884996}
   m_Layer: 0
   m_Name: MassiveParticle
   m_TagString: Untagged
@@ -153,7 +155,7 @@ MonoBehaviour:
   repulsionStrength: 1.5
   repulsionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1919
 --- !u!114 &3932459865280771970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +163,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3300840142957477681}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7d82342ade5bb9468284ae55c295a21, type: 3}
   m_Name: 
@@ -183,3 +185,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationEnergy: 2
+--- !u!114 &-4879339664462577862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300840142957477681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47c35fae4c7131a4b9e2827f2a15858b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxMass: 10
+  strength: 3
+  captureDistance: 3
+  snappingDistance: 2.5
+  pullingForce: 100
+--- !u!114 &8123410273571884996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3300840142957477681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee24e7ffacac074cb15c68908d033c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  dampingAmount: 0.1

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5543477640235835023}
   - component: {fileID: 4692424145324275168}
   - component: {fileID: 2579252882941115622}
+  - component: {fileID: 8834879757514218253}
   m_Layer: 0
   m_Name: ColoredParticle
   m_TagString: Untagged
@@ -171,3 +172,17 @@ MonoBehaviour:
   coloredObjectsLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &8834879757514218253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6556632404400085821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ee24e7ffacac074cb15c68908d033c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 1
+  dampingAmount: 0.1
