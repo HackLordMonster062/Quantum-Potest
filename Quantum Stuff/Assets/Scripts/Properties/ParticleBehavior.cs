@@ -4,8 +4,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ParticleBehavior : MonoBehaviour {
-	public event Action OnPickedUp;
-
 	[SerializeField] float mass;
 	public float Mass { get { return mass; } }
 
@@ -17,7 +15,6 @@ public class ParticleBehavior : MonoBehaviour {
 	Vector3[] directions;
 
 	public Rigidbody Rb { get; private set; }
-	public bool IsPickedUp { get; private set; }
 
 	float _force;
 
@@ -70,14 +67,5 @@ public class ParticleBehavior : MonoBehaviour {
 		directions.Add(Vector3.down);
 
 		return directions.ToArray();
-	}
-
-	public void PickUp() {
-		IsPickedUp = true;
-		OnPickedUp?.Invoke();
-	}
-
-	public void Drop() {
-		IsPickedUp = false;
 	}
 }

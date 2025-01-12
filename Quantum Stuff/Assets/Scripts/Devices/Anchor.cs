@@ -1,40 +1,55 @@
+using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
-public abstract class Anchor : Activatable {
+public class Anchor : Capturer {
     [SerializeField] float holdingHeight;
     [SerializeField] float pullingForce;
-    [SerializeField] float dampingForce;
 
-    protected Particle _particle;
+    public Capturable Particle { get; private set; }
 
-    void FixedUpdate() {
-        if (_particle == null || _particle.Behavior.IsPickedUp) return;
+    List<Capturable> _inTrigger;
+
+	private void Awake() {
+        _inTrigger = new();
+	}
+
+	void FixedUpdate() {
+        if (Particle == null) return;
 
         Vector3 target = transform.position + transform.up * holdingHeight;
 
-        Vector3 damping = -_particle.Behavior.Rb.velocity * dampingForce;
-
-        _particle.Behavior.Rb.AddForce((target - _particle.transform.position) * pullingForce + damping);
+        Particle.MoveTo(target, pullingForce);
     }
 
 	private void OnTriggerEnter(Collider other) {
-		if (_particle == null) {
-            Particle particle = other.GetComponent<Particle>();
+		if (Particle == null) {
+            Capturable particle = other.GetComponent<Capturable>();
 
-            if (particle != null && particle.TryCapture(this)) {
-                _particle = particle;
-                _particle.Behavior.OnPickedUp += Pickup;
+            if (particle != null) {
+                _inTrigger.Add(particle);
             }
         }
 	}
 
-    protected virtual void Pickup() {
-		_particle.Behavior.OnPickedUp -= Pickup;
-        Release();
+	private void OnTriggerStay(Collider other) {
+		foreach (Capturable capturable in _inTrigger) {
+            if (capturable.gameObject == other.gameObject && TryCapture(capturable))
+				Particle = capturable;
+		}
 	}
 
-    protected void Release() {
-        _particle.Release();
-		_particle = null;
+	private void OnTriggerExit(Collider other) {
+		_inTrigger.RemoveAll(capturable => capturable.gameObject == other.gameObject);
+	}
+
+	protected override void Release(Capturable capturable) {
+		base.Release(capturable);
+		Particle = null;
+	}
+
+	protected override void Give(Capturable capturable) {
+		base.Give(capturable);
+		Particle = null;
 	}
 }

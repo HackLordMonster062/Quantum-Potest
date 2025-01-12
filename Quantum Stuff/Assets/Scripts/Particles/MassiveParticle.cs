@@ -4,16 +4,16 @@ using UnityEngine;
 public class MassiveParticle : Particle {
     [SerializeField] int activationEnergy;
 
-    PotentialWell _potentialWell;
+    SnapPotentialWell _potentialWell;
 
     protected override void Awake() {
         base.Awake();
 
-        _potentialWell = GetComponent<PotentialWell>();
+        _potentialWell = GetComponent<SnapPotentialWell>();
     }
 
 	public override void Excite(int energy, bool invoke = true) {
-        Energy = 0;
+        Energy = 1;
 		base.Excite(activationEnergy, invoke);
 
         _potentialWell.Disable();

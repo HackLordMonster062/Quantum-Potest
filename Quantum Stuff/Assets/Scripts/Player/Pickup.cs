@@ -1,15 +1,14 @@
 using UnityEngine;
 
-public class Pickup : MonoBehaviour {
+public class Pickup : Capturer {
 	[SerializeField] float castWidth;
 	[SerializeField] float reach;
 	[SerializeField] float pullingForce;
-	[SerializeField] float dampingForce;
 	[SerializeField] float maxReleaseSpeed;
 
 	Transform _camera;
 
-	ParticleBehavior _particle;
+	Capturable _particle;
 
     void Awake() {
 		_camera = Camera.main.transform;
@@ -18,18 +17,15 @@ public class Pickup : MonoBehaviour {
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
             if (Physics.SphereCast(_camera.position, castWidth, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
-				if (info.collider.TryGetComponent(out _particle))
-					_particle.PickUp();
+				if (info.collider.TryGetComponent(out Capturable particle) && TryCapture(particle))
+					_particle = particle;
 			}
         }
 
 		if (_particle == null) return;
 
 		if (Input.GetMouseButtonUp(0)) {
-			_particle.Drop();
-
-			_particle.Rb.velocity = Vector3.ClampMagnitude(_particle.Rb.velocity, maxReleaseSpeed);
-			_particle = null;
+			Release(_particle);
 
 			return;
 		}
@@ -38,9 +34,19 @@ public class Pickup : MonoBehaviour {
 	private void FixedUpdate() {
 		if (_particle == null) return;
 
-		Vector3 diff = _camera.position + _camera.forward * reach - _particle.transform.position;
-		Vector3 damping = -_particle.Rb.velocity * dampingForce;
+		Vector3 target = _camera.position + _camera.forward * reach;
 
-		_particle.Rb.AddForce(diff * pullingForce + damping);
+		_particle.MoveTo(target, pullingForce);
+	}
+
+	protected override void Release(Capturable capturable) {
+		_particle.Release();
+
+		_particle = null;
+	}
+
+	protected override void Give(Capturable capturable) {
+		base.Give(capturable);
+		_particle = null;
 	}
 }
