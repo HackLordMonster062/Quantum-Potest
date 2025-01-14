@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class SnapPotentialWell : Capturer {
 	[SerializeField] float captureDistance;
 	[SerializeField] float snappingDistance;
+	[SerializeField] float detachDistance;
 	[SerializeField] float pullingForce;
 
 	List<(Capturable, Vector3)> _offsets = new();
@@ -38,8 +38,11 @@ public class SnapPotentialWell : Capturer {
 			}
 		}
 
-		foreach (var (capturable, offset) in _offsets) {
-			capturable.MoveTo(transform.position + offset, pullingForce);
+		foreach (var (capturable, offset) in _offsets.ToArray()) {
+			Vector3 distance = capturable.MoveTo(transform.position + offset, pullingForce);
+
+			if (distance.sqrMagnitude > detachDistance * detachDistance)
+				Release(capturable);
 		}
 	}
 

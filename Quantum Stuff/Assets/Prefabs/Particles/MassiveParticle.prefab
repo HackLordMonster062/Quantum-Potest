@@ -201,6 +201,7 @@ MonoBehaviour:
   strength: 3
   captureDistance: 3
   snappingDistance: 2.5
+  detachDistance: 5
   pullingForce: 100
 --- !u!114 &8123410273571884996
 MonoBehaviour:
