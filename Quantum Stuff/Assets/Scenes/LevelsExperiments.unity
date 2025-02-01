@@ -4918,7 +4918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 5
-  dampingAmount: 0.4
+  dampingAmount: 2
   movementAxis: {x: 1, y: 0, z: 0}
 --- !u!54 &1771471715
 Rigidbody:
