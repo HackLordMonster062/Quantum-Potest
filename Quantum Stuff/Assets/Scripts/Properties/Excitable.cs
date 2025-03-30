@@ -9,17 +9,17 @@ public class Excitable : MonoBehaviour {
 	float _glowingTimer;
 
 	protected MeshRenderer _renderer;
-	protected Color _baseColor;
+	protected float _baseIntensity;
 
 	protected bool depleted = true;
 
 	protected virtual void Awake() {
 		_renderer = GetComponent<MeshRenderer>();
-		_baseColor = _renderer.material.GetColor("_EmissionColor");
+		_baseIntensity = _renderer.material.GetFloat("_Emission_value");
 	}
 
 	protected virtual void Update() {
-		_renderer.material.SetColor("_EmissionColor", _baseColor * (Energy + 1));
+		_renderer.material.SetFloat("_Emission_value", _baseIntensity * (Energy + 1));
 
 		if (depleted) return;
 
