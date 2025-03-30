@@ -8,18 +8,17 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Massive
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 2f0550779b74a01479b695eb2585d1d2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _EMISSION
-  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -96,7 +95,9 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Emission_value: 0.2
     - _EnvironmentReflections: 1
+    - _Fresnel_effect: 6
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -104,6 +105,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -112,13 +114,18 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _Sway_effect: 4
+    - _Sway_speed: 5
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - _emission_value: 0.63
     m_Colors:
+    - _Base: {r: 0.18609823, g: 0.25730866, b: 0.7735849, a: 0}
     - _BaseColor: {r: 0, g: 0.015935179, b: 0.3584906, a: 1}
     - _Color: {r: 0, g: 0.015935179, b: 0.3584906, a: 1}
     - _EmissionColor: {r: 0.12148453, g: 0.12234893, b: 0.13207549, a: 1}
+    - _Outside: {r: 0.08170166, g: 0.08170166, b: 0.33962262, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4238425908858801190
