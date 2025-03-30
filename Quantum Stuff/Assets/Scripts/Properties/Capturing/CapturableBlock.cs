@@ -1,18 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class CapturableBlock : Capturable {
 	[SerializeField] Transform lowerBounds;
 	[SerializeField] Transform upperBounds;
 
-	Rigidbody _rb;
-
 	Vector3 _target;
 	float _force;
-
-	void Awake() {
-		_rb = GetComponent<Rigidbody>();
-	}
 
 	void FixedUpdate() {
 		Vector3 axis = upperBounds.position - lowerBounds.position;

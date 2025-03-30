@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour {
 		_rb = GetComponent<Rigidbody>();
 		_cameraRef = Camera.main.transform;
 
-		_xRotation = 90;
+		_xRotation = Vector3.Angle(Vector3.forward, transform.forward);
 	}
 
 	void FixedUpdate() {
