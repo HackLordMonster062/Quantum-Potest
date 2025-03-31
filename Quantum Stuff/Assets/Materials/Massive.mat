@@ -96,6 +96,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _Emission_value: 0.2
+    - _Energy: 0
     - _EnvironmentReflections: 1
     - _Fresnel_effect: 6
     - _GlossMapScale: 1

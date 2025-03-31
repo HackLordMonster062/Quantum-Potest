@@ -67,7 +67,7 @@ public class Spectron : Particle, IRotateable {
 	private void SetColor(int frequency) {
 		_currColor = frequency;
 		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
-		_baseIntensity = 1; // VisualManager.instance.FrequencyToColor(frequency) / 2;
+		// VisualManager.instance.FrequencyToColor(frequency);
 	}
 
 	void Annihilate() {
