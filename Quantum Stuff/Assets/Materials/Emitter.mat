@@ -98,7 +98,7 @@ Material:
     - _DstBlendAlpha: 0
     - _Energy: 0
     - _EnvironmentReflections: 1
-    - _Fresnel_value: 0.05
+    - _Fresnel_value: 0.09
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -109,6 +109,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Ring_bumb: 0.08
     - _Ring_emission: 1.5
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -121,7 +122,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _Base: {r: 0.74213827, g: 0.6219754, b: 0.19370271, a: 0}
+    - _Base: {r: 0.7411765, g: 0.66839266, b: 0.19215684, a: 0}
     - _BaseColor: {r: 0.18867922, g: 0.16376981, b: 0.025809899, a: 1}
     - _Color: {r: 0.18867922, g: 0.16376981, b: 0.025809899, a: 1}
     - _EmissionColor: {r: 0.8679245, g: 0.6969091, b: 0.13510147, a: 1}
