@@ -6,7 +6,7 @@ public class PressurePlate : Trigger {
 	private void OnTriggerEnter(Collider other) {
 		inside++;
 		if (inside == 1)
-			Activate();
+			Activate(1);
 	}
 
 	private void OnTriggerExit(Collider other) {

@@ -2,14 +2,14 @@ using System;
 using UnityEngine;
 
 public class Trigger : MonoBehaviour {
-	public event Action OnTrigger;
+	public event Action<int> OnTrigger;
 	public event Action OnUntrigger;
 
-	protected void Activate() {
-		OnTrigger?.Invoke();
+	public void Activate(int energy) {
+		OnTrigger?.Invoke(energy);
 	}
 
-	protected void Deactivate() {
+	public void Deactivate() {
 		OnUntrigger?.Invoke();
 	}
 }

@@ -13,9 +13,9 @@ public abstract class Capturable : MonoBehaviour {
 
     public bool TryCapture(Capturer capturer) {
         if (Capturer == null || capturer.Strength > Capturer.Strength) {
-			OnCapture?.Invoke(this);
-
 			Capturer = capturer;
+
+			OnCapture?.Invoke(this);
             return true;
         }
 

@@ -24,5 +24,6 @@ public abstract class Activatable : MonoBehaviour {
 	}
 
 	public abstract void Activate();
+	public virtual void Activate(int Energy) { Activate(); }
 	protected virtual void Deactivate() { }
 }
