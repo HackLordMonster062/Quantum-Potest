@@ -3,6 +3,7 @@ using UnityEngine;
 public class CapturableBlock : Capturable {
 	[SerializeField] Transform lowerBounds;
 	[SerializeField] Transform upperBounds;
+	[SerializeField] bool orientOnTrack;
 
 	Vector3 _target;
 	float _force;
@@ -10,7 +11,9 @@ public class CapturableBlock : Capturable {
 	void FixedUpdate() {
 		Vector3 axis = upperBounds.position - lowerBounds.position;
 		float distance = axis.sqrMagnitude;
-		transform.right = axis;
+
+		if (orientOnTrack)
+			transform.right = axis;
 
 		if (Capturer != null) {
 			Vector3 target = _target - transform.position;
