@@ -6,7 +6,7 @@ public abstract class Capturer : MonoBehaviour {
     public CapturerStrengh Strength => strength;
 
     protected virtual bool TryCapture(Capturable capturable) {
-        if (capturable.Mass <= maxMass && capturable.TryCapture(this)) {
+        if (capturable.Mass <= maxMass && capturable.TryCapture(this, strength)) {
             capturable.OnCapture += Give;
 
             return true;
@@ -19,7 +19,7 @@ public abstract class Capturer : MonoBehaviour {
 		capturable.Release();
 	}
 
-    protected virtual void Give(Capturable capturable) {
+    protected virtual void Give(Capturable capturable, CapturerStrengh _) {
 		capturable.OnCapture -= Give;
 	}
 }
@@ -28,5 +28,6 @@ public enum CapturerStrengh {
     ActionAnchor = 1,
     Player = 2,
     MassiveParticle = 3,
-    LockAnchor = 4
+    LockAnchor = 4,
+    Entangled = 5
 }

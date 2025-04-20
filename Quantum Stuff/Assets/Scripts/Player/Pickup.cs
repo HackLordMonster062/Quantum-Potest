@@ -45,8 +45,8 @@ public class Pickup : Capturer {
 		_particle = null;
 	}
 
-	protected override void Give(Capturable capturable) {
-		base.Give(capturable);
+	protected override void Give(Capturable capturable, CapturerStrengh strengh) {
+		base.Give(capturable, strengh);
 		_particle = null;
 	}
 }

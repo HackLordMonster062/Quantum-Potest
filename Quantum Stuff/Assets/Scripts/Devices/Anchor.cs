@@ -48,8 +48,8 @@ public class Anchor : Capturer {
 		Particle = null;
 	}
 
-	protected override void Give(Capturable capturable) {
-		base.Give(capturable);
+	protected override void Give(Capturable capturable, CapturerStrengh strength) {
+		base.Give(capturable, strength);
 		Particle = null;
 	}
 }
