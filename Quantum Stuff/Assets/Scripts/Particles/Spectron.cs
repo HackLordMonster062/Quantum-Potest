@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spectron : Particle, IRotateable {
+[RequireComponent(typeof(RotateableBase))]
+public class Spectron : Particle {
 	[SerializeField] List<int> frequencies;
 	[SerializeField] float minRadius;
 	[SerializeField] float radiusLeaps;
 	[SerializeField] LayerMask coloredObjectsLayer;
+
+	RotateableBase _rotateable;
 
 	bool _hasCollapsed = false;
 	int _currColor;
@@ -13,6 +16,14 @@ public class Spectron : Particle, IRotateable {
 	float _timer;
 
 	float _checkingRadius;
+
+	protected override void Awake() {
+		base.Awake();
+
+		_rotateable = GetComponent<RotateableBase>();
+
+		_rotateable.OnFlipSpin += FlipSpin;
+	}
 
 	protected override void Update() {
 		base.Update();
@@ -72,8 +83,6 @@ public class Spectron : Particle, IRotateable {
 	void Annihilate() {
 		Destroy(gameObject);
 	}
-
-	public void Rotate() { }
 
 	public void FlipSpin() {
 		for (int i = 0; i < frequencies.Count; i++) {
