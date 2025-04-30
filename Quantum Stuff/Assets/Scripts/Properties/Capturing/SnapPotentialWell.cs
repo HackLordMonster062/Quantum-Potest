@@ -64,8 +64,8 @@ public class SnapPotentialWell : Capturer {
 		_offsets.RemoveAll(pair => pair.Item1 == capturable);
 	}
 
-	protected override void Give(Capturable capturable) {
-		base.Give(capturable);
+	protected override void Give(Capturable capturable, CapturerStrengh strength) {
+		base.Give(capturable, strength);
 
 		_offsets.RemoveAll(pair => pair.Item1 == capturable);
 	}

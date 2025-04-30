@@ -5,9 +5,6 @@ public class CapturableBlock : Capturable {
 	[SerializeField] Transform upperBounds;
 	[SerializeField] bool orientOnTrack;
 
-	Vector3 _target;
-	float _force;
-
 	void FixedUpdate() {
 		Vector3 axis = upperBounds.position - lowerBounds.position;
 		float distance = axis.sqrMagnitude;
@@ -27,12 +24,5 @@ public class CapturableBlock : Capturable {
 		Vector3 projectedMovement = projection / distance * axis;
 
 		transform.position = projectedMovement + lowerBounds.position;
-	}
-
-	public override Vector3 MoveTo(Vector3 target, float force) {
-		_target = target;
-		_force = force;
-
-		return transform.position - target;
 	}
 }

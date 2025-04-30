@@ -1,16 +1,23 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Anchor))]
+[RequireComponent(typeof(Trigger))]
 public class ActivatorAnchor : Activatable {
-	Anchor _anchor;
+	Trigger _trigger;
 
 	private void Awake() {
-		_anchor = GetComponent<Anchor>();
+		_trigger = GetComponent<Trigger>();
 	}
 
 	public override void Activate() {
-		if (_anchor.Particle != null && _anchor.Particle.TryGetComponent(out Excitable excitable)) {
-			excitable.Excite(1);
-		}
+		_trigger.Activate(0);
+	}
+
+	public override void Activate(int energy) {
+		_trigger.Activate(energy);
+	}
+
+	protected override void Deactivate() {
+		_trigger.Deactivate();
 	}
 }

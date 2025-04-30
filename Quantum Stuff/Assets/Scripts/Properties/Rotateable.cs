@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 
-public class Rotateable : MonoBehaviour, IRotateable {
+public class Rotateable : RotateableBase {
 	Spin _spin = Spin.Horizontal;
 
 	Vector3 _horizontalDirection = Vector3.zero;
 	Vector3 _verticalDirection = new Vector3(90, 0, 0);
 
-	public void Rotate() {
+	public override void Rotate() {
+		base.Rotate();
+
 		switch (_spin) {
 			case Spin.Horizontal:
 				_horizontalDirection.y += 90;
@@ -21,7 +24,9 @@ public class Rotateable : MonoBehaviour, IRotateable {
 		}
 	}
 
-	public void FlipSpin() {
+	public override void FlipSpin() {
+		base.FlipSpin();
+
 		switch (_spin) {
 			case Spin.Horizontal:
 				_spin = Spin.Vertical;
