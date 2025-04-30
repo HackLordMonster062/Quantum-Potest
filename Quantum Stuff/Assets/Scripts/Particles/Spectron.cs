@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class Spectron : Particle {
 	[SerializeField] float minRadius;
 	[SerializeField] float radiusLeaps;
 	[SerializeField] LayerMask coloredObjectsLayer;
+
+	public event Action OnAnnihilate;
 
 	RotateableBase _rotateable;
 
@@ -81,6 +84,7 @@ public class Spectron : Particle {
 	}
 
 	void Annihilate() {
+		OnAnnihilate?.Invoke();
 		Destroy(gameObject);
 	}
 

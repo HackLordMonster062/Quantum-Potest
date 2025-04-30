@@ -9,15 +9,13 @@ public class ActivatorAnchor : Activatable {
 		_trigger = GetComponent<Trigger>();
 	}
 
-	public override void Activate() {
-		_trigger.Activate(0);
-	}
-
 	public override void Activate(int energy) {
+		base.Activate(energy);
 		_trigger.Activate(energy);
 	}
 
-	protected override void Deactivate() {
+	public override void Deactivate() {
+		base.Deactivate();
 		_trigger.Deactivate();
 	}
 }

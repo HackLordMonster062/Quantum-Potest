@@ -14,7 +14,7 @@ public class Rail : Activatable {
 		device.position = pathPoints[0].position;
 	}
 
-	public override void Activate() {
+	public override void Activate(int _ = 0) {
         if (_currTween == null || !_currTween.IsActive())
             StartTravel();
 	}

@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Activatable : MonoBehaviour {
 	[SerializeField] Trigger trigger;
 
-	float _timer = 0;
+	public event Action<int> OnActivate;
+	public event Action OnDeactivate;
 
 	private void Start() {
 		if (trigger != null) {
@@ -13,17 +15,6 @@ public abstract class Activatable : MonoBehaviour {
 		}
 	}
 
-	protected virtual void Update() {
-		_timer -= Time.deltaTime;
-
-		if (_timer < 0) {
-			_timer = PhysicsManager.instance.RelaxtationTime;
-
-			Deactivate();
-		}
-	}
-
-	public abstract void Activate();
-	public virtual void Activate(int Energy) { Activate(); }
-	protected virtual void Deactivate() { }
+	public virtual void Activate(int energy = 0) { OnActivate?.Invoke(energy); }
+	public virtual void Deactivate() { OnDeactivate?.Invoke(); }
 }

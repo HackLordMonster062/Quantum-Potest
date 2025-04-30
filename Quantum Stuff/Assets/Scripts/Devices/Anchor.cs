@@ -23,6 +23,10 @@ public class Anchor : Capturer {
     }
 
 	private void OnTriggerEnter(Collider other) {
+		_inTrigger.RemoveAll(c => c == null || c.gameObject == null);
+		if (Particle != null && Particle.gameObject == null)
+			Particle = null;
+
 		if (Particle == null) {
             Capturable particle = other.GetComponent<Capturable>();
 

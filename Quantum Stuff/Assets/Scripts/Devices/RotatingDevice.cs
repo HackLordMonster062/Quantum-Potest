@@ -8,9 +8,10 @@ public class RotatingDevice : Activatable {
 		_anchor = GetComponent<Anchor>();
 	}
 
-	public override void Activate() {
+	public override void Activate(int energy = 1) {
 		if (_anchor.Particle != null && _anchor.Particle.TryGetComponent(out IRotateable particle)) {
-			particle.Rotate();
+			for (int i = 0; i < energy; i++)
+				particle.Rotate();
 		}
 	}
 }

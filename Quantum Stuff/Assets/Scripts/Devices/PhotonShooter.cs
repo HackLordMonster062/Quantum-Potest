@@ -10,7 +10,7 @@ public class PhotonShooter : Activatable {
 		if (isStream) StartCoroutine(PhotonStream());
 	}
 
-	public override void Activate() {
+	public override void Activate(int _ = 0) {
 		Vector3 shootingPoint = transform.position + transform.forward * shootingPointDistance;
 
 		Instantiate(PrefabManager.instance.Particles.Photon, shootingPoint, transform.rotation);
