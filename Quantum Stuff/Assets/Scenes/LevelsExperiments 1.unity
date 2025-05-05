@@ -9155,6 +9155,10 @@ PrefabInstance:
       propertyPath: trigger
       value: 
       objectReference: {fileID: 6176458068906183929}
+    - target: {fileID: 8190959272415481171, guid: 40a1b7cf22135a74ba80c906eb94a1ed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 805dd173db917ce4cb74eb48f8b84160, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10388,7 +10392,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7030407179279504977, guid: 679e89781cbab7f4b902f4bfb0fa80b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2693756
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7030407179279504977, guid: 679e89781cbab7f4b902f4bfb0fa80b9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10396,7 +10400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7030407179279504977, guid: 679e89781cbab7f4b902f4bfb0fa80b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 80.20262
+      value: 79
       objectReference: {fileID: 0}
     - target: {fileID: 7030407179279504977, guid: 679e89781cbab7f4b902f4bfb0fa80b9, type: 3}
       propertyPath: m_LocalRotation.w

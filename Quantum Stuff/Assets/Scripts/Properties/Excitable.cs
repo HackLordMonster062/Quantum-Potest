@@ -24,8 +24,8 @@ public class Excitable : MonoBehaviour {
 		_glowingTimer -= Time.deltaTime;
 
 		if (_glowingTimer < 0) {
-			Energy--;
 			Decay();
+			Energy--;
 
 			if (Energy <= 0) {
 				Energy = 0;

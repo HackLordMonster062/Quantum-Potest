@@ -8,18 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Activator
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f514d1e9243c28445a1962b3a46b457e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _EMISSION
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
@@ -96,14 +94,21 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Emission: 0.2
+    - _Energy: 0
     - _EnvironmentReflections: 1
+    - _Event_Time: 0
+    - _Fresnel_Intensity: 5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _Is_Captured: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Pulling_intensity: 0
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -112,14 +117,21 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _Transition_Speed: 10
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - _Base: {r: 0.3329477, g: 0.6936625, b: 0.8113208, a: 0}
     - _BaseColor: {r: 0, g: 1, b: 0.9065428, a: 1}
+    - _Base_Color: {r: 0.1561944, g: 0.5941557, b: 0.735849, a: 0}
     - _Color: {r: 0, g: 1, b: 0.9065428, a: 1}
     - _EmissionColor: {r: 0.22344841, g: 0.26415092, b: 0.24281779, a: 1}
+    - _Fresnel_Color: {r: 0.6127626, g: 0.7553538, b: 0.8490566, a: 0}
+    - _Inert_Color: {r: 0.13296545, g: 0.23180151, b: 0.33962262, a: 0}
+    - _Ready_Color: {r: 0.1254895, g: 0.37191534, b: 0.5660378, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _Warp_Direction: {r: 0, g: -1, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6178523444006738775
 MonoBehaviour:
