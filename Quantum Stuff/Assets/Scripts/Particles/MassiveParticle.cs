@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PotentialWell))]
+[RequireComponent(typeof(SnapPotentialWell))]
 public class MassiveParticle : Particle {
     [SerializeField] int activationEnergy;
 
