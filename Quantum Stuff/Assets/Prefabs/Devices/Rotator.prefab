@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 43fc7e73f8cc1424088c0ae11f737d74, type: 2}
+    - target: {fileID: -1392625674392597791, guid: c8b0366b0a4f7194580127ca1418c50a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a3e790377c3fb45429c73cadba795a30, type: 2}
     - target: {fileID: 919132149155446097, guid: c8b0366b0a4f7194580127ca1418c50a, type: 3}
       propertyPath: m_Name
       value: Rotator

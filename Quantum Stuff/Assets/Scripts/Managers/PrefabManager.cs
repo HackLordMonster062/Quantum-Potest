@@ -32,6 +32,9 @@ public class DevicePM {
 	[SerializeField] GameObject anchor;
 	public GameObject Anchor { get { return anchor; } }
 
+	[SerializeField] GameObject activatorAnchor;
+	public GameObject ActivatorAnchor { get { return activatorAnchor; } }
+
 	[SerializeField] GameObject rotator;
 	public GameObject Rotator { get { return rotator; } }
 
@@ -43,4 +46,10 @@ public class DevicePM {
 
 	[SerializeField] GameObject coloredDoor;
 	public GameObject ColoredDoor { get { return coloredDoor; } }
+
+	[SerializeField] GameObject polaroid;
+	public GameObject Polaroid { get { return polaroid; } }
+
+	[SerializeField] GameObject signalDoor;
+	public GameObject SignalDoor { get { return signalDoor; } }
 }
