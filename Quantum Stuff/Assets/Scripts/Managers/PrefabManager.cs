@@ -58,4 +58,7 @@ public class DevicePM {
 
 	[SerializeField] GameObject railPoint;
 	public GameObject RailPoint { get { return railPoint; } }
+
+	[SerializeField] GameObject slidingWall;
+	public GameObject SlidingWall { get { return slidingWall; } }
 }

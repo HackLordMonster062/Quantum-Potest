@@ -15,7 +15,7 @@ public class TestAbilities : MonoBehaviour {
 
 	//Rail
 	Transform _railDevice;
-	List<Transform> _railPath = null;
+	[SerializeField] List<Transform> _railPath;
 
 	void Awake() {
 		_camera = Camera.main.transform;
@@ -100,6 +100,13 @@ public class TestAbilities : MonoBehaviour {
 					Rail railComp = rail.GetComponent<Rail>();
 					FinalizeRail(railComp);
 				}
+			} else if (Input.GetKey(KeyCode.LeftAlt)) {
+				GameObject wall = SpawnDevice(PrefabManager.instance.Devices.SlidingWall, false);
+
+				if (wall != null) {
+					CapturableBlock wallComp = wall.GetComponent<CapturableBlock>();
+					FinalizeSlidingWall(wallComp);
+				}
 			} else if (Input.GetKey(KeyCode.LeftControl)) {
 				CancelRail();
 			} else {
@@ -141,7 +148,7 @@ public class TestAbilities : MonoBehaviour {
 
 	void StartRail(Transform device) {
 		_railDevice = device;
-		_railPath = new List<Transform>();
+		_railPath = new();
 	}
 
 	void CancelRail() {
@@ -163,10 +170,23 @@ public class TestAbilities : MonoBehaviour {
 	}
 
 	void FinalizeRail(Rail rail) {
+		if (_railDevice == null) return;
+
+		rail.Initialize(_railPath.ToArray(), _railDevice); 
+
+		_railDevice = null;
+		_railPath = new();
+	}
+
+	void FinalizeSlidingWall(CapturableBlock wall) {
 		if (_railPath == null) return;
 
-		print(_railPath.Count);
-		rail.Initialize(_railPath.ToArray(), _railDevice); 
+		if (_railPath.Count < 2) {
+			print("Requires 2 points");
+			return;
+		}
+
+		wall.Initialize(_railPath[0], _railPath[1], true);
 
 		_railDevice = null;
 		_railPath = null;

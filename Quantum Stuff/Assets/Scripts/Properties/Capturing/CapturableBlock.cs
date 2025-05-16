@@ -25,4 +25,11 @@ public class CapturableBlock : Capturable {
 
 		transform.position = projectedMovement + lowerBounds.position;
 	}
+
+	public void Initialize(Transform lowerBounds, Transform upperBounds, bool orientOnTrack) {
+		this.lowerBounds = lowerBounds;
+		this.upperBounds = upperBounds;
+
+		this.orientOnTrack = orientOnTrack;
+	}
 }
