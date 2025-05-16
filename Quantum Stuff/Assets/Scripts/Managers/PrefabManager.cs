@@ -52,4 +52,10 @@ public class DevicePM {
 
 	[SerializeField] GameObject signalDoor;
 	public GameObject SignalDoor { get { return signalDoor; } }
+
+	[SerializeField] GameObject rail;
+	public GameObject Rail { get { return rail; } }
+
+	[SerializeField] GameObject railPoint;
+	public GameObject RailPoint { get { return railPoint; } }
 }

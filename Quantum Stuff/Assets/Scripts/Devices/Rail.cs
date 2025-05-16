@@ -11,7 +11,7 @@ public class Rail : Activatable {
     Tween _currTween;
 
 	private void Start() {
-		device.position = pathPoints[0].position;
+		//device.position = pathPoints[0].position;
 	}
 
 	public override void Activate(int _ = 0) {
@@ -43,5 +43,18 @@ public class Rail : Activatable {
         if (_currPoint < pathPoints.Length && _currPoint >= 0) {
             MoveToNextPoint();
 		}
+    }
+
+    public void Initialize(Transform[] newPath, Transform newDevice) {
+        device = newDevice;
+		pathPoints = newPath;
+
+        _currPoint = 0;
+        device.position = pathPoints[0].position;
+
+        if (_currTween != null && _currTween.IsActive()) {
+            _currTween.Kill();
+            _currTween = null;
+        }
     }
 }

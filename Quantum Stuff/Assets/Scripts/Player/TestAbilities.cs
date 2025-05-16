@@ -1,11 +1,21 @@
+using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class TestAbilities : MonoBehaviour {
+//#if UNITYEDITOR
 	[SerializeField] float castWidth;
 	[SerializeField] float reach;
+	[SerializeField] LayerMask selection;
+
+	[SerializeField] Selection _selection;
+	[SerializeField] Selection _prevSelection;
 
 	Transform _camera;
+
+	//Rail
+	Transform _railDevice;
+	List<Transform> _railPath = null;
 
 	void Awake() {
 		_camera = Camera.main.transform;
@@ -13,32 +23,64 @@ public class TestAbilities : MonoBehaviour {
 
 	void Update() {
 		if (Input.GetKeyDown(KeyCode.G))
-			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
+			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
 				if (info.collider.TryGetComponent(out Excitable item)) {
 					item.Excite(1);
 					return;
 				}
 			}
 
-		if (Input.GetKeyDown(KeyCode.Q))
-			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
+		if (Input.GetKeyDown(KeyCode.Q)) {
+			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
 				if (info.collider.TryGetComponent(out Rotateable item)) {
 					item.Rotate();
 					return;
 				}
+			}
 
-				if (info.collider.TryGetComponent(out Activatable device)) {
-					device.transform.Rotate(Vector3.up, 90);
+			if (_selection != null && _selection.device != null) {
+				_selection.device.transform.Rotate(Vector3.up, Input.GetKey(KeyCode.LeftShift) ? 45 : 90);
+				return;
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.E)) {
+			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
+				if (info.collider.TryGetComponent(out ParticleBehavior item)) {
+					Destroy(info.collider.gameObject);
 					return;
 				}
 			}
 
-		if (Input.GetKeyDown(KeyCode.E))
-			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
-				if (info.collider.TryGetComponent(out ParticleBehavior item) || info.collider.TryGetComponent(out Activatable device)) {
-					Destroy(info.collider.gameObject);
+			if (_selection != null && _selection.device != null) {
+				Destroy(_selection.device);
+				_selection = null;
+				return;
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.C)) {
+			if (_selection != null && _prevSelection != null && _selection.device.TryGetComponent(out Activatable device) && _prevSelection.device.TryGetComponent(out Trigger trigger)) {
+				device.SetTrigger(trigger);
+				print("Connected " + device.name + " to " + trigger.name);
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.F))
+			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, selection, QueryTriggerInteraction.Ignore)) {
+				if (info.collider.TryGetComponent(out Selection device)) {
+					if (_selection != null) {
+						_selection.isSelected = false;
+						_prevSelection = _selection;
+					}
+
+					_selection = device;
+					_selection.isSelected = true;
 					return;
 				}
+			} else if (_selection != null) {
+				_selection.isSelected = false;
+				_selection = null;
 			}
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -49,6 +91,21 @@ public class TestAbilities : MonoBehaviour {
 			Instantiate(PrefabManager.instance.Particles.MassiveParticle, _camera.position + reach * _camera.forward, Quaternion.identity);
 		if (Input.GetKeyDown(KeyCode.Alpha4))
 			Instantiate(PrefabManager.instance.Particles.ActivatorParticle, _camera.position + reach * _camera.forward, Quaternion.identity);
+
+		if (Input.GetKeyDown(KeyCode.Keypad0)) {
+			if (Input.GetKey(KeyCode.LeftShift)) {
+				GameObject rail = SpawnDevice(PrefabManager.instance.Devices.Rail, false);
+
+				if (rail != null) {
+					Rail railComp = rail.GetComponent<Rail>();
+					FinalizeRail(railComp);
+				}
+			} else if (Input.GetKey(KeyCode.LeftControl)) {
+				CancelRail();
+			} else {
+				AddPointToRail(transform.position);
+			}
+		}
 
 		if (Input.GetKeyDown(KeyCode.Keypad1))
 			SpawnDevice(PrefabManager.instance.Devices.Anchor);
@@ -68,9 +125,73 @@ public class TestAbilities : MonoBehaviour {
 			SpawnDevice(PrefabManager.instance.Devices.PhotonShooter);
 	}
 
-	void SpawnDevice(GameObject device) {
-		if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
-			Instantiate(device, info.point, Quaternion.LookRotation(Vector3.ProjectOnPlane(Camera.main.transform.forward, info.normal).normalized, info.normal));
+	GameObject SpawnDevice(GameObject device, bool mountable = true) {
+		if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
+			GameObject dev = Instantiate(device, info.point, Quaternion.LookRotation(SnapToNearestAxis(Vector3.ProjectOnPlane(Camera.main.transform.forward, info.normal)).normalized, info.normal));
+
+			if (mountable && Input.GetKey(KeyCode.LeftShift)) {
+				StartRail(dev.transform);
+			}
+
+			return dev;
 		}
+
+		return null;
 	}
+
+	void StartRail(Transform device) {
+		_railDevice = device;
+		_railPath = new List<Transform>();
+	}
+
+	void CancelRail() {
+		Destroy(_railDevice.gameObject);
+		_railDevice = null;
+
+		foreach (Transform t in _railPath) {
+			Destroy(t.gameObject);
+		}
+
+		_railPath = null;
+	}
+
+	void AddPointToRail(Vector3 point) {
+		if (_railPath == null) return;
+
+		GameObject pointObj = SpawnDevice(PrefabManager.instance.Devices.RailPoint, false);
+		_railPath.Add(pointObj.transform);
+	}
+
+	void FinalizeRail(Rail rail) {
+		if (_railPath == null) return;
+
+		print(_railPath.Count);
+		rail.Initialize(_railPath.ToArray(), _railDevice); 
+
+		_railDevice = null;
+		_railPath = null;
+	}
+
+	Vector3 SnapToNearestAxis(Vector3 dir) {
+		dir.Normalize();
+		Vector3 best = Vector3.zero;
+		float bestDot = -Mathf.Infinity;
+
+		for (int x = -1; x <= 1; x++)
+			for (int y = -1; y <= 1; y++)
+				for (int z = -1; z <= 1; z++) {
+					Vector3 candidate = new Vector3(x, y, z);
+					if (candidate == Vector3.zero) continue;
+
+					candidate.Normalize();
+					float dot = Vector3.Dot(dir, candidate);
+					if (dot > bestDot) {
+						bestDot = dot;
+						best = candidate;
+					}
+				}
+
+		return best;
+	}
+	//#endif
 }

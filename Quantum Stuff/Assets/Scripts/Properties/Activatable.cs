@@ -17,4 +17,16 @@ public abstract class Activatable : MonoBehaviour {
 
 	public virtual void Activate(int energy = 0) { OnActivate?.Invoke(energy); }
 	public virtual void Deactivate() { OnDeactivate?.Invoke(); }
+
+	public void SetTrigger(Trigger newTrigger) {
+		if (trigger != null) {
+			trigger.OnTrigger -= Activate;
+			trigger.OnUntrigger -= Deactivate;
+		}
+		trigger = newTrigger;
+		if (trigger != null) {
+			trigger.OnTrigger += Activate;
+			trigger.OnUntrigger += Deactivate;
+		}
+	}
 }
