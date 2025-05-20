@@ -121,8 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trigger: {fileID: 0}
   shootingPointDistance: 0.7
-  isStream: 0
-  streamRate: 0
+  isStream: 1
+  streamRate: 1
 --- !u!1 &8389305989092409370
 GameObject:
   m_ObjectHideFlags: 0

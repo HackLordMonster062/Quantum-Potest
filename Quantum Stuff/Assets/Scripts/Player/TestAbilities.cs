@@ -6,6 +6,7 @@ public class TestAbilities : MonoBehaviour {
 //#if UNITYEDITOR
 	[SerializeField] float castWidth;
 	[SerializeField] float reach;
+	[SerializeField] float scalingFactor;
 	[SerializeField] LayerMask selection;
 
 	[SerializeField] Selection _selection;
@@ -30,7 +31,7 @@ public class TestAbilities : MonoBehaviour {
 				}
 			}
 
-		if (Input.GetKeyDown(KeyCode.Q)) {
+		if (Input.GetKeyDown(KeyCode.R)) {
 			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
 				if (info.collider.TryGetComponent(out Rotateable item)) {
 					item.Rotate();
@@ -44,7 +45,21 @@ public class TestAbilities : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.E)) {
+		if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
+			if (_selection != null && _selection.device != null) {
+				ChangeSize(Camera.main.transform.forward, scalingFactor);
+				return;
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.KeypadMinus)) {
+			if (_selection != null && _selection.device != null) {
+				ChangeSize(Camera.main.transform.forward, -scalingFactor);
+				return;
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.Q)) {
 			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
 				if (info.collider.TryGetComponent(out ParticleBehavior item)) {
 					Destroy(info.collider.gameObject);
@@ -189,7 +204,7 @@ public class TestAbilities : MonoBehaviour {
 		wall.Initialize(_railPath[0], _railPath[1], true);
 
 		_railDevice = null;
-		_railPath = null;
+		_railPath = new();
 	}
 
 	Vector3 SnapToNearestAxis(Vector3 dir) {
@@ -212,6 +227,23 @@ public class TestAbilities : MonoBehaviour {
 				}
 
 		return best;
+	}
+
+	void ChangeSize(Vector3 direction, float amount) {
+		Vector3 snapped = SnapToNearestAxis(direction);
+
+		_selection.device.transform.position += .5f * amount * snapped;
+
+		Vector3 localDir = SnapToNearestAxis(_selection.device.transform.InverseTransformDirection(direction));
+		_selection.device.transform.localScale += amount * MaskNonZero(localDir);
+	}
+
+	Vector3 MaskNonZero(Vector3 input, float epsilon = 0.0001f) {
+		return new Vector3(
+			Mathf.Abs(input.x) > epsilon ? 1 : 0,
+			Mathf.Abs(input.y) > epsilon ? 1 : 0,
+			Mathf.Abs(input.z) > epsilon ? 1 : 0
+		);
 	}
 	//#endif
 }
