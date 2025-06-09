@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Anchor))]
@@ -8,16 +9,49 @@ public class Polaroid : MonoBehaviour {
 
 	int _filterFrequency = 0;
 
+	bool _isFiltering = false;
+	float _timeToFilter;
+
 	private void Awake() {
 		_anchor = GetComponent<Anchor>();
 
 		activatorAnchor.OnActivate += UpdateFilter;
-		activatorAnchor.OnDeactivate += FinalizeFilter;
+		activatorAnchor.OnDeactivate += InitializeFilter;
+	}
+
+	private void OnDestroy() {
+		activatorAnchor.OnActivate -= UpdateFilter;
+		activatorAnchor.OnDeactivate -= InitializeFilter;
+	}
+
+	private void Update() {
+		if (!_isFiltering) return;
+		
+		_timeToFilter -= Time.deltaTime;
+
+		if (_timeToFilter <= 0) FinalizeFilter();
 	}
 
 	void UpdateFilter(int energy) {
 		if (energy > _filterFrequency)
 			_filterFrequency = energy;
+
+		if (energy > 0)
+			InterruptFilter();
+	}
+
+	void InitializeFilter() {
+		_timeToFilter = PhysicsManager.instance.RelaxtationTime;
+
+		_isFiltering = true;
+
+		print("Initializing Filter");
+	}
+
+	void InterruptFilter() {
+		_isFiltering = false;
+
+		print("Interrupted");
 	}
 
 	void FinalizeFilter() {
@@ -26,6 +60,10 @@ public class Polaroid : MonoBehaviour {
 		spectron.FilterColors(_filterFrequency);
 
 		_filterFrequency = 0;
+
+		_isFiltering = false;
+
+		print("Finalized filter");
 	}
 
 

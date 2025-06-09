@@ -5,6 +5,7 @@ public class Pickup : Capturer {
 	[SerializeField] float reach;
 	[SerializeField] float pullingForce;
 	[SerializeField] float maxReleaseSpeed;
+	[SerializeField] LayerMask visible;
 
 	Transform _camera;
 
@@ -16,7 +17,7 @@ public class Pickup : Capturer {
 
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            if (Physics.SphereCast(_camera.position, castWidth, _camera.forward, out RaycastHit info, reach, -1, QueryTriggerInteraction.Ignore)) {
+            if (Physics.SphereCast(_camera.position, castWidth, _camera.forward, out RaycastHit info, reach, visible, QueryTriggerInteraction.Ignore)) {
 				if (info.collider.TryGetComponent(out Capturable particle) && TryCapture(particle))
 					_particle = particle;
 			}
