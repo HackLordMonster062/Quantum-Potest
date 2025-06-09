@@ -7150,6 +7150,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5835225233366643410, guid: 22e8920702945f2409ae55659ce67bfe, type: 3}
+      propertyPath: visible.m_Bits
+      value: 777
+      objectReference: {fileID: 0}
     - target: {fileID: 6494151293664622543, guid: 22e8920702945f2409ae55659ce67bfe, type: 3}
       propertyPath: scalingFactor
       value: 0.5
