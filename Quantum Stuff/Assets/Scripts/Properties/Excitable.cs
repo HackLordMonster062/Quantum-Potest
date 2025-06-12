@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Excitable : MonoBehaviour {
@@ -6,14 +7,16 @@ public class Excitable : MonoBehaviour {
 
 	public int Energy { get; protected set; }
 
-	float _glowingTimer;
-
 	protected MeshRenderer _renderer;
 
 	protected bool depleted = true;
 
+	Queue<(float, int)> _excitations;
+
 	protected virtual void Awake() {
 		_renderer = GetComponent<MeshRenderer>();
+
+		_excitations = new();
 	}
 
 	protected virtual void Update() {
@@ -21,11 +24,11 @@ public class Excitable : MonoBehaviour {
 
 		if (depleted) return;
 
-		_glowingTimer -= Time.deltaTime;
-
-		if (_glowingTimer < 0) {
+		while (_excitations.Count > 0 && Time.time - _excitations.Peek().Item1 > PhysicsManager.instance.RelaxtationTime) {
+			var (_, energy) = _excitations.Dequeue();
 			Decay();
-			Energy--;
+
+			Energy -= energy;
 
 			if (Energy <= 0) {
 				Energy = 0;
@@ -36,8 +39,7 @@ public class Excitable : MonoBehaviour {
     }
 
 	public virtual void Excite(int energy, bool invoke=true) {
-		if (Energy == 0)
-			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
+		_excitations.Enqueue((Time.time, energy));
 
 		Energy += energy;
 		depleted = false;
@@ -45,9 +47,7 @@ public class Excitable : MonoBehaviour {
 		if (invoke) OnExcite?.Invoke(Energy);
 	}
 
-	protected virtual void Decay() {
-		_glowingTimer = PhysicsManager.instance.RelaxtationTime;
-	}
+	protected virtual void Decay() { }
 
 	protected virtual void Deplete() {
 		depleted = true;

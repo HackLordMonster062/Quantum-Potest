@@ -47,7 +47,8 @@ public class ActivatorParticle : Particle {
 
 	void OnRelease(Capturable _) {
 		if (_anchor != null) {
-			_anchor.Deactivate();
+			if (Energy > 0)
+				_anchor.Deactivate();
 			_anchor = null;
 
 			_renderer.material.SetFloat("_CapturedChangeTime", Time.time);
