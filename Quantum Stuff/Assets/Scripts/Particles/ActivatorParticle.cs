@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CapturableParticle))]
@@ -6,20 +7,33 @@ public class ActivatorParticle : Particle {
 
 	ActivatorAnchor _anchor;
 
+	Queue<(float, int)> _excitations;
+
 	protected override void Awake() {
 		base.Awake();
 		_capturable = GetComponent<CapturableParticle>();
 		_capturable.OnCapture += OnCapture;
 		_capturable.OnRelease += OnRelease;
+
+		_excitations = new();
+	}
+
+	protected override void UpdateEnergy() {
+		while (_excitations.Count > 0 && Time.time - _excitations.Peek().Item1 > PhysicsManager.instance.RelaxtationTime - .2f) {
+			_excitations.Dequeue();
+			Decay();
+		}
 	}
 
 	public override void Excite(int energy, bool invoke = true) {
 		_renderer.material.SetFloat("_EnergyChangeTime", Time.time);
+
+		_excitations.Enqueue((Time.time, energy));
 		base.Excite(energy, invoke);
 
-		if (_anchor != null) {
-			_anchor.Activate(Energy);
-		}
+		UpdateEnergy();
+
+		_anchor?.Activate(Energy);
 	}
 
 	protected override void Decay() {

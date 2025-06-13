@@ -44,14 +44,10 @@ public class Polaroid : MonoBehaviour {
 		_timeToFilter = PhysicsManager.instance.RelaxtationTime;
 
 		_isFiltering = true;
-
-		print("Initializing Filter");
 	}
 
 	void InterruptFilter() {
 		_isFiltering = false;
-
-		print("Interrupted");
 	}
 
 	void FinalizeFilter() {
@@ -62,8 +58,6 @@ public class Polaroid : MonoBehaviour {
 		_filterFrequency = 0;
 
 		_isFiltering = false;
-
-		print("Finalized filter");
 	}
 
 

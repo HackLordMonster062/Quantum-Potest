@@ -10,13 +10,10 @@ public class Excitable : MonoBehaviour {
 	protected MeshRenderer _renderer;
 
 	protected bool depleted = true;
-
-	Queue<(float, int)> _excitations;
+	float _glowingTimer;
 
 	protected virtual void Awake() {
 		_renderer = GetComponent<MeshRenderer>();
-
-		_excitations = new();
 	}
 
 	protected virtual void Update() {
@@ -24,22 +21,21 @@ public class Excitable : MonoBehaviour {
 
 		if (depleted) return;
 
-		while (_excitations.Count > 0 && Time.time - _excitations.Peek().Item1 > PhysicsManager.instance.RelaxtationTime) {
-			var (_, energy) = _excitations.Dequeue();
+		UpdateEnergy();
+	}
+
+	protected virtual void UpdateEnergy() {
+		_glowingTimer -= Time.deltaTime;
+
+		if (_glowingTimer < 0) {
 			Decay();
-
-			Energy -= energy;
-
-			if (Energy <= 0) {
-				Energy = 0;
-
-				Deplete();
-			}
+			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 		}
-    }
+	}
 
 	public virtual void Excite(int energy, bool invoke=true) {
-		_excitations.Enqueue((Time.time, energy));
+		if (Energy == 0)
+			_glowingTimer = PhysicsManager.instance.RelaxtationTime;
 
 		Energy += energy;
 		depleted = false;
@@ -47,7 +43,15 @@ public class Excitable : MonoBehaviour {
 		if (invoke) OnExcite?.Invoke(Energy);
 	}
 
-	protected virtual void Decay() { }
+	protected virtual void Decay() {
+		Energy--;
+
+		if (Energy <= 0) {
+			Energy = 0;
+
+			Deplete();
+		}
+	}
 
 	protected virtual void Deplete() {
 		depleted = true;
