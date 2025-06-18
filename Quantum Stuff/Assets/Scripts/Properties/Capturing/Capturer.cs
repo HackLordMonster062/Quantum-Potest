@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Capturer : MonoBehaviour {
@@ -5,11 +6,16 @@ public abstract class Capturer : MonoBehaviour {
     [SerializeField] CapturerStrengh strength;
     public CapturerStrengh Strength => strength;
 
-    protected virtual bool TryCapture(Capturable capturable) {
+    public Action<Capturable> OnCapture;
+    public Action<Capturable> OnRelease;
+
+	protected virtual bool TryCapture(Capturable capturable) {
         if (capturable.Mass <= maxMass && capturable.TryCapture(this, strength)) {
             capturable.OnCapture += Give;
 
-            return true;
+            OnCapture?.Invoke(capturable);
+
+			return true;
         }
 
         return false;
@@ -17,6 +23,8 @@ public abstract class Capturer : MonoBehaviour {
 
     protected virtual void Release(Capturable capturable) {
 		capturable.Release();
+		capturable.OnCapture -= Give;
+		OnRelease?.Invoke(capturable);
 	}
 
     protected virtual void Give(Capturable capturable, CapturerStrengh _) {

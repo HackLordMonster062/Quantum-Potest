@@ -8,10 +8,17 @@ public abstract class Activatable : MonoBehaviour {
 	public event Action<int> OnActivate;
 	public event Action OnDeactivate;
 
-	private void Start() {
+	private void OnEnable() {
 		if (trigger != null) {
 			trigger.OnTrigger += Activate;
 			trigger.OnUntrigger += Deactivate;
+		}
+	}
+
+	private void OnDisable() {
+		if (trigger != null) {
+			trigger.OnTrigger -= Activate;
+			trigger.OnUntrigger -= Deactivate;
 		}
 	}
 

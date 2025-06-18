@@ -3,9 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Anchor))]
 [RequireComponent(typeof(Trigger))]
 public class ActivatorAnchor : Activatable {
-	Trigger _trigger;
+	protected Trigger _trigger;
 
-	private void Awake() {
+	protected virtual void Awake() {
 		_trigger = GetComponent<Trigger>();
 	}
 
