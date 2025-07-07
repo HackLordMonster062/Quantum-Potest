@@ -80,7 +80,10 @@ public class Spectron : Particle {
 
 	private void SetColor(int frequency) {
 		_currColor = frequency;
-		_renderer.material.SetColor("_Base", VisualManager.instance.FrequencyToColor(frequency));
+
+		mpb.SetColor("_Base", VisualManager.instance.FrequencyToColor(frequency));
+
+		_renderer.SetPropertyBlock(mpb);
 	}
 
 	void Annihilate() {

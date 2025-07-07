@@ -12,12 +12,18 @@ public class Excitable : MonoBehaviour {
 	protected bool depleted = true;
 	float _glowingTimer;
 
+	protected MaterialPropertyBlock mpb;
+
 	protected virtual void Awake() {
 		_renderer = GetComponent<MeshRenderer>();
+
+		mpb = new();
 	}
 
 	protected virtual void Update() {
-		_renderer.material.SetFloat("_Energy", Energy);
+		mpb.SetFloat("_Energy", Energy);
+
+		_renderer.SetPropertyBlock(mpb);
 
 		if (depleted) return;
 
@@ -55,5 +61,17 @@ public class Excitable : MonoBehaviour {
 
 	protected virtual void Deplete() {
 		depleted = true;
+	}
+
+	protected void SetFloat(string name, float value) {
+		mpb.SetFloat(name, value);
+
+		_renderer.SetPropertyBlock(mpb);
+	}
+
+	protected void SetInt(string name, int value) {
+		mpb.SetInt(name, value);
+
+		_renderer.SetPropertyBlock(mpb);
 	}
 }

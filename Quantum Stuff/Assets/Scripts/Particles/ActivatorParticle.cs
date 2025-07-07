@@ -26,7 +26,7 @@ public class ActivatorParticle : Particle {
 	}
 
 	public override void Excite(int energy, bool invoke = true) {
-		_renderer.material.SetFloat("_EnergyChangeTime", Time.time);
+		SetFloat("_EnergyChangeTime", Time.time);
 
 		_excitations.Enqueue((Time.time, energy));
 		base.Excite(energy, invoke);
@@ -37,12 +37,12 @@ public class ActivatorParticle : Particle {
 	}
 
 	protected override void Decay() {
-		_renderer.material.SetFloat("_EnergyChangeTime", Time.time);
+		SetFloat("_EnergyChangeTime", Time.time);
 		base.Decay();
 	}
 
 	protected override void Deplete() {
-		_renderer.material.SetFloat("_EnergyChangeTime", Time.time);
+		SetFloat("_EnergyChangeTime", Time.time);
 		base.Deplete();
 
 		if (_anchor != null) {
@@ -54,8 +54,8 @@ public class ActivatorParticle : Particle {
 		if (_capturable.Capturer != null && _capturable.Capturer.TryGetComponent(out ActivatorAnchor activator)) {
 			_anchor = activator;
 
-			_renderer.material.SetFloat("_CapturedChangeTime", Time.time);
-			_renderer.material.SetInt("_Is_Captured", 1);
+			SetFloat("_CapturedChangeTime", Time.time);
+			SetInt("_Is_Captured", 1);
 		}
 	}
 
@@ -65,8 +65,8 @@ public class ActivatorParticle : Particle {
 				_anchor.Deactivate();
 			_anchor = null;
 
-			_renderer.material.SetFloat("_CapturedChangeTime", Time.time);
-			_renderer.material.SetInt("_Is_Captured", 0);
+			SetFloat("_CapturedChangeTime", Time.time);
+			SetInt("_Is_Captured", 0);
 		}
 	}
 }

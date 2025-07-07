@@ -129,7 +129,7 @@ public class TestAbilities : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 			Instantiate(PrefabManager.instance.Particles.Emitter, _camera.position + reach * _camera.forward, Quaternion.identity);
-		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+		if (Input.GetKeyDown(KeyCode.Alpha2) && selectedFrequencies.Count > 0) {
 			Spectron spectron = Instantiate(PrefabManager.instance.Particles.Spectron, _camera.position + reach * _camera.forward, Quaternion.identity).GetComponent<Spectron>();
 
 			spectron.SetFrequencies(selectedFrequencies);
@@ -188,7 +188,7 @@ public class TestAbilities : MonoBehaviour {
 			}
 
 			if (dev.TryGetComponent(out FrequencyDoor door)) {
-				door.SetFrequency(selectedFrequencies[0]);
+				door.SetFrequency(selectedFrequency);
 			}
 
 			return dev;
