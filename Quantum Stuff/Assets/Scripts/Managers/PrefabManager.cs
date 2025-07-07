@@ -21,7 +21,7 @@ public class ParticlePM {
 	public GameObject MassiveParticle { get { return massiveParticle; } }
 
 	[SerializeField] GameObject coloredKey;
-	public GameObject ColoredKey { get { return coloredKey; } }
+	public GameObject Spectron { get { return coloredKey; } }
 
 	[SerializeField] GameObject activatorParticle;
 	public GameObject ActivatorParticle { get { return activatorParticle; } }

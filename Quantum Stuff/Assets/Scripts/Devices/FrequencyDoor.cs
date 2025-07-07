@@ -9,10 +9,25 @@ public class FrequencyDoor : MonoBehaviour {
 	private void Start() {
 		_renderer = GetComponent<MeshRenderer>();
 
-		_renderer.material.color = VisualManager.instance.FrequencyToColor(frequency);
+		MaterialPropertyBlock mpb = new();
+		mpb.SetColor("_BaseColor", VisualManager.instance.FrequencyToColor(frequency));
+
+		_renderer.SetPropertyBlock(mpb);
 	}
 
 	public void Annihilate() {
 		Destroy(gameObject);
 	}
+
+#if UNITY_EDITOR
+	public void SetFrequency(int frequency) {
+		this.frequency = frequency;
+		if (_renderer != null) {
+			MaterialPropertyBlock mpb = new();
+			mpb.SetColor("_BaseColor", VisualManager.instance.FrequencyToColor(frequency));
+
+			_renderer.SetPropertyBlock(mpb);
+		}
+	}
+#endif
 }

@@ -93,4 +93,21 @@ public class Spectron : Particle {
 			frequencies[i] = VisualManager.instance.MaxFrequency - frequencies[i];
 		}
 	}
+
+#if UNITY_EDITOR
+	public void SetFrequencies(List<int> newFrequencies) {
+		frequencies = newFrequencies;
+
+		if (frequencies.Count > 1) {
+			_hasCollapsed = false;
+			_currColorIndex = 0;
+			_currColor = frequencies[_currColorIndex];
+			SetColor(_currColor);
+		} else {
+			_hasCollapsed = true;
+			_currColor = frequencies[0];
+			SetColor(_currColor);
+		}
+	}
+#endif
 }

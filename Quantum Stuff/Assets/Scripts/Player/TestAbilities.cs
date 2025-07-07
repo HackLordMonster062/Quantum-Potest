@@ -3,7 +3,7 @@ using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class TestAbilities : MonoBehaviour {
-//#if UNITYEDITOR
+#if UNITY_EDITOR
 	[SerializeField] float castWidth;
 	[SerializeField] float reach;
 	[SerializeField] float scalingFactor;
@@ -14,15 +14,44 @@ public class TestAbilities : MonoBehaviour {
 
 	Transform _camera;
 
-	//Rail
+	// Rail
 	Transform _railDevice;
 	[SerializeField] List<Transform> _railPath;
+
+	// Frequency Selection
+	bool frequencyMode = false;
+	List<int> selectedFrequencies = new();
+	int selectedFrequency = -1;
 
 	void Awake() {
 		_camera = Camera.main.transform;
 	}
 
 	void Update() {
+		if (Input.GetKeyDown(KeyCode.H)) {
+			frequencyMode = !frequencyMode;
+			Debug.Log(frequencyMode ? "Entering Frequency Selection Mode" : "Exiting Frequency Selection Mode");
+		}
+
+		if (frequencyMode) {
+			for (int i = 1; i <= 6; i++) {
+				if (Input.GetKeyDown(i.ToString())) {
+					if (selectedFrequencies.Contains(i)) selectedFrequencies.Remove(i);
+					else selectedFrequencies.Add(i);
+
+					selectedFrequency = i;
+
+					Debug.Log($"Frequencies: [{string.Join(", ", selectedFrequencies)}]");
+				}
+			}
+
+			if (Input.GetKeyDown(KeyCode.Escape)) {
+				selectedFrequencies.Clear();
+			}
+
+			return;
+		}
+
 		if (Input.GetKeyDown(KeyCode.G))
 			if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
 				if (info.collider.TryGetComponent(out Excitable item)) {
@@ -100,8 +129,11 @@ public class TestAbilities : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
 			Instantiate(PrefabManager.instance.Particles.Emitter, _camera.position + reach * _camera.forward, Quaternion.identity);
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-			Instantiate(PrefabManager.instance.Particles.ColoredKey, _camera.position + reach * _camera.forward, Quaternion.identity);
+		if (Input.GetKeyDown(KeyCode.Alpha2)) {
+			Spectron spectron = Instantiate(PrefabManager.instance.Particles.Spectron, _camera.position + reach * _camera.forward, Quaternion.identity).GetComponent<Spectron>();
+
+			spectron.SetFrequencies(selectedFrequencies);
+		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
 			Instantiate(PrefabManager.instance.Particles.MassiveParticle, _camera.position + reach * _camera.forward, Quaternion.identity);
 		if (Input.GetKeyDown(KeyCode.Alpha4))
@@ -153,6 +185,10 @@ public class TestAbilities : MonoBehaviour {
 
 			if (mountable && Input.GetKey(KeyCode.LeftShift)) {
 				StartRail(dev.transform);
+			}
+
+			if (dev.TryGetComponent(out FrequencyDoor door)) {
+				door.SetFrequency(selectedFrequencies[0]);
 			}
 
 			return dev;
@@ -245,5 +281,5 @@ public class TestAbilities : MonoBehaviour {
 			Mathf.Abs(input.z) > epsilon ? 1 : 0
 		);
 	}
-	//#endif
+#endif
 }
