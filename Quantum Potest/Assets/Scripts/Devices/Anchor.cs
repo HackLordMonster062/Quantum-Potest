@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class Anchor : Capturer {
     [SerializeField] float holdingHeight;
     [SerializeField] float pullingForce;
 
     public Capturable Particle { get; private set; }
+	public bool IsActive { get; set; } = true;
 
-    List<Capturable> _inTrigger;
+	List<Capturable> _inTrigger;
 
 	private void Awake() {
         _inTrigger = new();
@@ -37,6 +37,8 @@ public class Anchor : Capturer {
 	}
 
 	private void OnTriggerStay(Collider other) {
+		if (!IsActive) return;
+
 		foreach (Capturable capturable in _inTrigger) {
             if (capturable.gameObject == other.gameObject && TryCapture(capturable))
 				Particle = capturable;
@@ -50,6 +52,11 @@ public class Anchor : Capturer {
 	protected override void Release(Capturable capturable) {
 		base.Release(capturable);
 		Particle = null;
+	}
+
+	public void ForceRelease() {
+		if (Particle == null) return;
+		Release(Particle);
 	}
 
 	protected override void Give(Capturable capturable, CapturerStrengh strength) {

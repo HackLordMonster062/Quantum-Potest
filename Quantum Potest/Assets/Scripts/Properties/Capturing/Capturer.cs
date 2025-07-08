@@ -29,6 +29,7 @@ public abstract class Capturer : MonoBehaviour {
 
     protected virtual void Give(Capturable capturable, CapturerStrengh _) {
 		capturable.OnCapture -= Give;
+		OnRelease?.Invoke(capturable);
 	}
 }
 
