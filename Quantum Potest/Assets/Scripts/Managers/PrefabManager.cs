@@ -2,63 +2,32 @@ using System;
 using UnityEngine;
 
 public class PrefabManager : Singleton<PrefabManager> {
-	[SerializeField] ParticlePM particles;
-	public ParticlePM Particles { get { return particles; } }
-
-	[SerializeField] DevicePM devices;
-	public DevicePM Devices { get { return devices; } }
+    [field: SerializeField] public ParticlePM Particles { get; private set; }
+    [field: SerializeField] public DevicePM Devices { get; private set; }
 }
 
 [Serializable]
 public class ParticlePM {
-	[SerializeField] GameObject photon;
-	public GameObject Photon { get { return photon; } }
-
-	[SerializeField] GameObject emitter;
-	public GameObject Emitter { get { return emitter; } }
-
-	[SerializeField] GameObject massiveParticle;
-	public GameObject MassiveParticle { get { return massiveParticle; } }
-
-	[SerializeField] GameObject coloredKey;
-	public GameObject Spectron { get { return coloredKey; } }
-
-	[SerializeField] GameObject activatorParticle;
-	public GameObject ActivatorParticle { get { return activatorParticle; } }
+    [field: SerializeField] public GameObject Photon { get; private set; }
+    [field: SerializeField] public GameObject Emitter { get; private set; } 
+    [field: SerializeField] public GameObject Gravo { get; private set; }
+    [field: SerializeField] public GameObject Spectron { get; private set; }
+    [field: SerializeField] public GameObject Catalyst { get; private set; }
 }
 
 [Serializable]
 public class DevicePM {
-	[SerializeField] GameObject anchor;
-	public GameObject Anchor { get { return anchor; } }
-
-	[SerializeField] GameObject activatorAnchor;
-	public GameObject ActivatorAnchor { get { return activatorAnchor; } }
-
-	[SerializeField] GameObject rotator;
-	public GameObject Rotator { get { return rotator; } }
-
-	[SerializeField] GameObject spinner;
-	public GameObject Spinner { get { return spinner; } }
-
-	[SerializeField] GameObject photonShooter;
-	public GameObject PhotonShooter { get { return photonShooter; } }
-
-	[SerializeField] GameObject coloredDoor;
-	public GameObject ColoredDoor { get { return coloredDoor; } }
-
-	[SerializeField] GameObject polaroid;
-	public GameObject Polaroid { get { return polaroid; } }
-
-	[SerializeField] GameObject signalDoor;
-	public GameObject SignalDoor { get { return signalDoor; } }
-
-	[SerializeField] GameObject rail;
-	public GameObject Rail { get { return rail; } }
-
-	[SerializeField] GameObject railPoint;
-	public GameObject RailPoint { get { return railPoint; } }
-
-	[SerializeField] GameObject slidingWall;
-	public GameObject SlidingWall { get { return slidingWall; } }
+    [field: SerializeField] public GameObject Anchor { get; private set; }
+    [field: SerializeField] public GameObject ActivatorAnchor { get; private set; }
+    [field: SerializeField] public GameObject SuspenderAnchor { get; private set; }
+    [field: SerializeField] public GameObject Rotator { get; private set; }
+    [field: SerializeField] public GameObject Spinner { get; private set; }
+    [field: SerializeField] public GameObject PhotonShooter { get; private set; }
+    [field: SerializeField] public GameObject ColoredDoor { get; private set; }
+    [field: SerializeField] public GameObject Polaroid { get; private set; }
+    [field: SerializeField] public GameObject SignalDoor { get; private set; }
+    [field: SerializeField] public GameObject Rail { get; private set; }
+    [field: SerializeField] public GameObject RailPoint { get; private set; }
+    [field: SerializeField] public GameObject SlidingWall { get; private set; }
+    [field: SerializeField] public GameObject QuantumMirror { get; private set; }
 }

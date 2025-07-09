@@ -9,7 +9,7 @@ public class SpinDevice : Activatable {
 	}
 
 	public override void Activate(int energy = 1) {
-		if (_anchor.Particle != null && _anchor.Particle.TryGetComponent(out IRotateable particle)) {
+		if (_anchor.Particle != null && _anchor.Particle.TryGetComponent(out RotateableBase particle)) {
 			particle.FlipSpin();
 		}
 	}

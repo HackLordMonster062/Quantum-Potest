@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
+using System.Linq;
 using UnityEngine;
 
 public class TestAbilities : MonoBehaviour {
@@ -132,12 +132,12 @@ public class TestAbilities : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Alpha2) && selectedFrequencies.Count > 0) {
 			Spectron spectron = Instantiate(PrefabManager.instance.Particles.Spectron, _camera.position + reach * _camera.forward, Quaternion.identity).GetComponent<Spectron>();
 
-			spectron.SetFrequencies(selectedFrequencies);
+			spectron.SetFrequencies(selectedFrequencies.ToList());
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
-			Instantiate(PrefabManager.instance.Particles.MassiveParticle, _camera.position + reach * _camera.forward, Quaternion.identity);
+			Instantiate(PrefabManager.instance.Particles.Gravo, _camera.position + reach * _camera.forward, Quaternion.identity);
 		if (Input.GetKeyDown(KeyCode.Alpha4))
-			Instantiate(PrefabManager.instance.Particles.ActivatorParticle, _camera.position + reach * _camera.forward, Quaternion.identity);
+			Instantiate(PrefabManager.instance.Particles.Catalyst, _camera.position + reach * _camera.forward, Quaternion.identity);
 
 		if (Input.GetKeyDown(KeyCode.Keypad0)) {
 			if (Input.GetKey(KeyCode.LeftShift)) {
@@ -166,17 +166,21 @@ public class TestAbilities : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Keypad2))
 			SpawnDevice(PrefabManager.instance.Devices.ActivatorAnchor);
 		if (Input.GetKeyDown(KeyCode.Keypad3))
-			SpawnDevice(PrefabManager.instance.Devices.Rotator);
+			SpawnDevice(PrefabManager.instance.Devices.SuspenderAnchor);
 		if (Input.GetKeyDown(KeyCode.Keypad4))
-			SpawnDevice(PrefabManager.instance.Devices.Spinner);
+			SpawnDevice(PrefabManager.instance.Devices.Rotator);
 		if (Input.GetKeyDown(KeyCode.Keypad5))
-			SpawnDevice(PrefabManager.instance.Devices.Polaroid);
+			SpawnDevice(PrefabManager.instance.Devices.Spinner);
 		if (Input.GetKeyDown(KeyCode.Keypad6))
-			SpawnDevice(PrefabManager.instance.Devices.SignalDoor);
+			SpawnDevice(PrefabManager.instance.Devices.Polaroid);
 		if (Input.GetKeyDown(KeyCode.Keypad7))
-			SpawnDevice(PrefabManager.instance.Devices.ColoredDoor);
+			SpawnDevice(PrefabManager.instance.Devices.SignalDoor);
 		if (Input.GetKeyDown(KeyCode.Keypad8))
+			SpawnDevice(PrefabManager.instance.Devices.ColoredDoor);
+		if (Input.GetKeyDown(KeyCode.Keypad9))
 			SpawnDevice(PrefabManager.instance.Devices.PhotonShooter);
+		if (Input.GetKeyDown(KeyCode.KeypadPlus))
+			SpawnDevice(PrefabManager.instance.Devices.QuantumMirror);
 	}
 
 	GameObject SpawnDevice(GameObject device, bool mountable = true) {
