@@ -1,9 +1,7 @@
 using UnityEngine;
 
 public class PhysicsManager : Singleton<PhysicsManager> {
-	[SerializeField] float gravity;
-	[SerializeField] float relaxationTime;
-
-	public float Gravity { get { return gravity; } }
-	public float RelaxtationTime { get { return relaxationTime; } }
+	[field: SerializeField] public float Gravity { get; private set; }
+	[field: SerializeField] public float RelaxtationTime { get; private set; }
+	[field: SerializeField] public float PullingForce { get; private set; }
 }

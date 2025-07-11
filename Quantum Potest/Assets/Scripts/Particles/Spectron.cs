@@ -26,6 +26,10 @@ public class Spectron : Particle {
 		_rotateable = GetComponent<RotateableBase>();
 
 		_rotateable.OnFlipSpin += FlipSpin;
+
+		if (frequencies.Count == 1) {
+			_hasCollapsed = true;
+		}
 	}
 
 	protected override void Update() {

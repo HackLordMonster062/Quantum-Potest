@@ -44,7 +44,7 @@ public class TestAbilities : MonoBehaviour {
 					Debug.Log($"Frequencies: [{string.Join(", ", selectedFrequencies)}]");
 				}
 			}
-
+			
 			if (Input.GetKeyDown(KeyCode.Escape)) {
 				selectedFrequencies.Clear();
 			}
@@ -179,7 +179,7 @@ public class TestAbilities : MonoBehaviour {
 			SpawnDevice(PrefabManager.instance.Devices.ColoredDoor);
 		if (Input.GetKeyDown(KeyCode.Keypad9))
 			SpawnDevice(PrefabManager.instance.Devices.PhotonShooter);
-		if (Input.GetKeyDown(KeyCode.KeypadPlus))
+		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
 			SpawnDevice(PrefabManager.instance.Devices.QuantumMirror);
 	}
 

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Anchor : Capturer {
     [SerializeField] float holdingHeight;
-    [SerializeField] float pullingForce;
 
     public Capturable Particle { get; private set; }
 	public bool IsActive { get; set; } = true;
@@ -19,7 +18,7 @@ public class Anchor : Capturer {
 
         Vector3 target = transform.position + transform.up * holdingHeight;
 
-        Particle.MoveTo(target, pullingForce);
+        Particle.MoveTo(target, PhysicsManager.instance.PullingForce);
     }
 
 	private void OnTriggerEnter(Collider other) {

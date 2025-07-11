@@ -7,7 +7,6 @@ public class SnapPotentialWell : Capturer {
 	[SerializeField] float captureDistance;
 	[SerializeField] float snappingDistance;
 	[SerializeField] float detachDistance;
-	[SerializeField] float pullingForce;
 
 	List<(Capturable, Vector3)> _offsets = new();
 	bool _enabled = true;
@@ -28,7 +27,7 @@ public class SnapPotentialWell : Capturer {
 
 		foreach (Collider collider in colliders) {
 			if (collider.gameObject != gameObject && 
-				!_offsets.Any(pair => pair.Item1.gameObject == collider.gameObject) && 
+				!_offsets.Any(pair => pair.Item1 != null && pair.Item1.gameObject == collider.gameObject) && 
 				collider.TryGetComponent(out Capturable capturable) &&
 				TryCapture(capturable)) {
 
@@ -39,7 +38,7 @@ public class SnapPotentialWell : Capturer {
 		}
 
 		foreach (var (capturable, offset) in _offsets.ToArray()) {
-			Vector3 distance = capturable.MoveTo(transform.position + offset, pullingForce);
+			Vector3 distance = capturable.MoveTo(transform.position + offset, PhysicsManager.instance.PullingForce);
 
 			if (distance.sqrMagnitude > detachDistance * detachDistance)
 				Release(capturable);
