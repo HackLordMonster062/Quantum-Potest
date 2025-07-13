@@ -14806,7 +14806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4779383328140538997, guid: cbc64669727f0204a989556e5dbea269, type: 3}
       propertyPath: <PullingForce>k__BackingField
-      value: 400
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 4779383328140538997, guid: cbc64669727f0204a989556e5dbea269, type: 3}
       propertyPath: <RelaxtationTime>k__BackingField
