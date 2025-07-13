@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1975433455203055398}
   - component: {fileID: 1441691275987029457}
   - component: {fileID: 2654803448853595585}
-  - component: {fileID: 5984126852678403508}
   - component: {fileID: 7642548555042404067}
   - component: {fileID: -243907872986888752}
+  - component: {fileID: 7367838186648018929}
   m_Layer: 9
   m_Name: Spinner
   m_TagString: Untagged
@@ -87,27 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5984126852678403508
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794827272260350151}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.2281104, y: 11.4859085, z: 1.2281104}
-  m_Center: {x: 0, y: 4.1762505, z: 0}
 --- !u!114 &7642548555042404067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +115,29 @@ MonoBehaviour:
   maxMass: 1
   strength: 1
   holdingHeight: 1
-  pullingForce: 100
+--- !u!136 &7367838186648018929
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794827272260350151}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 11.48591
+  m_Direction: 1
+  m_Center: {x: 0, y: 4.17625, z: 0}
 --- !u!1 &8025744637046707404
 GameObject:
   m_ObjectHideFlags: 0

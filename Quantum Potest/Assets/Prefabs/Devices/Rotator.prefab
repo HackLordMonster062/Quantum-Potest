@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6073208404925223007}
-  - component: {fileID: 8657672377415749534}
   - component: {fileID: 6865353736710860035}
   - component: {fileID: 773303036702927193}
+  - component: {fileID: 4462231301288101398}
   m_Layer: 9
   m_Name: Rotator
   m_TagString: Untagged
@@ -36,27 +36,6 @@ Transform:
   - {fileID: 7363476587180924488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8657672377415749534
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6521792228723204711}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.2281104, y: 11.4859085, z: 1.2281104}
-  m_Center: {x: 0, y: 4.1762505, z: 0}
 --- !u!114 &6865353736710860035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +65,29 @@ MonoBehaviour:
   maxMass: 1
   strength: 1
   holdingHeight: 1
-  pullingForce: 100
+--- !u!136 &4462231301288101398
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6521792228723204711}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 11.48591
+  m_Direction: 1
+  m_Center: {x: 0, y: 4.17625, z: 0}
 --- !u!1 &8098490372766965209
 GameObject:
   m_ObjectHideFlags: 0
