@@ -178,9 +178,15 @@ public class TestAbilities : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Keypad8))
 			SpawnDevice(PrefabManager.instance.Devices.ColoredDoor);
 		if (Input.GetKeyDown(KeyCode.Keypad9))
-			SpawnDevice(PrefabManager.instance.Devices.PhotonShooter);
+			SpawnDevice(PrefabManager.instance.Devices.PhotonShooter, false);
 		if (Input.GetKeyDown(KeyCode.KeypadMultiply))
 			SpawnDevice(PrefabManager.instance.Devices.QuantumMirror);
+		if (Input.GetKeyDown(KeyCode.KeypadDivide)) {
+			if (Input.GetKey(KeyCode.LeftShift))
+				SpawnDevice(PrefabManager.instance.Surfaces.ReflectiveWall, false);
+			else
+				SpawnDevice(PrefabManager.instance.Surfaces.Wall, false);
+		}
 	}
 
 	GameObject SpawnDevice(GameObject device, bool mountable = true) {

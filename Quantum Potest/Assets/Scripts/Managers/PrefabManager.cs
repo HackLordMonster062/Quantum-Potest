@@ -4,6 +4,7 @@ using UnityEngine;
 public class PrefabManager : Singleton<PrefabManager> {
     [field: SerializeField] public ParticlePM Particles { get; private set; }
     [field: SerializeField] public DevicePM Devices { get; private set; }
+    [field: SerializeField] public SurfacePM Surfaces { get; private set; }
 }
 
 [Serializable]
@@ -30,4 +31,10 @@ public class DevicePM {
     [field: SerializeField] public GameObject RailPoint { get; private set; }
     [field: SerializeField] public GameObject SlidingWall { get; private set; }
     [field: SerializeField] public GameObject QuantumMirror { get; private set; }
+}
+
+[Serializable]
+public class SurfacePM {
+    [field: SerializeField] public GameObject Wall { get; private set; }
+    [field: SerializeField] public GameObject ReflectiveWall { get; private set; }
 }
