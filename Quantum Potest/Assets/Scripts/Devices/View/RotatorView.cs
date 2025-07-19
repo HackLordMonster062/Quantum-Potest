@@ -18,7 +18,7 @@ public class RotatorView : MonoBehaviour {
 		_animator.SetTrigger("Rotate");
 	}
 
-	void FinalizeRotation() {
+	void OnRotationFinished() {
 		OnRotationEnd?.Invoke();
 	}
 }

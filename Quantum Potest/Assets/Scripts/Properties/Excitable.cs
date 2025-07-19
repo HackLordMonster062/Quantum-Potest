@@ -46,6 +46,10 @@ public class Excitable : MonoBehaviour {
 		Energy += energy;
 		depleted = false;
 
+		if (Energy > PhysicsManager.instance.MaxStableEnergy) {
+			Destabalize();
+		}
+
 		if (invoke) OnExcite?.Invoke(Energy);
 	}
 
@@ -73,5 +77,9 @@ public class Excitable : MonoBehaviour {
 		mpb.SetInt(name, value);
 
 		_renderer.SetPropertyBlock(mpb);
+	}
+
+	protected virtual void Destabalize() {
+		Destroy(gameObject);
 	}
 }
