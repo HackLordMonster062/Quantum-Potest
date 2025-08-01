@@ -18,10 +18,13 @@ public class SnapPotentialWell : Capturer {
 
 	Collider[] _colliders;
 
+	GravoView _gravoView;
+
 	public Rigidbody Rb { get; private set; }
 
 	void Start() {
 		Rb = GetComponent<Rigidbody>();
+		_gravoView = GetComponentInParent<GravoView>();
 		_colliders = new Collider[MaxColliders];
 
 		PopulateDirections();
@@ -41,7 +44,6 @@ public class SnapPotentialWell : Capturer {
 		for (int i = 0; i < colliderCount; i++) {
 			int offset = GetNearsetSnapAxis(_colliders[i].transform.position - transform.position);
 
-			print(_slots);
 			if (_colliders[i].gameObject != gameObject &&
 				!_slots.Any(capturable => capturable != null && capturable.gameObject == _colliders[i].gameObject) &&
 				_slots[offset] == null &&
@@ -59,6 +61,11 @@ public class SnapPotentialWell : Capturer {
 
 			if (distance.sqrMagnitude > detachDistance * detachDistance)
 				Release(_slots[i]);
+		}
+
+		if (_gravoView != null) {
+			_gravoView.slots = _slots.Select((c, index) => c != null ? new GravoView.SlotData { position = c.transform.position - transform.position, isTaken = 1 } : new GravoView.SlotData { position = snapDirections[index] * snappingDistance, isTaken = 0 }).ToArray();
+			print("Updating slots. First slot: " + _gravoView.slots[0]);
 		}
 	}
 
