@@ -65,7 +65,6 @@ public class SnapPotentialWell : Capturer {
 
 		if (_gravoView != null) {
 			_gravoView.slots = _slots.Select((c, index) => c != null ? new GravoView.SlotData { position = c.transform.position - transform.position, isTaken = 1 } : new GravoView.SlotData { position = snapDirections[index] * snappingDistance, isTaken = 0 }).ToArray();
-			print("Updating slots. First slot: " + _gravoView.slots[0]);
 		}
 	}
 

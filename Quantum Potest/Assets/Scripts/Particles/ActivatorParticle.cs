@@ -51,11 +51,15 @@ public class ActivatorParticle : Particle {
 	}
 
 	void OnCapture(Capturable _, CapturerStrengh __) {
-		if (_capturable.Capturer != null && _capturable.Capturer.TryGetComponent(out ActivatorAnchor activator)) {
-			_anchor = activator;
+		if (_capturable.Capturer != null) {
+			if (_capturable.Capturer.TryGetComponent(out ActivatorAnchor activator)) {
+				_anchor = activator;
 
-			SetFloat("_CapturedChangeTime", Time.time);
-			SetInt("_Is_Captured", 1);
+				SetFloat("_CapturedChangeTime", Time.time);
+				SetInt("_Is_Captured", 1);
+			} else {
+				_anchor = null;
+			}
 		}
 	}
 
