@@ -37,4 +37,8 @@ public class GravoView : MonoBehaviour {
 			return $"Position: {position}, IsTaken: {isTaken}";
 		}
     }
+
+	public void SetEnabled(bool isEnabled) {
+		vfx.SetBool("IsEnabled", isEnabled);
+	}
 }

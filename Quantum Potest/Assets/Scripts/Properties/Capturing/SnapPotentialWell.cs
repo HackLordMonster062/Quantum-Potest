@@ -30,6 +30,8 @@ public class SnapPotentialWell : Capturer {
 		PopulateDirections();
 
 		_slots = new Capturable[CardinalDirections];
+
+		Enable();
 	}
 
 	void FixedUpdate() {
@@ -70,10 +72,12 @@ public class SnapPotentialWell : Capturer {
 
 	public void Enable() {
 		_enabled = true;
+		_gravoView.SetEnabled(true);
 	}
 
 	public void Disable() {
 		_enabled = false;
+		_gravoView.SetEnabled(false);
 
 		foreach (var capturable in _slots) {
 			Release(capturable);
@@ -81,6 +85,8 @@ public class SnapPotentialWell : Capturer {
 	}
 
 	protected override void Release(Capturable capturable) {
+		if (capturable == null) return;
+
 		base.Release(capturable);
 
 		ReleaseCapturable(capturable);
