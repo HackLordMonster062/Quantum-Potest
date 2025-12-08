@@ -97,7 +97,7 @@ public class Spectron : Particle {
 
 	public void FlipSpin() {
 		for (int i = 0; i < frequencies.Count; i++) {
-			frequencies[i] = VisualManager.instance.MaxFrequency - frequencies[i];
+			frequencies[i] = VisualManager.instance.MaxFrequency - frequencies[i] + 1;
 		}
 	}
 
