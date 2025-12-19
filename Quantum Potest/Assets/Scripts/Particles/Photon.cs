@@ -11,7 +11,7 @@ public class Photon : MonoBehaviour {
 	}
 
 	private void Update() {
-		_rb.velocity = GameManager.instance.SpeedOfLight * transform.forward;
+		_rb.linearVelocity = GameManager.instance.SpeedOfLight * transform.forward;
 	}
 
 	private void OnCollisionEnter(Collision collision) {

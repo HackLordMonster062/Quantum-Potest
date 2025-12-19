@@ -10,7 +10,7 @@ public class CapturableParticle : Capturable {
 
 	void FixedUpdate() {
         if (Capturer != null) {
-			Vector3 damping = _force * dampingAmount * -_rb.velocity;
+			Vector3 damping = _force * dampingAmount * -_rb.linearVelocity;
 
 			_rb.AddForce((_target - transform.position) * _force + damping);
 		}

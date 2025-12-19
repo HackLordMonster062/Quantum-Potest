@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
 		_direction = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
 		_direction = Vector3.ClampMagnitude(_direction, 1);
 
-		_rb.velocity = (_direction * walkSpeed).Modify(y: _rb.velocity.y);
+		_rb.linearVelocity = (_direction * walkSpeed).Modify(y: _rb.linearVelocity.y);
 	}
 
 	void Update() {
