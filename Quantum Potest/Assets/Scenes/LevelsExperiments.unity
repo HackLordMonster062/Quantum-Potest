@@ -21385,6 +21385,166 @@ PrefabInstance:
       propertyPath: <Particles>k__BackingField.<ActivatorParticle>k__BackingField
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Rail>k__BackingField.<ID>k__BackingField
+      value: Rail
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Surfaces>k__BackingField.<Wall>k__BackingField.<ID>k__BackingField
+      value: Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Anchor>k__BackingField.<ID>k__BackingField
+      value: Anchor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Rotator>k__BackingField.<ID>k__BackingField
+      value: Rotator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Spinner>k__BackingField.<ID>k__BackingField
+      value: Spinner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Gravo>k__BackingField.<ID>k__BackingField
+      value: Gravo
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Polaroid>k__BackingField.<ID>k__BackingField
+      value: Polaroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Rail>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 36499262892008140, guid: 945bebd715ed6f647810347b4f08c8c3, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Photon>k__BackingField.<ID>k__BackingField
+      value: Photon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<RailPoint>k__BackingField.<ID>k__BackingField
+      value: Rail Point
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Emitter>k__BackingField.<ID>k__BackingField
+      value: Emitter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Surfaces>k__BackingField.<Wall>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 4663112730414135348, guid: 6eee1fc72db30444a841cc71786ab319, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Anchor>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 4733374081693612797, guid: 7ad50001b444043468d3dcc6849e69ef, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<SignalDoor>k__BackingField.<ID>k__BackingField
+      value: Signal Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Catalyst>k__BackingField.<ID>k__BackingField
+      value: Catalyst
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Spectron>k__BackingField.<ID>k__BackingField
+      value: Spectron
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<ColoredDoor>k__BackingField.<ID>k__BackingField
+      value: Colored Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Rotator>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 6521792228723204711, guid: 40a1b7cf22135a74ba80c906eb94a1ed, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<SlidingWall>k__BackingField.<ID>k__BackingField
+      value: Sliding Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Spinner>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 1794827272260350151, guid: 97fa898d8650a3b43a645af570ea950c, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Gravo>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 3300840142957477681, guid: f200bc81186648741a35c68a6f0be010, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<Polaroid>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 6442347398497794341, guid: 0c20407433b9f2544b4e81668d00671d, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Photon>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 8878864109784432405, guid: e791a10e9b28e5b49840a2ef08080c6c, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<PhotonShooter>k__BackingField.<ID>k__BackingField
+      value: Emitter Device
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<QuantumMirror>k__BackingField.<ID>k__BackingField
+      value: Quantum Mirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<RailPoint>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 7327832414964184103, guid: 8dbabdcba6f60624291aa7ad2a50c0c8, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Emitter>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 3804696130200000732, guid: 5fa28d7415adf614b99303f13b6c6aaa, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<SignalDoor>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 7447377365331704017, guid: 4c62969819b3cda42bf27790ec4de8a2, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Catalyst>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 8403659459114048855, guid: 679e89781cbab7f4b902f4bfb0fa80b9, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Particles>k__BackingField.<Spectron>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 6556632404400085821, guid: 25516505757b7ba4b8b0ffb864485249, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<ActivatorAnchor>k__BackingField.<ID>k__BackingField
+      value: Activator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<ColoredDoor>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 6312224402923510118, guid: ac58b6c650673e04f823179d4c2cf1d5, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<SlidingWall>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 113558807591814682, guid: dc9475a5877287f47856932eb0dccee1, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<SuspenderAnchor>k__BackingField.<ID>k__BackingField
+      value: Suspender
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Surfaces>k__BackingField.<ReflectiveWall>k__BackingField.<ID>k__BackingField
+      value: Reflective Wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<PhotonShooter>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 7922279664754373131, guid: 736694fddf3fd9741a53a44249ed2ea1, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<QuantumMirror>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 863598457181714164, guid: 95190ee74cd4a5a4aa02dab9b6176f42, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<ActivatorAnchor>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 345572893201010548, guid: 863b255535d54dd429fa531f7f2ba98d, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Devices>k__BackingField.<SuspenderAnchor>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 5559261914168068788, guid: 01ba726dfdec7304ca06add65d40bb8c, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Surfaces>k__BackingField.<ReflectiveWall>k__BackingField.<Prefab>k__BackingField
+      value: 
+      objectReference: {fileID: 4380476133870982119, guid: 2d2c4149cc7b63246b0979505948dd94, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

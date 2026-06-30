@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RotateableBase))]
-public class Spectron : Particle {
+public class Spectron : Particle, ISerializableElement<SpectronData> {
 	[SerializeField] List<int> frequencies;
 	[SerializeField] float minRadius;
 	[SerializeField] float radiusLeaps;
@@ -101,7 +101,6 @@ public class Spectron : Particle {
 		}
 	}
 
-#if UNITY_EDITOR
 	public void SetFrequencies(List<int> newFrequencies) {
 		frequencies = newFrequencies;
 
@@ -116,5 +115,15 @@ public class Spectron : Particle {
 			SetColor(_currColor);
 		}
 	}
-#endif
+
+	public SpectronData Serialize() {
+		return new SpectronData(transform.position, transform.eulerAngles, Energy, frequencies);
+	}
+
+	public void Deserialize(SpectronData data) {
+		transform.position = data.Position;
+		transform.eulerAngles = data.Rotation;
+		Energy = data.Energy;
+		frequencies = data.Frequencies;
+	}
 }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 public class Rotateable : RotateableBase {
-	Spin _spin = Spin.Horizontal;
+	public Spin Spin { get; private set; } = Spin.Horizontal;
 
 	Vector3 _horizontalDirection = Vector3.zero;
 	Vector3 _verticalDirection = new Vector3(90, 0, 0);
@@ -10,7 +10,7 @@ public class Rotateable : RotateableBase {
 	public override void Rotate() {
 		base.Rotate();
 
-		switch (_spin) {
+		switch (Spin) {
 			case Spin.Horizontal:
 				_horizontalDirection.y += 90;
 
@@ -27,22 +27,26 @@ public class Rotateable : RotateableBase {
 	public override void FlipSpin() {
 		base.FlipSpin();
 
-		switch (_spin) {
+		switch (Spin) {
 			case Spin.Horizontal:
-				_spin = Spin.Vertical;
+				Spin = Spin.Vertical;
 
 				transform.eulerAngles = _verticalDirection;
 				break;
 			case Spin.Vertical:
-				_spin = Spin.Horizontal;
+				Spin = Spin.Horizontal;
 
 				transform.eulerAngles = _horizontalDirection;
 				break;
 		}
 	}
+
+	public void SetSpin(Spin spin) {
+		if (spin != Spin) FlipSpin();
+	}
 }
 
-enum Spin {
+public enum Spin {
 	Vertical,
 	Horizontal,
 }
