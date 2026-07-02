@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CapturableBlock : Capturable {
+public class CapturableBlock : Capturable, ISerializableElement<SlidingWallData> {
 	[SerializeField] Transform lowerBounds;
 	[SerializeField] Transform upperBounds;
 	[SerializeField] bool orientOnTrack;
@@ -31,5 +31,23 @@ public class CapturableBlock : Capturable {
 		this.upperBounds = upperBounds;
 
 		this.orientOnTrack = orientOnTrack;
+	}
+
+	public SlidingWallData Serialize() {
+		return new SlidingWallData("SlidingWall", transform.position, transform.eulerAngles, transform.localScale, lowerBounds.position, upperBounds.position, orientOnTrack);
+	}
+
+	public void Deserialize(SlidingWallData data) {
+		transform.position = data.Position;
+		transform.eulerAngles = data.Rotation;
+		transform.localScale = data.Scale;
+
+		Transform point1 = new GameObject().transform;
+		point1.position = data.Point1;
+
+		Transform point2 = new GameObject().transform;
+		point2.position = data.Point2;
+
+		Initialize(point1, point2, orientOnTrack);
 	}
 }

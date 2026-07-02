@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class Rail : Activatable {
+public class Rail : Activatable, ISerializableElement<ActivatableData> {
     [SerializeField] Transform device;
     [SerializeField] Transform[] pathPoints;
     [SerializeField] float speed;
@@ -57,4 +57,13 @@ public class Rail : Activatable {
             _currTween = null;
         }
     }
+
+	public ActivatableData Serialize() {
+		return new ActivatableData("Rail", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
+	}
+
+	public void Deserialize(ActivatableData data) {
+		transform.position = data.Position;
+		transform.eulerAngles = data.Rotation;
+	}
 }

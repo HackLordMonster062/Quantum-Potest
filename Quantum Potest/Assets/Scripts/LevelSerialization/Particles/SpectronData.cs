@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public class SpectronData : ParticleData {
 	public List<int> Frequencies { get; private set; }
 

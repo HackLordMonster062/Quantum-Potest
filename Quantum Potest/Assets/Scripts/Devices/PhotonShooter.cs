@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PhotonShooter : Activatable {
+public class PhotonShooter : Activatable, ISerializableElement<ActivatableData> {
     [SerializeField] float shootingPointDistance;
 	[SerializeField] bool isStream;
 	[SerializeField] float streamRate;
@@ -22,5 +22,14 @@ public class PhotonShooter : Activatable {
 
 			Activate();
 		}
+	}
+
+	public ActivatableData Serialize() {
+		return new ActivatableData("PhotonShooter", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
+	}
+
+	public void Deserialize(ActivatableData data) {
+		transform.position = data.Position;
+		transform.eulerAngles = data.Rotation;
 	}
 }

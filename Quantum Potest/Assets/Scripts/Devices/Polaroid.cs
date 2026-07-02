@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Anchor))]
-public class Polaroid : MonoBehaviour {
+public class Polaroid : MonoBehaviour, ISerializableElement<DeviceData> {
 	[SerializeField] ActivatorAnchor activatorAnchor;
 
 	Anchor _anchor;
@@ -58,6 +58,15 @@ public class Polaroid : MonoBehaviour {
 		_filterFrequency = 0;
 
 		_isFiltering = false;
+	}
+
+	public DeviceData Serialize() {
+		return new DeviceData("Polaroid", transform.position, transform.eulerAngles, gameObject.GetEntityId());
+	}
+
+	public void Deserialize(DeviceData data) {
+		transform.position = data.Position;
+		transform.eulerAngles = data.Rotation;
 	}
 
 

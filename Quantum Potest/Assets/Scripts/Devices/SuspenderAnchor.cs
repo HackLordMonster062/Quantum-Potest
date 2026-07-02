@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SuspenderAnchor : ActivatorAnchor {
+public class SuspenderAnchor : ActivatorAnchor, ISerializableElement<ActivatableData> {
 	Anchor _anchor;
 
 	protected override void Awake() {
@@ -40,5 +40,9 @@ public class SuspenderAnchor : ActivatorAnchor {
 		if (_anchor.Particle == null) return;
 
 		base.Activate(1);
+	}
+
+	public new ActivatableData Serialize() {
+		return new ActivatableData("SuspenderAnchor", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
 	}
 }

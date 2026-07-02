@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class EmitterData : ParticleData {
 	public Spin Spin { get; private set; }
 

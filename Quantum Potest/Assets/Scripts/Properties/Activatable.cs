@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Activatable : MonoBehaviour {
 	[SerializeField] Trigger trigger;
+	protected Trigger _trigger { get => trigger; }
 
 	public event Action<int> OnActivate;
 	public event Action OnDeactivate;

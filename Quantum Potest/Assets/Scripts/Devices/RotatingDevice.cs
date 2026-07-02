@@ -1,8 +1,7 @@
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [RequireComponent(typeof(Anchor))]
-public class RotatingDevice : Activatable {
+public class RotatingDevice : Activatable, ISerializableElement<ActivatableData> {
 	[SerializeField] RotatorView view;
 
 	Anchor _anchor;
@@ -30,5 +29,14 @@ public class RotatingDevice : Activatable {
 		if (_currRotation <= 0) {
 			view.OnRotationEnd -= CommitRotation;
 		}
+	}
+
+	public ActivatableData Serialize() {
+		return new ActivatableData("Rotator", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
+	}
+
+	public void Deserialize(ActivatableData data) {
+		transform.position = data.Position;
+		transform.eulerAngles = data.Rotation;
 	}
 }
