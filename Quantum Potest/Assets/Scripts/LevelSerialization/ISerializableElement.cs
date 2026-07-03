@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface ISerializableElement<T> where T : ElementData {
-	T Serialize();
-	void Deserialize(T data);
+public interface ISerializableElement {
+	ElementData Serialize();
+	void Deserialize(ElementData data);
 }

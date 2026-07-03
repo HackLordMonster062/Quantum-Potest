@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Anchor))]
 [RequireComponent(typeof(Trigger))]
-public class ActivatorAnchor : Activatable, ISerializableElement<ActivatableData> {
+public class ActivatorAnchor : Activatable, ISerializableElement {
 	protected Trigger _ownTrigger;
 
 	protected virtual void Awake() {
@@ -19,11 +19,11 @@ public class ActivatorAnchor : Activatable, ISerializableElement<ActivatableData
 		_ownTrigger.Deactivate();
 	}
 
-	public ActivatableData Serialize() {
+	public ElementData Serialize() {
 		return new ActivatableData("ActivatorAnchor", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
 	}
 
-	public void Deserialize(ActivatableData data) {
+	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}
