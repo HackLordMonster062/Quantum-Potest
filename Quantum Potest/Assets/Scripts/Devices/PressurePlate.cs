@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PressurePlate : Trigger, ISerializableElement<DeviceData> {
+public class PressurePlate : Trigger, ISerializableElement {
 	int inside = 0;
 
 	private void OnTriggerEnter(Collider other) {
@@ -15,11 +15,11 @@ public class PressurePlate : Trigger, ISerializableElement<DeviceData> {
 			Deactivate();
 	}
 
-	public DeviceData Serialize() {
-		return new DeviceData("Polaroid", transform.position, transform.eulerAngles, gameObject.GetEntityId());
+	public ElementData Serialize() {
+		return new DeviceData("Polaroid", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString());
 	}
 
-	public void Deserialize(DeviceData data) {
+	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}

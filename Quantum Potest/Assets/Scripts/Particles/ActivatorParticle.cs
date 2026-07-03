@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CapturableParticle))]
-public class ActivatorParticle : Particle, ISerializableElement<CatalystData> {
+public class ActivatorParticle : Particle, ISerializableElement {
 	CapturableParticle _capturable;
 
 	ActivatorAnchor _anchor;
@@ -74,13 +74,15 @@ public class ActivatorParticle : Particle, ISerializableElement<CatalystData> {
 		}
 	}
 
-	public CatalystData Serialize() {
+	public ElementData Serialize() {
 		return new CatalystData(transform.position, transform.eulerAngles, Energy);
 	}
 
-	public void Deserialize(CatalystData data) {
-		transform.position = data.Position;
-		transform.eulerAngles = data.Rotation;
-		Energy = data.Energy;
+	public void Deserialize(ElementData data) {
+		CatalystData casted = (CatalystData)data;
+
+		transform.position = casted.Position;
+		transform.eulerAngles = casted.Rotation;
+		Energy = casted.Energy;
 	}
 }

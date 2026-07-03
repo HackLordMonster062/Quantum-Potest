@@ -3,9 +3,9 @@ using UnityEngine;
 
 [Serializable]
 public class ActivatableData : DeviceData {
-	public EntityId TriggerID { get; private set; }
+	public string TriggerID { get; private set; }
 
-	public ActivatableData(string prefabId, Vector3 position, Vector3 rotation, EntityId id, EntityId triggerId) : base(prefabId, position, rotation, id) {
+	public ActivatableData(string prefabId, Vector3 position, Vector3 rotation, string id, string triggerId) : base(prefabId, position, rotation, id) {
 		TriggerID = triggerId;
 	}
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SwitchingMirror : MonoBehaviour, ISerializableElement<DeviceData> {
+public class SwitchingMirror : MonoBehaviour, ISerializableElement {
     [SerializeField] Collider surface;
 
 	void OnTriggerEnter(Collider other) {
@@ -9,11 +9,11 @@ public class SwitchingMirror : MonoBehaviour, ISerializableElement<DeviceData> {
 		}
 	}
 
-	public DeviceData Serialize() {
-		return new DeviceData("QuantumMirror", transform.position, transform.eulerAngles, gameObject.GetEntityId());
+	public ElementData Serialize() {
+		return new DeviceData("QuantumMirror", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString());
 	}
 
-	public void Deserialize(DeviceData data) {
+	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}

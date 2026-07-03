@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Anchor))]
-public class SpinDevice : Activatable, ISerializableElement<ActivatableData> {
+public class SpinDevice : Activatable, ISerializableElement {
 	[SerializeField] SpinnerView view;
 
 	Anchor _anchor;
@@ -31,11 +31,11 @@ public class SpinDevice : Activatable, ISerializableElement<ActivatableData> {
 		}
 	}
 
-	public ActivatableData Serialize() {
-		return new ActivatableData("Spinner", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
+	public ElementData Serialize() {
+		return new ActivatableData("Spinner", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString(), _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString());
 	}
 
-	public void Deserialize(ActivatableData data) {
+	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}

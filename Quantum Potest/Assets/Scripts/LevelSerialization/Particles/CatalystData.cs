@@ -4,6 +4,8 @@ using UnityEngine;
 [Serializable]
 public class CatalystData : ParticleData {
 	public CatalystData(Vector3 position, Vector3 rotation, int energy) {
+		PrefabID = "Catalyst";
+
 		Position = position;
 		Rotation = rotation;
 		Energy = energy;

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SnapPotentialWell))]
-public class MassiveParticle : Particle, ISerializableElement<GravoData> {
+public class MassiveParticle : Particle, ISerializableElement {
     [SerializeField] int activationEnergy;
 
     SnapPotentialWell _potentialWell;
@@ -25,13 +25,15 @@ public class MassiveParticle : Particle, ISerializableElement<GravoData> {
         _potentialWell.Enable();
 	}
 
-	public GravoData Serialize() {
+	public ElementData Serialize() {
 		return new GravoData(transform.position, transform.eulerAngles, Energy);
 	}
 
-	public void Deserialize(GravoData data) {
-		transform.position = data.Position;
-		transform.eulerAngles = data.Rotation;
-		Energy = data.Energy;
+	public void Deserialize(ElementData data) {
+		GravoData casted = (GravoData)data;
+
+		transform.position = casted.Position;
+		transform.eulerAngles = casted.Rotation;
+		Energy = casted.Energy;
 	}
 }

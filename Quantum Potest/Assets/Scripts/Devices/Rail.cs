@@ -2,7 +2,7 @@ using DG.Tweening;
 using System.Linq;
 using UnityEngine;
 
-public class Rail : Activatable, ISerializableElement<RailData> {
+public class Rail : Activatable, ISerializableElement {
     [SerializeField] Transform device;
     [SerializeField] Transform[] pathPoints;
     [SerializeField] float speed;
@@ -59,19 +59,19 @@ public class Rail : Activatable, ISerializableElement<RailData> {
         }
     }
 
-	public RailData Serialize() {
+	public ElementData Serialize() {
         return new RailData(
             "Rail",
             transform.position,
             transform.eulerAngles,
-            gameObject.GetEntityId(),
-            _trigger.gameObject.GetEntityId(),
+            gameObject.GetEntityId().ToString(),
+            _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString(),
             pathPoints.Select(point => point.position).ToArray(),
-            device.GetEntityId()
+            device.GetEntityId().ToString()
         );
 	}
 
-	public void Deserialize(RailData data) {
+	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}

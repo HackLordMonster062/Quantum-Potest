@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(RotateableBase))]
-public class Spectron : Particle, ISerializableElement<SpectronData> {
+public class Spectron : Particle, ISerializableElement {
 	[SerializeField] List<int> frequencies;
 	[SerializeField] float minRadius;
 	[SerializeField] float radiusLeaps;
@@ -116,14 +116,16 @@ public class Spectron : Particle, ISerializableElement<SpectronData> {
 		}
 	}
 
-	public SpectronData Serialize() {
+	public ElementData Serialize() {
 		return new SpectronData(transform.position, transform.eulerAngles, Energy, frequencies);
 	}
 
-	public void Deserialize(SpectronData data) {
-		transform.position = data.Position;
-		transform.eulerAngles = data.Rotation;
-		Energy = data.Energy;
-		frequencies = data.Frequencies;
+	public void Deserialize(ElementData data) {
+		SpectronData casted = (SpectronData)data;
+
+		transform.position = casted.Position;
+		transform.eulerAngles = casted.Rotation;
+		Energy = casted.Energy;
+		frequencies = casted.Frequencies;
 	}
 }

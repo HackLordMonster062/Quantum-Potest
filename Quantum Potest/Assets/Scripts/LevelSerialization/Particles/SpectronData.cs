@@ -7,6 +7,11 @@ public class SpectronData : ParticleData {
 	public List<int> Frequencies { get; private set; }
 
 	public SpectronData(Vector3 position, Vector3 rotation, int energy, List<int> frequencies) {
+		PrefabID = "Spectron";
+
+		Position = position;
+		Rotation = rotation;
+		Energy = energy;
 		Frequencies = frequencies;
 	}
 }

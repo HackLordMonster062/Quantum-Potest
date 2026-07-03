@@ -20,7 +20,7 @@ public class ActivatorAnchor : Activatable, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new ActivatableData("ActivatorAnchor", transform.position, transform.eulerAngles, gameObject.GetEntityId(), _trigger.gameObject.GetEntityId());
+		return new ActivatableData("ActivatorAnchor", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString(), _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString());
 	}
 
 	public void Deserialize(ElementData data) {

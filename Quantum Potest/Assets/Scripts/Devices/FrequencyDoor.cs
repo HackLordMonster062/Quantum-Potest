@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FrequencyDoor : MonoBehaviour, ISerializableElement<FrequencyDoorData> {
+public class FrequencyDoor : MonoBehaviour, ISerializableElement {
 	[SerializeField] int frequency;
 	public int Frequency => frequency;
 
@@ -19,14 +19,14 @@ public class FrequencyDoor : MonoBehaviour, ISerializableElement<FrequencyDoorDa
 		Destroy(gameObject);
 	}
 
-	public FrequencyDoorData Serialize() {
-		return new FrequencyDoorData("ColoredDoor", transform.position, transform.eulerAngles, gameObject.GetEntityId(), frequency);
+	public ElementData Serialize() {
+		return new FrequencyDoorData("ColoredDoor", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString(), frequency);
 	}
 
-	public void Deserialize(FrequencyDoorData data) {
+	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
-		SetFrequency(data.Frequency);
+		SetFrequency(((FrequencyDoorData)data).Frequency);
 	}
 
 #if UNITY_EDITOR

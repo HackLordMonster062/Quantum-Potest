@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class EmitterParticle : Particle, ISerializableElement<EmitterData> {
+[RequireComponent(typeof(Rotateable))]
+public class EmitterParticle : Particle, ISerializableElement {
 	[SerializeField] float shootingPointDistance;
 
 	protected override void Update() {
@@ -19,19 +20,21 @@ public class EmitterParticle : Particle, ISerializableElement<EmitterData> {
         ShootPhoton();
 	}
 
-	public EmitterData Serialize() {
+	public ElementData Serialize() {
 		Rotateable rotateable = GetComponent<Rotateable>();
 
-		return new EmitterData(transform.position, transform.eulerAngles, Energy, rotateable == null ? Spin.Horizontal : rotateable.Spin);
+		return new EmitterData(transform.position, transform.eulerAngles, Energy, rotateable.Spin);
 	}
 
-	public void Deserialize(EmitterData data) {
+	public void Deserialize(ElementData data) {
+		EmitterData casted = (EmitterData)data;
+
 		Rotateable rotateable = GetComponent<Rotateable>();
 
-		transform.position = data.Position;
-		transform.eulerAngles = data.Rotation;
-		Energy = data.Energy;
+		transform.position = casted.Position;
+		transform.eulerAngles = casted.Rotation;
+		Energy = casted.Energy;
 
-		if (rotateable != null) rotateable.SetSpin(data.Spin);
+		rotateable.SetSpin(casted.Spin);
 	}
 }
