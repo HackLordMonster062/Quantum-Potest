@@ -13,8 +13,6 @@ public class DataScraper : MonoBehaviour {
         };
 
         string json = JsonConvert.SerializeObject(GetAllData(), settings);
-
-        print(json);
     }
 
     void Update() {
@@ -30,4 +28,6 @@ public class DataScraper : MonoBehaviour {
 
         return data;
     }
+
+
 }
