@@ -127,6 +127,18 @@ public class LevelDataManager : Singleton<LevelDataManager> {
                     break;
                 case ParticleData particle:
                     physical.GetComponent<Excitable>().Excite(particle.Energy, false);
+
+                    switch (particle) {
+                        case EmitterData emitter:
+                            physical.GetComponent<Rotateable>().SetSpin(emitter.Spin);
+                            break;
+                        case SpectronData spectron:
+                            physical.GetComponent<Spectron>().SetFrequencies(spectron.Frequencies);
+                            break;
+                        default:
+                            break;
+                    }
+
                     break;
                 case SurfaceData surface:
                     physical.transform.localScale = surface.Scale;
