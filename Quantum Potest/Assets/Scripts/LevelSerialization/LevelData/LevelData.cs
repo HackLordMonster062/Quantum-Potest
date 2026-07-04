@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelData {
@@ -12,5 +13,14 @@ public class LevelData {
 		Entrance = entrance;
 		Exit = exit;
 		Elements = elements;
+	}
+
+	public LevelData Copy() {
+		return new(
+			Size,
+			Entrance,
+			Exit,
+			Elements.ToList()
+		);
 	}
 }

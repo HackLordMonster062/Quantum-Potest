@@ -36,6 +36,7 @@ public class SurfacePM {
 }
 
 public class PrefabManager : Singleton<PrefabManager> {
+    [field: SerializeField] public GameObject Level { get; private set; }
     [field: SerializeField] public ParticlePM Particles { get; private set; }
     [field: SerializeField] public DevicePM Devices { get; private set; }
     [field: SerializeField] public SurfacePM Surfaces { get; private set; }

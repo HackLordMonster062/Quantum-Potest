@@ -1,29 +1,106 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class LevelDataManager : MonoBehaviour {
-    [SerializeField] Material roomMaterial;
-    [SerializeField] Vector2 doorSize;
+public class LevelDataManager : Singleton<LevelDataManager> {
+    [field: SerializeField] public Material roomMaterial { get; private set; }
+    [field: SerializeField] public Vector2 doorSize { get; private set; }
     [SerializeField] Vector3 defaultRoomSize;
     [SerializeField] Vector3 defaultEntrancePoint;
     [SerializeField] Vector3 defaultExitPoint;
 
-    [SerializeField] List<LevelData> levels;
+    List<LevelData> _levels;
+    List<Level> _physicalLevels;
+
+    int _currentLevel = 0;
 	
 	void Start() {
-        ConstructLevelList(levels);
+        ConstructLevelList(_levels);
     }
 
     void Update() {
         
     }
 
+    public void TeleportPlayer(int index) {
+        GameManager.instance.Player.position = _physicalLevels[index].transform.position + _levels[index].Entrance + Vector3.forward;
+    }
+
+    public void AddLevel(int index, LevelData data) {
+        index = Mathf.Clamp(index, 0, _levels.Count);
+
+        _levels.Insert(index, data);
+
+        ReconstructLevels();
+    }
+
+    public void NewLevelAtEnd() {
+        AddLevel(_levels.Count, new LevelData(defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+    }
+
+    public void NewLevelAfterCurrent() {
+        AddLevel(_currentLevel + 1, new LevelData(defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+    }
+
+    public void RemoveCurrentLevel() {
+        _levels.RemoveAt(_currentLevel);
+
+        _currentLevel = Mathf.Min(_currentLevel, _levels.Count);
+
+        ReconstructLevels();
+        TeleportPlayer(_currentLevel);
+    }
+
+    public void DuplicateCurrentLevel() {
+        AddLevel(_currentLevel + 1, _levels[_currentLevel].Copy());
+    }
+
+    public void ReloadLevelPosition(Level level, Vector3 delta, bool moveSelf) {
+        int index = _physicalLevels.IndexOf(level);
+
+        if (index == -1) return;
+
+        if (moveSelf) {
+            for (int i = index; i < _physicalLevels.Count; i++) {
+                _physicalLevels[i].transform.position -= delta;
+            }
+        } else {
+			for (int i = index + 1; i < _physicalLevels.Count; i++) {
+				_physicalLevels[i].transform.position += delta;
+			}
+		}
+    }
+
+    public void MoveCurrentLevel(int newIndex) {
+        LevelData current = _levels[_currentLevel];
+        _levels.RemoveAt(_currentLevel);
+        _levels.Insert(newIndex, current);
+
+        _currentLevel = newIndex;
+        TeleportPlayer(_currentLevel);
+    }
+
+    public void ReconstructLevels() {
+        foreach (Level level in _physicalLevels) {
+            Destroy(level.gameObject);
+        }
+
+        ConstructLevelList(_levels);
+    }
+
+    public void ReloadLevels() {
+
+    }
+
     public void ConstructLevelList(List<LevelData> levelList) {
-        (GameObject lastRoom, LevelData lastLevel) = (null, null);
+        (Level lastRoom, LevelData lastLevel) = (null, null);
+
+        _physicalLevels = new();
 
         foreach (LevelData data in levelList) {
-            GameObject room = ConstructLevel(data);
+            Level room = ConstructLevel(data);
+            _physicalLevels.Add(room.GetComponent<Level>());
 
             if (lastRoom != null) {
                 room.transform.position = lastRoom.transform.position + lastLevel.Exit - data.Entrance;
@@ -33,13 +110,16 @@ public class LevelDataManager : MonoBehaviour {
         }
     }
 
-    public GameObject ConstructLevel(LevelData data) {
-        GameObject room = CreateRoom(data);
+    public Level ConstructLevel(LevelData data) {
+        Level level = Instantiate(PrefabManager.instance.Level).GetComponent<Level>();
+        level.DataUpdate(data.Entrance, data.Exit, data.Size);
+        level.OnHandleMoved += ReloadLevelPosition;
+        level.OnPlayerEnter += SetCurrentLevel;
 
         Dictionary<string, (DeviceData, GameObject)> deviceLookup = new();
 
         foreach (ElementData element in data.Elements) {
-			GameObject physical = Instantiate(PrefabManager.instance.GetDevice(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), room.transform);
+			GameObject physical = Instantiate(PrefabManager.instance.GetDevice(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
 
 			switch (element) {
                 case DeviceData device:
@@ -86,99 +166,12 @@ public class LevelDataManager : MonoBehaviour {
 			}
 		}
 
-        return room;
+        return level;
     }
 
-    GameObject CreateRoom(LevelData data) { // TODO: Fix zero-area triangles
-        GameObject room = new GameObject();
-        MeshRenderer renderer = room.AddComponent<MeshRenderer>();
-        renderer.material = roomMaterial;
-        MeshFilter filter = room.AddComponent<MeshFilter>();
+    public void SetCurrentLevel(Level level) {
+		int index = _physicalLevels.IndexOf(level);
 
-        Mesh mesh = new();
-
-        Vector3[] vertices = new Vector3[] {
-            new Vector3(0, 0, 0),//0
-            new Vector3(data.Size.x, 0, 0),//1
-            new Vector3(data.Size.x, data.Size.y, 0),//2
-            new Vector3(0, data.Size.y, 0),//3
-            new Vector3(0, 0, data.Size.z),//4
-            new Vector3(data.Size.x, 0, data.Size.z),//5
-            new Vector3(data.Size.x, data.Size.y, data.Size.z),//6
-            new Vector3(0, data.Size.y, data.Size.z),//7
-
-            new Vector3(data.Entrance.x - doorSize.x/2, data.Entrance.y, data.Entrance.z),//8
-            new Vector3(data.Entrance.x + doorSize.x/2, data.Entrance.y, data.Entrance.z),//9
-            new Vector3(data.Entrance.x - doorSize.x/2, data.Entrance.y + doorSize.y, data.Entrance.z),//10
-            new Vector3(data.Entrance.x + doorSize.x/2, data.Entrance.y + doorSize.y, data.Entrance.z),//11
-
-            new Vector3(data.Exit.x - doorSize.x/2, data.Exit.y, data.Exit.z),//12
-            new Vector3(data.Exit.x + doorSize.x/2, data.Exit.y, data.Exit.z),//13
-            new Vector3(data.Exit.x - doorSize.x/2, data.Exit.y + doorSize.y, data.Exit.z),//14
-            new Vector3(data.Exit.x + doorSize.x/2, data.Exit.y + doorSize.y, data.Exit.z),//15
-        };
-
-        int[] triangles = new int[] {
-            0, 3, 4,
-            4, 3, 7, // Left wall
-            1, 5, 6,
-            6, 2, 1, // Right wall
-            3, 2, 7,
-            7, 2, 6, // Ceiling
-            0, 4, 1,
-            1, 4, 5, // Floor
-            0, 8, 3,
-            3, 8, 10,
-            10, 11, 3,
-            3, 11, 2,
-            2, 11, 1,
-            1, 11, 9,
-            9, 8, 1,
-            1, 8, 0, // Front wall
-            4, 12, 5,
-            5, 12, 13,
-            13, 15, 5,
-            5, 15, 6,
-            6, 15, 7,
-            7, 15, 14,
-            14, 12, 7,
-            7, 12, 4
-        };
-
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-
-        filter.mesh = MakeFlatShaded(mesh);
-
-        return room;
-    }
-
-	public static Mesh MakeFlatShaded(Mesh sourceMesh) {
-		Vector3[] oldVertices = sourceMesh.vertices;
-		int[] oldTriangles = sourceMesh.triangles;
-
-		Vector3[] newVertices = new Vector3[oldTriangles.Length];
-		int[] newTriangles = new int[oldTriangles.Length];
-
-		for (int i = 0; i < oldTriangles.Length; i++) {
-			int originalIndex = oldTriangles[i];
-
-			newVertices[i] = oldVertices[originalIndex];
-			newTriangles[i] = i;
-		}
-
-		Mesh flatMesh = new() {
-			name = sourceMesh.name + "_Flat",
-			vertices = newVertices,
-			triangles = newTriangles,
-		};
-
-		flatMesh.RecalculateNormals();
-		flatMesh.RecalculateBounds();
-
-		return flatMesh;
+        _currentLevel = index;
 	}
 }
