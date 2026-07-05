@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class LevelDataManager : Singleton<LevelDataManager> {
     [field: SerializeField] public Material roomMaterial { get; private set; }
@@ -196,6 +197,14 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 
 		string filePath = Path.Combine(folderPath, $"{fileName}.json");
 
-  
+  JsonSerializerSettings settings = new JsonSerializerSettings {
+            TypeNameHandling = TypeNameHandling.Auto,
+            Formatting = Formatting.Indented,
+            ContractResolver = new UnityFieldsOnlyContractResolver()
+        };
+
+  string json = JsonConvert.SerializeObject(level, settings);
+
+  File.WriteAllText(filePath, json);
 	}
 }
