@@ -128,16 +128,16 @@ public class TestAbilities : MonoBehaviour {
 			}
 
 		if (Input.GetKeyDown(KeyCode.Alpha1))
-			Instantiate(PrefabManager.instance.Particles.Emitter, _camera.position + reach * _camera.forward, Quaternion.identity);
+			Instantiate(PrefabManager.instance.Particles.Emitter, _camera.position + reach * _camera.forward, Quaternion.identity, LevelDataManager.instance.CurrentLevel.transform);
 		if (Input.GetKeyDown(KeyCode.Alpha2) && selectedFrequencies.Count > 0) {
-			Spectron spectron = Instantiate(PrefabManager.instance.Particles.Spectron, _camera.position + reach * _camera.forward, Quaternion.identity).GetComponent<Spectron>();
+			Spectron spectron = Instantiate(PrefabManager.instance.Particles.Spectron, _camera.position + reach * _camera.forward, Quaternion.identity, LevelDataManager.instance.CurrentLevel.transform).GetComponent<Spectron>();
 
 			spectron.SetFrequencies(selectedFrequencies.ToList());
 		}
 		if (Input.GetKeyDown(KeyCode.Alpha3))
-			Instantiate(PrefabManager.instance.Particles.Gravo, _camera.position + reach * _camera.forward, Quaternion.identity);
+			Instantiate(PrefabManager.instance.Particles.Gravo, _camera.position + reach * _camera.forward, Quaternion.identity, LevelDataManager.instance.CurrentLevel.transform);
 		if (Input.GetKeyDown(KeyCode.Alpha4))
-			Instantiate(PrefabManager.instance.Particles.Catalyst, _camera.position + reach * _camera.forward, Quaternion.identity);
+			Instantiate(PrefabManager.instance.Particles.Catalyst, _camera.position + reach * _camera.forward, Quaternion.identity, LevelDataManager.instance.CurrentLevel.transform);
 
 		if (Input.GetKeyDown(KeyCode.Keypad0)) {
 			if (Input.GetKey(KeyCode.LeftShift)) {
@@ -191,7 +191,7 @@ public class TestAbilities : MonoBehaviour {
 
 	GameObject SpawnDevice(GameObject device, bool mountable = true) {
 		if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
-			GameObject dev = Instantiate(device, info.point, Quaternion.LookRotation(SnapToNearestAxis(Vector3.ProjectOnPlane(Camera.main.transform.forward, info.normal)).normalized, info.normal));
+			GameObject dev = Instantiate(device, info.point, Quaternion.LookRotation(SnapToNearestAxis(Vector3.ProjectOnPlane(Camera.main.transform.forward, info.normal)).normalized, info.normal), LevelDataManager.instance.CurrentLevel.transform);
 
 			if (mountable && Input.GetKey(KeyCode.LeftShift)) {
 				StartRail(dev.transform);

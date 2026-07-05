@@ -117,13 +117,13 @@ public class Spectron : Particle, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new SpectronData(transform.position, transform.eulerAngles, Energy, frequencies);
+		return new SpectronData(transform.localPosition, transform.eulerAngles, Energy, frequencies);
 	}
 
 	public void Deserialize(ElementData data) {
 		SpectronData casted = (SpectronData)data;
 
-		transform.position = casted.Position;
+		transform.localPosition = casted.Position;
 		transform.eulerAngles = casted.Rotation;
 		Energy = casted.Energy;
 		frequencies = casted.Frequencies;

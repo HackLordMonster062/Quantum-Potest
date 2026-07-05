@@ -26,13 +26,13 @@ public class MassiveParticle : Particle, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new GravoData(transform.position, transform.eulerAngles, Energy);
+		return new GravoData(transform.localPosition, transform.eulerAngles, Energy);
 	}
 
 	public void Deserialize(ElementData data) {
 		GravoData casted = (GravoData)data;
 
-		transform.position = casted.Position;
+		transform.localPosition = casted.Position;
 		transform.eulerAngles = casted.Rotation;
 		Energy = casted.Energy;
 	}

@@ -7,7 +7,7 @@ public class FrequencyDoor : MonoBehaviour, ISerializableElement {
 	MeshRenderer _renderer;
 
 	private void Start() {
-		_renderer = GetComponent<MeshRenderer>();
+		_renderer = GetComponentInChildren<MeshRenderer>();
 
 		MaterialPropertyBlock mpb = new();
 		mpb.SetColor("_BaseColor", VisualManager.instance.FrequencyToColor(frequency));
@@ -20,11 +20,11 @@ public class FrequencyDoor : MonoBehaviour, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new FrequencyDoorData("ColoredDoor", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString(), frequency);
+		return new FrequencyDoorData("ColoredDoor", transform.localPosition, transform.eulerAngles, gameObject.GetEntityId().ToString(), frequency);
 	}
 
 	public void Deserialize(ElementData data) {
-		transform.position = data.Position;
+		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
 		SetFrequency(((FrequencyDoorData)data).Frequency);
 	}

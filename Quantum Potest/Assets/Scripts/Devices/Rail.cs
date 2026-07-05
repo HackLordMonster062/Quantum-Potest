@@ -62,7 +62,7 @@ public class Rail : Activatable, ISerializableElement {
 	public ElementData Serialize() {
         return new RailData(
             "Rail",
-            transform.position,
+            transform.localPosition,
             transform.eulerAngles,
             gameObject.GetEntityId().ToString(),
             _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString(),
@@ -72,7 +72,7 @@ public class Rail : Activatable, ISerializableElement {
 	}
 
 	public void Deserialize(ElementData data) {
-		transform.position = data.Position;
+		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}
 }

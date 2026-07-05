@@ -10,11 +10,11 @@ public class SwitchingMirror : MonoBehaviour, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new DeviceData("QuantumMirror", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString());
+		return new DeviceData("QuantumMirror", transform.localPosition, transform.eulerAngles, gameObject.GetEntityId().ToString());
 	}
 
 	public void Deserialize(ElementData data) {
-		transform.position = data.Position;
+		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}
 }

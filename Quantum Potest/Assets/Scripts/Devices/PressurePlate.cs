@@ -16,11 +16,11 @@ public class PressurePlate : Trigger, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new DeviceData("Polaroid", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString());
+		return new DeviceData("Polaroid", transform.localPosition, transform.eulerAngles, gameObject.GetEntityId().ToString());
 	}
 
 	public void Deserialize(ElementData data) {
-		transform.position = data.Position;
+		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}
 }

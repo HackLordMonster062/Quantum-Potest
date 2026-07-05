@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
+using System.IO;
 
 public class LevelDataManager : Singleton<LevelDataManager> {
     [field: SerializeField] public Material roomMaterial { get; private set; }
@@ -15,9 +16,14 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     List<Level> _physicalLevels;
 
     int _currentLevel = 0;
+
+    public Level CurrentLevel => _physicalLevels[_currentLevel];
 	
 	void Start() {
-        ConstructLevelList(_levels);
+        _levels = new();
+        _physicalLevels = new();
+
+        LoadAllLevels();
     }
 
     void Update() {
@@ -94,6 +100,14 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 
     }
 
+    public void ScrapeLevels() {
+        _levels = new();
+
+        foreach (Level level in _physicalLevels) {
+            _levels.Add(level.GetLevelData());
+        }
+    }
+
     public void ConstructLevelList(List<LevelData> levelList) {
         (Level lastRoom, LevelData lastLevel) = (null, null);
 
@@ -120,14 +134,16 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         Dictionary<string, (DeviceData, GameObject)> deviceLookup = new();
 
         foreach (ElementData element in data.Elements) {
-			GameObject physical = Instantiate(PrefabManager.instance.GetDevice(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
-
 			switch (element) {
                 case DeviceData device:
-                    deviceLookup[device.ID] = (device, physical);
+					GameObject physical = Instantiate(PrefabManager.instance.GetDevice(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
+
+					deviceLookup[device.ID] = (device, physical);
                     break;
                 case ParticleData particle:
-                    physical.GetComponent<Excitable>().Excite(particle.Energy, false);
+					physical = Instantiate(PrefabManager.instance.GetParticle(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
+
+					physical.GetComponent<Excitable>().Excite(particle.Energy, false);
 
                     switch (particle) {
                         case EmitterData emitter:
@@ -142,7 +158,9 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 
                     break;
                 case SurfaceData surface:
-                    physical.transform.localScale = surface.Scale;
+					physical = Instantiate(PrefabManager.instance.GetSurface(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
+
+					physical.transform.localScale = surface.Scale;
 
                     if (surface is SlidingWallData slidingWall) {
                         Transform point1 = Instantiate(PrefabManager.instance.Devices.RailPoint, slidingWall.Point1, Quaternion.identity).transform;
@@ -187,24 +205,48 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 
         _currentLevel = index;
 	}
-  
- void SaveLevel(LevelData level, string name) {
+
+	JsonSerializerSettings settings = new JsonSerializerSettings {
+		TypeNameHandling = TypeNameHandling.Auto,
+		Formatting = Formatting.Indented,
+		ContractResolver = new UnityFieldsOnlyContractResolver()
+	};
+
+	string GetFilePath(string name) {
 		string folderPath = Path.Combine(Application.persistentDataPath, "Levels");
 
 		if (!Directory.Exists(folderPath)) {
 			Directory.CreateDirectory(folderPath);
 		}
 
-		string filePath = Path.Combine(folderPath, $"{fileName}.json");
+		return Path.Combine(folderPath, $"{name}.json");
+	}
+  
+    void SaveLevel(LevelData level, string name) {
+        string filePath = GetFilePath(name);
 
-  JsonSerializerSettings settings = new JsonSerializerSettings {
-            TypeNameHandling = TypeNameHandling.Auto,
-            Formatting = Formatting.Indented,
-            ContractResolver = new UnityFieldsOnlyContractResolver()
-        };
+        string json = JsonConvert.SerializeObject(level, settings);
 
-  string json = JsonConvert.SerializeObject(level, settings);
+        File.WriteAllText(filePath, json);
+    }
 
-  File.WriteAllText(filePath, json);
+    void LoadAllLevels() {
+		string folderPath = Path.Combine(Application.persistentDataPath, "Levels");
+
+		if (!Directory.Exists(folderPath)) {
+			Directory.CreateDirectory(folderPath);
+		}
+
+        _levels = new();
+
+		foreach (string filePath in Directory.EnumerateFiles(folderPath)) {
+            string json = File.ReadAllText(Path.Combine(folderPath, filePath));
+
+            LevelData level = JsonConvert.DeserializeObject<LevelData>(json, settings);
+
+            _levels.Add(level);
+        }
+
+        ReconstructLevels();
 	}
 }

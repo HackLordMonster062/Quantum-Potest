@@ -2,6 +2,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Level : MonoBehaviour {
@@ -15,17 +16,9 @@ public class Level : MonoBehaviour {
 
     BoxCollider _trigger;
 
-    void Start() {
+    void Awake() {
         _trigger = GetComponent<BoxCollider>();
         _trigger.isTrigger = true;
-
-        JsonSerializerSettings settings = new JsonSerializerSettings {
-            TypeNameHandling = TypeNameHandling.Auto,
-            Formatting = Formatting.Indented,
-            ContractResolver = new UnityFieldsOnlyContractResolver()
-        };
-
-        string json = JsonConvert.SerializeObject(GetAllData(), settings);
     }
 
 	private void OnTriggerEnter(Collider other) {
@@ -47,7 +40,7 @@ public class Level : MonoBehaviour {
         List<ElementData> data = new();
 
 		foreach (ISerializableElement element in transform.GetComponentsInChildren<ISerializableElement>()) {
-            data.Add(element.Serialize());
+			data.Add(element.Serialize());
 		}
 
         return data;

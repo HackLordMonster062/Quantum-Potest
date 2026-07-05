@@ -22,11 +22,11 @@ public class DispatchAnchor : Activatable, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new ActivatableData("Anchor", transform.position, transform.eulerAngles, gameObject.GetEntityId().ToString(), _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString());
+		return new ActivatableData("Anchor", transform.localPosition, transform.eulerAngles, gameObject.GetEntityId().ToString(), _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString());
 	}
 
 	public void Deserialize(ElementData data) {
-		transform.position = data.Position;
+		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
 	}
 }
