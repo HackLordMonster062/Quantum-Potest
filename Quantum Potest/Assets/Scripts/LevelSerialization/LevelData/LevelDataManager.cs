@@ -186,4 +186,16 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 
         _currentLevel = index;
 	}
+  
+ void SaveLevel(LevelData level, string name) {
+		string folderPath = Path.Combine(Application.persistentDataPath, "Levels");
+
+		if (!Directory.Exists(folderPath)) {
+			Directory.CreateDirectory(folderPath);
+		}
+
+		string filePath = Path.Combine(folderPath, $"{fileName}.json");
+
+  
+	}
 }
