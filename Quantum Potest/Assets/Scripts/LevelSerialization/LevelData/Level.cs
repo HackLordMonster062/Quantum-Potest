@@ -29,9 +29,10 @@ public class Level : MonoBehaviour {
 
 	public LevelData GetLevelData() {
 		return new LevelData(
+			gameObject.name,
 			_size,
-			entranceHandle.position,
-			exitHandle.position,
+			entranceHandle.localPosition,
+			exitHandle.localPosition,
 			GetAllData()
 		);
 	}

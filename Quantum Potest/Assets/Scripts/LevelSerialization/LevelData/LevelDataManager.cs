@@ -18,6 +18,7 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     int _currentLevel = 0;
 
     public Level CurrentLevel => _physicalLevels[_currentLevel];
+    public int CurrentLevelIndex => _currentLevel;
 	
 	void Start() {
         _levels = new();
@@ -43,17 +44,22 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     }
 
     public void NewLevelAtEnd() {
-        AddLevel(_levels.Count, new LevelData(defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+        AddLevel(_levels.Count, new LevelData("New Level", defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
     }
 
     public void NewLevelAfterCurrent() {
-        AddLevel(_currentLevel + 1, new LevelData(defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+        AddLevel(_currentLevel + 1, new LevelData("New Level", defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+    }
+
+    public void RenameCurrentLevel(string newName) {
+        CurrentLevel.gameObject.name = newName;
+        ScrapeLevels();
     }
 
     public void RemoveCurrentLevel() {
         _levels.RemoveAt(_currentLevel);
 
-        _currentLevel = Mathf.Min(_currentLevel, _levels.Count);
+        _currentLevel = Mathf.Min(_currentLevel, _levels.Count - 1);
 
         ReconstructLevels();
         TeleportPlayer(_currentLevel);
@@ -80,11 +86,15 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     }
 
     public void MoveCurrentLevel(int newIndex) {
+        newIndex = Mathf.Clamp(newIndex, 0, _levels.Count - 1);
+
         LevelData current = _levels[_currentLevel];
         _levels.RemoveAt(_currentLevel);
         _levels.Insert(newIndex, current);
 
         _currentLevel = newIndex;
+
+        ReconstructLevels();
         TeleportPlayer(_currentLevel);
     }
 
@@ -97,7 +107,8 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     }
 
     public void ReloadLevels() {
-
+        LoadAllLevels();
+        ReconstructLevels();
     }
 
     public void ScrapeLevels() {
@@ -130,6 +141,7 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         level.DataUpdate(data.Entrance, data.Exit, data.Size);
         level.OnHandleMoved += ReloadLevelPosition;
         level.OnPlayerEnter += SetCurrentLevel;
+        level.gameObject.name = data.Name;
 
         Dictionary<string, (DeviceData, GameObject)> deviceLookup = new();
 
@@ -143,7 +155,8 @@ public class LevelDataManager : Singleton<LevelDataManager> {
                 case ParticleData particle:
 					physical = Instantiate(PrefabManager.instance.GetParticle(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
 
-					physical.GetComponent<Excitable>().Excite(particle.Energy, false);
+                    if (particle.Energy > 0)
+					    physical.GetComponent<Excitable>().Excite(particle.Energy, false);
 
                     switch (particle) {
                         case EmitterData emitter:
@@ -212,39 +225,46 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 		ContractResolver = new UnityFieldsOnlyContractResolver()
 	};
 
-	string GetFilePath(string name) {
+	string GetSavePath() {
 		string folderPath = Path.Combine(Application.persistentDataPath, "Levels");
 
 		if (!Directory.Exists(folderPath)) {
 			Directory.CreateDirectory(folderPath);
 		}
 
-		return Path.Combine(folderPath, $"{name}.json");
+        return folderPath;
 	}
   
     void SaveLevel(LevelData level, string name) {
-        string filePath = GetFilePath(name);
+        string filePath = Path.Combine(GetSavePath(), $"{name}.json");
 
-        string json = JsonConvert.SerializeObject(level, settings);
+		string json = JsonConvert.SerializeObject(level, settings);
 
         File.WriteAllText(filePath, json);
     }
 
-    void LoadAllLevels() {
-		string folderPath = Path.Combine(Application.persistentDataPath, "Levels");
+    public void SaveLevels() {
+        Directory.Delete(GetSavePath(), true);
 
-		if (!Directory.Exists(folderPath)) {
-			Directory.CreateDirectory(folderPath);
-		}
+        for (int i = 0; i < _levels.Count; i++) {
+            SaveLevel(_levels[i], $"{i}``{_levels[i].Name}");
+        }
+    }
+
+    void LoadAllLevels() {
+        string folderPath = GetSavePath();
 
         _levels = new();
 
 		foreach (string filePath in Directory.EnumerateFiles(folderPath)) {
-            string json = File.ReadAllText(Path.Combine(folderPath, filePath));
+            string json = File.ReadAllText(filePath);
 
             LevelData level = JsonConvert.DeserializeObject<LevelData>(json, settings);
 
-            _levels.Add(level);
+            string[] parts = filePath.Split("\\").Last().Split("``");
+            int index = int.Parse(parts[0]);
+
+            _levels.Insert(index, level);
         }
 
         ReconstructLevels();

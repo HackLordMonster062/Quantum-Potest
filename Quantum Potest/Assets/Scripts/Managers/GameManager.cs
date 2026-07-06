@@ -23,6 +23,20 @@ public class GameManager : Singleton<GameManager> {
 		Cursor.visible = false;
 	}
 
+#if UNITY_EDITOR
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if (Cursor.visible) {
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+			} else {
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			}
+		}
+	}
+#endif
+
 	public void ChangeState(GameState newState) {
 		OnBeforeStateChange?.Invoke(newState);
 
