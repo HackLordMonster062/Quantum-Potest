@@ -7,6 +7,7 @@ public class TestAbilities : MonoBehaviour {
 	[SerializeField] float castWidth;
 	[SerializeField] float reach;
 	[SerializeField] float scalingFactor;
+	[SerializeField] float moveAmount;
 	[SerializeField] LayerMask selection;
 
 	[SerializeField] Selection _selection;
@@ -76,7 +77,15 @@ public class TestAbilities : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
 			if (_selection != null && _selection.device != null) {
-				ChangeSize(Camera.main.transform.forward, scalingFactor);
+				if (Input.GetKey(KeyCode.LeftShift))
+					ChangeSize(Camera.main.transform.forward, scalingFactor);
+				else {
+					if (_selection.device.TryGetComponent(out DoorHandle handle)) {
+						handle.Move(SnapToNearestAxis(Camera.main.transform.forward), moveAmount);
+					} else {
+						Move(Camera.main.transform.forward, moveAmount);
+					}
+				}
 				return;
 			}
 		}
@@ -282,6 +291,12 @@ public class TestAbilities : MonoBehaviour {
 
 		Vector3 localDir = SnapToNearestAxis(_selection.device.transform.InverseTransformDirection(direction));
 		_selection.device.transform.localScale += amount * MaskNonZero(localDir);
+	}
+	
+	void Move(Vector3 direction, float amount) {
+		Vector3 snapped = SnapToNearestAxis(direction);
+
+		_selection.device.transform.position += amount * snapped;
 	}
 
 	Vector3 MaskNonZero(Vector3 input, float epsilon = 0.0001f) {

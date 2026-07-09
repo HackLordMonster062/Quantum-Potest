@@ -1,9 +1,9 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
-using Newtonsoft.Json;
-using System.IO;
 
 public class LevelDataManager : Singleton<LevelDataManager> {
     [field: SerializeField] public Material roomMaterial { get; private set; }
@@ -12,13 +12,15 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     [SerializeField] Vector3 defaultEntrancePoint;
     [SerializeField] Vector3 defaultExitPoint;
 
-    List<LevelData> _levels;
+    List<LevelListItem> _levels;
     List<Level> _physicalLevels;
 
     int _currentLevel = 0;
 
     public Level CurrentLevel => _physicalLevels[_currentLevel];
     public int CurrentLevelIndex => _currentLevel;
+
+    public event Action<int, string, int, int> OnLevelInfoChanged;
 	
 	void Start() {
         _levels = new();
@@ -27,15 +29,13 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         LoadAllLevels();
     }
 
-    void Update() {
-        
-    }
-
     public void TeleportPlayer(int index) {
-        GameManager.instance.Player.position = _physicalLevels[index].transform.position + _levels[index].Entrance + Vector3.forward;
-    }
+        GameManager.instance.Player.position = _physicalLevels[index].transform.position + _levels[index].CurrVersion.Entrance + Vector3.forward;
 
-    public void AddLevel(int index, LevelData data) {
+		UpdateInfo();
+	}
+
+    public void AddLevel(int index, LevelListItem data) {
         index = Mathf.Clamp(index, 0, _levels.Count);
 
         _levels.Insert(index, data);
@@ -43,31 +43,62 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         ReconstructLevels();
     }
 
-    public void NewLevelAtEnd() {
-        AddLevel(_levels.Count, new LevelData("New Level", defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
-    }
+	public void AddLevel(int index, string name, LevelData data) {
+        AddLevel(index, new LevelListItem(name, new() { data }));
+
+		UpdateInfo();
+	}
+
+	public void NewLevelAtEnd() {
+        AddLevel(_levels.Count, "New Level", new LevelData(defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+
+		UpdateInfo();
+	}
 
     public void NewLevelAfterCurrent() {
-        AddLevel(_currentLevel + 1, new LevelData("New Level", defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
-    }
+        AddLevel(_currentLevel + 1, "New Level", new LevelData(defaultRoomSize, defaultEntrancePoint, defaultExitPoint, new()));
+
+		UpdateInfo();
+	}
 
     public void RenameCurrentLevel(string newName) {
         CurrentLevel.gameObject.name = newName;
         ScrapeLevels();
-    }
+
+		UpdateInfo();
+	}
 
     public void RemoveCurrentLevel() {
         _levels.RemoveAt(_currentLevel);
 
-        _currentLevel = Mathf.Min(_currentLevel, _levels.Count - 1);
+        SetCurrentLevel(Mathf.Min(_currentLevel, _levels.Count - 1));
 
         ReconstructLevels();
         TeleportPlayer(_currentLevel);
-    }
+
+		UpdateInfo();
+	}
 
     public void DuplicateCurrentLevel() {
-        AddLevel(_currentLevel + 1, _levels[_currentLevel].Copy());
+        AddLevel(_currentLevel + 1, _levels[_currentLevel].Name, _levels[_currentLevel].CurrVersion.Copy());
+
+		UpdateInfo();
+	}
+
+    public void AddLevelVersion() {
+        _levels[_currentLevel].AddVersion(_levels[_currentLevel].CurrVersion.Copy());
+        SetLevelVersion(_levels[_currentLevel].Versions.Count - 1);
     }
+
+    public void SetLevelVersion(int newVersion) {
+        _levels[_currentLevel].SetVersion(newVersion);
+        ReconstructLevels();
+        UpdateInfo();
+    }
+
+    public void CycleLevelVersions() {
+        SetLevelVersion((_levels[_currentLevel].CurrVersionIndex + 1) % _levels[_currentLevel].Versions.Count);
+	}
 
     public void ReloadLevelPosition(Level level, Vector3 delta, bool moveSelf) {
         int index = _physicalLevels.IndexOf(level);
@@ -83,20 +114,21 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 				_physicalLevels[i].transform.position += delta;
 			}
 		}
-    }
+	}
 
     public void MoveCurrentLevel(int newIndex) {
         newIndex = Mathf.Clamp(newIndex, 0, _levels.Count - 1);
 
-        LevelData current = _levels[_currentLevel];
+        LevelListItem current = _levels[_currentLevel];
         _levels.RemoveAt(_currentLevel);
         _levels.Insert(newIndex, current);
 
-        _currentLevel = newIndex;
+        SetCurrentLevel(newIndex);
 
         ReconstructLevels();
         TeleportPlayer(_currentLevel);
-    }
+		UpdateInfo();
+	}
 
     public void ReconstructLevels() {
         foreach (Level level in _physicalLevels) {
@@ -104,7 +136,10 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         }
 
         ConstructLevelList(_levels);
-    }
+
+        SetCurrentLevel(_currentLevel);
+		UpdateInfo();
+	}
 
     public void ReloadLevels() {
         LoadAllLevels();
@@ -112,36 +147,37 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     }
 
     public void ScrapeLevels() {
-        _levels = new();
+        for (int i = 0; i < _levels.Count; i++) {
+            LevelData data = _physicalLevels[i].GetLevelData();
 
-        foreach (Level level in _physicalLevels) {
-            _levels.Add(level.GetLevelData());
+			_levels[i].UpdateCurrentVersion(data);
+            _levels[i].Rename(_physicalLevels[i].name);
         }
     }
 
-    public void ConstructLevelList(List<LevelData> levelList) {
+    public void ConstructLevelList(List<LevelListItem> levelList) {
         (Level lastRoom, LevelData lastLevel) = (null, null);
 
         _physicalLevels = new();
 
-        foreach (LevelData data in levelList) {
-            Level room = ConstructLevel(data);
+        foreach (LevelListItem data in levelList) {
+            Level room = ConstructLevel(data.CurrVersion, data.Name);
             _physicalLevels.Add(room.GetComponent<Level>());
 
             if (lastRoom != null) {
-                room.transform.position = lastRoom.transform.position + lastLevel.Exit - data.Entrance;
+                room.transform.position = lastRoom.transform.position + lastLevel.Exit - data.CurrVersion.Entrance;
             }
 
-            (lastRoom, lastLevel) = (room, data);
+            (lastRoom, lastLevel) = (room, data.CurrVersion);
         }
     }
 
-    public Level ConstructLevel(LevelData data) {
+    public Level ConstructLevel(LevelData data, string name) {
         Level level = Instantiate(PrefabManager.instance.Level).GetComponent<Level>();
         level.DataUpdate(data.Entrance, data.Exit, data.Size);
         level.OnHandleMoved += ReloadLevelPosition;
         level.OnPlayerEnter += SetCurrentLevel;
-        level.gameObject.name = data.Name;
+        level.gameObject.name = name;
 
         Dictionary<string, (DeviceData, GameObject)> deviceLookup = new();
 
@@ -216,8 +252,24 @@ public class LevelDataManager : Singleton<LevelDataManager> {
     public void SetCurrentLevel(Level level) {
 		int index = _physicalLevels.IndexOf(level);
 
-        _currentLevel = index;
+        SetCurrentLevel(index);
 	}
+
+	public void SetCurrentLevel(int newIndex) {
+        CurrentLevel.SetActive(false);
+
+		_currentLevel = newIndex;
+
+        CurrentLevel.SetActive(true);
+
+		UpdateInfo();
+	}
+
+	public void UpdateInfo() {
+        LevelListItem data = _levels[_currentLevel];
+
+        OnLevelInfoChanged?.Invoke(_currentLevel, data.Name, data.CurrVersionIndex, data.Versions.Count);
+    }
 
 	JsonSerializerSettings settings = new JsonSerializerSettings {
 		TypeNameHandling = TypeNameHandling.Auto,
@@ -235,7 +287,7 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         return folderPath;
 	}
   
-    void SaveLevel(LevelData level, string name) {
+    void SaveLevel(LevelListItem level, string name) {
         string filePath = Path.Combine(GetSavePath(), $"{name}.json");
 
 		string json = JsonConvert.SerializeObject(level, settings);
@@ -259,7 +311,7 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 		foreach (string filePath in Directory.EnumerateFiles(folderPath)) {
             string json = File.ReadAllText(filePath);
 
-            LevelData level = JsonConvert.DeserializeObject<LevelData>(json, settings);
+            LevelListItem level = JsonConvert.DeserializeObject<LevelListItem>(json, settings);
 
             string[] parts = filePath.Split("\\").Last().Split("``");
             int index = int.Parse(parts[0]);

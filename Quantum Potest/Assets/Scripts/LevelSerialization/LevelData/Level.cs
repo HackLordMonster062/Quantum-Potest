@@ -1,24 +1,27 @@
 using UnityEngine;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
-using Unity.VisualScripting;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Level : MonoBehaviour {
-    [SerializeField] Transform entranceHandle;
-    [SerializeField] Transform exitHandle;
+    [SerializeField] DoorHandle entranceHandle;
+    [SerializeField] DoorHandle exitHandle;
 
 	public event Action<Level> OnPlayerEnter;
-	public event Action<Level, Vector3, bool> OnHandleMoved; // TODO: Call
+	public event Action<Level, Vector3, bool> OnHandleMoved;
 
 	Vector3 _size;
 
     BoxCollider _trigger;
 
+	GameObject _room;
+
     void Awake() {
         _trigger = GetComponent<BoxCollider>();
         _trigger.isTrigger = true;
+
+		entranceHandle.OnMoved += (delta) => OnHandleMoved?.Invoke(this, delta, true);
+		exitHandle.OnMoved += (delta) => OnHandleMoved?.Invoke(this, delta, false);
     }
 
 	private void OnTriggerEnter(Collider other) {
@@ -29,10 +32,9 @@ public class Level : MonoBehaviour {
 
 	public LevelData GetLevelData() {
 		return new LevelData(
-			gameObject.name,
 			_size,
-			entranceHandle.localPosition,
-			exitHandle.localPosition,
+			entranceHandle.transform.localPosition,
+			exitHandle.transform.localPosition,
 			GetAllData()
 		);
 	}
@@ -56,9 +58,13 @@ public class Level : MonoBehaviour {
 		_trigger.size = size;
 		_trigger.center = size / 2;
 
-		GameObject room = CreateRoom(entrance, exit, size);
-		room.transform.parent = transform;
+		_room = CreateRoom(entrance, exit, size);
+		_room.transform.parent = transform;
     }
+
+	public void SetActive(bool active) {
+		entranceHandle.gameObject.SetActive(active);
+	}
 
 	GameObject CreateRoom(Vector3 entrance, Vector3 exit, Vector3 size) { // TODO: Fix zero-area triangles
 		GameObject room = new GameObject();
