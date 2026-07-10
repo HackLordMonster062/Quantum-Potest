@@ -6,12 +6,18 @@ public class DoorHandle : MonoBehaviour {
 
     public event Action<Vector3> OnMoved;
 
-    public void Move(Vector3 direction, float amount) {
-        Vector3 move = direction * amount;
-        move.z = 0;
+    Level _containingLevel;
 
-        transform.position += move;
+	private void Start() {
+        _containingLevel = GetComponentInParent<Level>();
+	}
 
-        OnMoved?.Invoke(move);
+	public void Move(Vector3 direction, float amount) {
+        Vector3 initial = transform.position;
+
+        transform.position += direction.normalized * amount;
+        transform.position.Modify(z: isExit ? _containingLevel.Size.z : 0);
+
+        OnMoved?.Invoke(transform.position - initial);
     }
 }

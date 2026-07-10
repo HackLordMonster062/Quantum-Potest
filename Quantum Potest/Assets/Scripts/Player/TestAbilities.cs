@@ -87,6 +87,9 @@ public class TestAbilities : MonoBehaviour {
 					}
 				}
 				return;
+			} else {
+				Vector3 size = LevelDataManager.instance.CurrentLevel.Size + SnapToNearestAxis(Camera.main.transform.forward);
+				LevelDataManager.instance.CurrentLevel.ChangeSize(size);
 			}
 		}
 
@@ -94,6 +97,9 @@ public class TestAbilities : MonoBehaviour {
 			if (_selection != null && _selection.device != null) {
 				ChangeSize(Camera.main.transform.forward, -scalingFactor);
 				return;
+			} else {
+				Vector3 size = LevelDataManager.instance.CurrentLevel.Size - SnapToNearestAxis(Camera.main.transform.forward);
+				LevelDataManager.instance.CurrentLevel.ChangeSize(size);
 			}
 		}
 

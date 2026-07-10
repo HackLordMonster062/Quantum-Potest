@@ -24,6 +24,13 @@ public class LevelListItem {
 		Versions.Add(data);
 	}
 
+	public void RemoveCurrVersion() {
+		if (Versions.Count > 1) {
+			Versions.RemoveAt(CurrVersionIndex);
+			CurrVersionIndex = 0;
+		}
+	}
+
 	public void Rename(string newName) {
 		Name = newName;
 	}

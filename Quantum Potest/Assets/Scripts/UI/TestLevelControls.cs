@@ -60,6 +60,10 @@ public class TestLevelControls : MonoBehaviour {
 		LevelDataManager.instance.CycleLevelVersions();
 	}
 
+	public void RemoveLevelVersion() {
+		LevelDataManager.instance.RemoveCurrLevelVersion();
+	}
+
 	public void Delete() {
 		LevelDataManager.instance.RemoveCurrentLevel();
 	}

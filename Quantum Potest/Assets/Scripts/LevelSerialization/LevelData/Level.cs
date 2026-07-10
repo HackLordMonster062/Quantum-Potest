@@ -4,13 +4,13 @@ using System;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Level : MonoBehaviour {
-    [SerializeField] DoorHandle entranceHandle;
-    [SerializeField] DoorHandle exitHandle;
+	[SerializeField] DoorHandle entranceHandle;
+	[SerializeField] DoorHandle exitHandle;
 
 	public event Action<Level> OnPlayerEnter;
 	public event Action<Level, Vector3, bool> OnHandleMoved;
 
-	Vector3 _size;
+	public Vector3 Size { get; private set; }
 
     BoxCollider _trigger;
 
@@ -22,6 +22,8 @@ public class Level : MonoBehaviour {
 
 		entranceHandle.OnMoved += (delta) => OnHandleMoved?.Invoke(this, delta, true);
 		exitHandle.OnMoved += (delta) => OnHandleMoved?.Invoke(this, delta, false);
+
+		SetActive(false);
     }
 
 	private void OnTriggerEnter(Collider other) {
@@ -30,9 +32,16 @@ public class Level : MonoBehaviour {
 		}
 	}
 
+	public void ChangeSize(Vector3 newSize) {
+		Vector3 delta = newSize - Size;
+		Size = newSize;
+
+		exitHandle.Move(delta, delta.magnitude);
+	}
+
 	public LevelData GetLevelData() {
 		return new LevelData(
-			_size,
+			Size,
 			entranceHandle.transform.localPosition,
 			exitHandle.transform.localPosition,
 			GetAllData()
@@ -53,17 +62,19 @@ public class Level : MonoBehaviour {
 		entranceHandle.transform.position = entrance;
 		exitHandle.transform.position = exit;
 
-		_size = size;
+		Size = size;
 
 		_trigger.size = size;
 		_trigger.center = size / 2;
 
+		Destroy(_room);
 		_room = CreateRoom(entrance, exit, size);
 		_room.transform.parent = transform;
     }
 
 	public void SetActive(bool active) {
 		entranceHandle.gameObject.SetActive(active);
+		exitHandle.gameObject.SetActive(active);
 	}
 
 	GameObject CreateRoom(Vector3 entrance, Vector3 exit, Vector3 size) { // TODO: Fix zero-area triangles

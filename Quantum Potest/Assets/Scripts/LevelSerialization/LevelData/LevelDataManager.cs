@@ -90,6 +90,17 @@ public class LevelDataManager : Singleton<LevelDataManager> {
         SetLevelVersion(_levels[_currentLevel].Versions.Count - 1);
     }
 
+    public void RemoveCurrLevelVersion() {
+        if (_levels[_currentLevel].Versions.Count <= 1) {
+            RemoveCurrentLevel();
+            return;
+        }
+
+        _levels[_currentLevel].RemoveCurrVersion();
+		ReconstructLevels();
+		UpdateInfo();
+	}
+
     public void SetLevelVersion(int newVersion) {
         _levels[_currentLevel].SetVersion(newVersion);
         ReconstructLevels();
@@ -101,19 +112,22 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 	}
 
     public void ReloadLevelPosition(Level level, Vector3 delta, bool moveSelf) {
-        int index = _physicalLevels.IndexOf(level);
+        ScrapeLevels();
+        ReconstructLevels();
 
-        if (index == -1) return;
+  //      int index = _physicalLevels.IndexOf(level);
 
-        if (moveSelf) {
-            for (int i = index; i < _physicalLevels.Count; i++) {
-                _physicalLevels[i].transform.position -= delta;
-            }
-        } else {
-			for (int i = index + 1; i < _physicalLevels.Count; i++) {
-				_physicalLevels[i].transform.position += delta;
-			}
-		}
+  //      if (index == -1) return;
+
+  //      if (moveSelf) {
+  //          for (int i = index; i < _physicalLevels.Count; i++) {
+  //              _physicalLevels[i].transform.position -= delta;
+  //          }
+  //      } else {
+		//	for (int i = index + 1; i < _physicalLevels.Count; i++) {
+		//		_physicalLevels[i].transform.position += delta;
+		//	}
+		//}
 	}
 
     public void MoveCurrentLevel(int newIndex) {
