@@ -8,6 +8,6 @@ public class ReflectiveWall : MonoBehaviour, ISerializableElement {
 	public void Deserialize(ElementData data) {
 		transform.position = data.Position;
 		transform.eulerAngles = data.Rotation;
-		transform.localScale = ((SurfaceData)data).Scale;
+		transform.localScale = data.Scale;
 	}
 }

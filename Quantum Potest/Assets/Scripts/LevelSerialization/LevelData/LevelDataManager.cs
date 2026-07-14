@@ -199,13 +199,15 @@ public class LevelDataManager : Singleton<LevelDataManager> {
 			switch (element) {
                 case DeviceData device:
 					GameObject physical = Instantiate(PrefabManager.instance.GetDevice(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
+                    physical.GetComponent<ISerializableElement>().Deserialize(device);
 
 					deviceLookup[device.ID] = (device, physical);
                     break;
                 case ParticleData particle:
 					physical = Instantiate(PrefabManager.instance.GetParticle(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
+					physical.GetComponent<ISerializableElement>().Deserialize(particle);
 
-                    if (particle.Energy > 0)
+					if (particle.Energy > 0)
 					    physical.GetComponent<Excitable>().Excite(particle.Energy, false);
 
                     switch (particle) {
@@ -222,6 +224,7 @@ public class LevelDataManager : Singleton<LevelDataManager> {
                     break;
                 case SurfaceData surface:
 					physical = Instantiate(PrefabManager.instance.GetSurface(element.PrefabID), element.Position, Quaternion.Euler(element.Rotation), level.transform);
+					physical.GetComponent<ISerializableElement>().Deserialize(surface);
 
 					physical.transform.localScale = surface.Scale;
 

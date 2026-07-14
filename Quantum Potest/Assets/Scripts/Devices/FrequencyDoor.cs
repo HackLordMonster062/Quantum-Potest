@@ -20,12 +20,13 @@ public class FrequencyDoor : MonoBehaviour, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new FrequencyDoorData("ColoredDoor", transform.localPosition, transform.eulerAngles, gameObject.GetEntityId().ToString(), frequency);
+		return new FrequencyDoorData("ColoredDoor", transform.localPosition, transform.eulerAngles, transform.localScale, gameObject.GetEntityId().ToString(), frequency);
 	}
 
 	public void Deserialize(ElementData data) {
 		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
+		transform.localScale = data.Scale;
 		SetFrequency(((FrequencyDoorData)data).Frequency);
 	}
 

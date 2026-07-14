@@ -44,10 +44,11 @@ public class SuspenderAnchor : ActivatorAnchor, ISerializableElement {
 
 	public new ElementData Serialize() {
 		return new ActivatableData(
-			"SuspenderAnchor", 
-			transform.localPosition, 
-			transform.eulerAngles, 
-			gameObject.GetEntityId().ToString(), 
+			"SuspenderAnchor",
+			transform.localPosition,
+			transform.eulerAngles,
+			transform.localScale,
+			gameObject.GetEntityId().ToString(),
 			_trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString()
 		);
 	}

@@ -23,7 +23,7 @@ public class EmitterParticle : Particle, ISerializableElement {
 	public ElementData Serialize() {
 		Rotateable rotateable = GetComponent<Rotateable>();
 
-		return new EmitterData(transform.localPosition, transform.eulerAngles, Energy, rotateable.Spin);
+		return new EmitterData(transform.localPosition, transform.eulerAngles, transform.localScale, Energy, rotateable.Spin);
 	}
 
 	public void Deserialize(ElementData data) {
@@ -33,6 +33,7 @@ public class EmitterParticle : Particle, ISerializableElement {
 
 		transform.localPosition = casted.Position;
 		transform.eulerAngles = casted.Rotation;
+		transform.localScale = casted.Scale;
 		Energy = casted.Energy;
 
 		rotateable.SetSpin(casted.Spin);

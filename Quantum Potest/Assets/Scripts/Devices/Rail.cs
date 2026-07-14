@@ -64,6 +64,7 @@ public class Rail : Activatable, ISerializableElement {
             "Rail",
             transform.localPosition,
             transform.eulerAngles,
+            transform.localScale,
             gameObject.GetEntityId().ToString(),
             _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString(),
             pathPoints.Select(point => point.position).ToArray(),
@@ -74,5 +75,6 @@ public class Rail : Activatable, ISerializableElement {
 	public void Deserialize(ElementData data) {
 		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
+        transform.localScale = data.Scale;
 	}
 }

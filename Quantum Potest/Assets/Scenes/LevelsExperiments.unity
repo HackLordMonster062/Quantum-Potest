@@ -11767,6 +11767,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6494151293664622543, guid: 22e8920702945f2409ae55659ce67bfe, type: 3}
+      propertyPath: gridSize
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6494151293664622543, guid: 22e8920702945f2409ae55659ce67bfe, type: 3}
       propertyPath: moveAmount
       value: 0.5
       objectReference: {fileID: 0}
@@ -25916,6 +25920,10 @@ PrefabInstance:
       propertyPath: <Surfaces>k__BackingField.<ReflectiveWall>k__BackingField
       value: 
       objectReference: {fileID: 4380476133870982119, guid: 2d2c4149cc7b63246b0979505948dd94, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Surfaces>k__BackingField.<TunnellableWall>k__BackingField
+      value: 
+      objectReference: {fileID: 3973088353735709245, guid: 455a5f071ad579040b5f78e5417442f6, type: 3}
     - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
       propertyPath: <Particles>k__BackingField.<MassiveParticle>k__BackingField
       value: 

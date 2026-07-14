@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class Wall : MonoBehaviour, ISerializableElement {
+public class TunnellableWall : MonoBehaviour, ISerializableElement {
 	public ElementData Serialize() {
-		return new SurfaceData("Wall", transform.position, transform.eulerAngles, transform.localScale);
+		return new SurfaceData("TunnellableWalll", transform.position, transform.eulerAngles, transform.localScale);
 	}
 
 	public void Deserialize(ElementData data) {

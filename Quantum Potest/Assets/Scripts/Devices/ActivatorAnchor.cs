@@ -20,11 +20,12 @@ public class ActivatorAnchor : Activatable, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new ActivatableData("ActivatorAnchor", transform.localPosition, transform.eulerAngles, gameObject.GetEntityId().ToString(), _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString());
+		return new ActivatableData("ActivatorAnchor", transform.localPosition, transform.eulerAngles, transform.localScale, gameObject.GetEntityId().ToString(), _trigger == null ? "" : _trigger.gameObject.GetEntityId().ToString());
 	}
 
 	public void Deserialize(ElementData data) {
 		transform.localPosition = data.Position;
 		transform.eulerAngles = data.Rotation;
+		transform.localScale = data.Scale;
 	}
 }

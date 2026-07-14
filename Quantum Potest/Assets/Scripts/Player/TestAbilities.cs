@@ -6,6 +6,7 @@ public class TestAbilities : MonoBehaviour {
 #if UNITY_EDITOR
 	[SerializeField] float castWidth;
 	[SerializeField] float reach;
+	[SerializeField] float gridSize;
 	[SerializeField] float scalingFactor;
 	[SerializeField] float moveAmount;
 	[SerializeField] LayerMask selection;
@@ -199,6 +200,8 @@ public class TestAbilities : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.KeypadDivide)) {
 			if (Input.GetKey(KeyCode.LeftShift))
 				SpawnDevice(PrefabManager.instance.Surfaces.ReflectiveWall, false);
+			else if (Input.GetKey(KeyCode.LeftControl))
+				SpawnDevice(PrefabManager.instance.Surfaces.TunnellableWall, false);
 			else
 				SpawnDevice(PrefabManager.instance.Surfaces.Wall, false);
 		}
@@ -206,7 +209,7 @@ public class TestAbilities : MonoBehaviour {
 
 	GameObject SpawnDevice(GameObject device, bool mountable = true) {
 		if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit info, reach, ~selection, QueryTriggerInteraction.Ignore)) {
-			GameObject dev = Instantiate(device, info.point, Quaternion.LookRotation(SnapToNearestAxis(Vector3.ProjectOnPlane(Camera.main.transform.forward, info.normal)).normalized, info.normal), LevelDataManager.instance.CurrentLevel.transform);
+			GameObject dev = Instantiate(device, SnapToGrid(info.point), Quaternion.LookRotation(SnapToNearestAxis(Vector3.ProjectOnPlane(Camera.main.transform.forward, info.normal)).normalized, info.normal), LevelDataManager.instance.CurrentLevel.transform);
 
 			if (mountable && Input.GetKey(KeyCode.LeftShift)) {
 				StartRail(dev.transform);
@@ -220,6 +223,17 @@ public class TestAbilities : MonoBehaviour {
 		}
 
 		return null;
+	}
+
+	Vector3 SnapToGrid(Vector3 point) {
+		Vector3 origin = LevelDataManager.instance.CurrentLevel.transform.position;
+
+		Vector3 local = point / gridSize;
+		local = new Vector3((int)local.x, (int)local.y, (int)local.z) * gridSize;
+
+		//local += new Vector3(gridSize / 2, 0, gridSize / 2);
+
+		return local;
 	}
 
 	void StartRail(Transform device) {

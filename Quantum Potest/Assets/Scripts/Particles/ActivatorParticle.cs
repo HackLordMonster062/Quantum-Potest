@@ -75,7 +75,7 @@ public class ActivatorParticle : Particle, ISerializableElement {
 	}
 
 	public ElementData Serialize() {
-		return new CatalystData(transform.localPosition, transform.eulerAngles, Energy);
+		return new CatalystData(transform.localPosition, transform.eulerAngles, transform.localScale, Energy);
 	}
 
 	public void Deserialize(ElementData data) {
@@ -83,6 +83,7 @@ public class ActivatorParticle : Particle, ISerializableElement {
 
 		transform.localPosition = casted.Position;
 		transform.eulerAngles = casted.Rotation;
+		transform.localScale = casted.Scale;
 		Energy = casted.Energy;
 	}
 }

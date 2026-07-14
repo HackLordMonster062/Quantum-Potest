@@ -33,6 +33,7 @@ public class DevicePM {
 public class SurfacePM {
     [field: SerializeField] public GameObject Wall { get; private set; }
     [field: SerializeField] public GameObject ReflectiveWall { get; private set; }
+    [field: SerializeField] public GameObject TunnellableWall { get; private set; }
 }
 
 public class PrefabManager : Singleton<PrefabManager> {
