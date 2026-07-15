@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5624807394248867138}
   - component: {fileID: 4386379720457664518}
   - component: {fileID: 3153896463790675848}
+  - component: {fileID: -8432822924415096566}
   m_Layer: 0
   m_Name: Tunnelable Surface
   m_TagString: Untagged
@@ -128,6 +129,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumEnergy: 1
   axis: {x: 0, y: 0, z: 1}
+--- !u!114 &-8432822924415096566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3973088353735709245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be53a1766e5fa2041afeaae498f476b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TunnellableWall
 --- !u!1 &7957104230709354208
 GameObject:
   m_ObjectHideFlags: 0
