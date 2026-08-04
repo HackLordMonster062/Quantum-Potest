@@ -164,7 +164,7 @@ public class TestAbilities : MonoBehaviour {
 					FinalizeRail(railComp);
 				}
 			} else if (Input.GetKey(KeyCode.LeftAlt)) {
-				GameObject wall = SpawnDevice(PrefabManager.instance.Devices.SlidingWall, false);
+				GameObject wall = SpawnDevice(PrefabManager.instance.Surfaces.SlidingWall, false);
 
 				if (wall != null) {
 					CapturableBlock wallComp = wall.GetComponent<CapturableBlock>();

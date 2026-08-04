@@ -25901,6 +25901,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 113558807591814682, guid: dc9475a5877287f47856932eb0dccee1, type: 3}
     - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
+      propertyPath: <Surfaces>k__BackingField.<SlidingWall>k__BackingField
+      value: 
+      objectReference: {fileID: 113558807591814682, guid: dc9475a5877287f47856932eb0dccee1, type: 3}
+    - target: {fileID: 6821755336554048917, guid: cbc64669727f0204a989556e5dbea269, type: 3}
       propertyPath: <Devices>k__BackingField.<PhotonShooter>k__BackingField
       value: 
       objectReference: {fileID: 7922279664754373131, guid: 736694fddf3fd9741a53a44249ed2ea1, type: 3}

@@ -25,7 +25,6 @@ public class DevicePM {
     [field: SerializeField] public GameObject SignalDoor { get; private set; }
     [field: SerializeField] public GameObject Rail { get; private set; }
     [field: SerializeField] public GameObject RailPoint { get; private set; }
-    [field: SerializeField] public GameObject SlidingWall { get; private set; }
     [field: SerializeField] public GameObject QuantumMirror { get; private set; }
 }
 
@@ -34,6 +33,7 @@ public class SurfacePM {
     [field: SerializeField] public GameObject Wall { get; private set; }
     [field: SerializeField] public GameObject ReflectiveWall { get; private set; }
     [field: SerializeField] public GameObject TunnellableWall { get; private set; }
+	[field: SerializeField] public GameObject SlidingWall { get; private set; }
 }
 
 public class PrefabManager : Singleton<PrefabManager> {
