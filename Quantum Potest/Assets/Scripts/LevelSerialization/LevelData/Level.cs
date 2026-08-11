@@ -1,6 +1,9 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.ProBuilder;
+using UnityEngine.UIElements;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 [RequireComponent(typeof(BoxCollider))]
 public class Level : MonoBehaviour {
@@ -171,6 +174,24 @@ public class Level : MonoBehaviour {
 
 		flatMesh.RecalculateNormals();
 		flatMesh.RecalculateBounds();
+
+		Vector2[] uvs = new Vector2[newVertices.Length];
+
+		for (int i = 0; i < newVertices.Length; i++) {
+			Vector3 normal = flatMesh.normals[i].normalized;
+
+			Vector3 helper = Mathf.Abs(normal.y) < 0.99f ? Vector3.up : Vector3.right;
+
+			Vector3 tangent = Vector3.Cross(normal, helper).normalized;
+			Vector3 bitangent = Vector3.Cross(normal, tangent).normalized;
+
+			float u = Vector3.Dot(newVertices[i], tangent);
+			float v = Vector3.Dot(newVertices[i], bitangent);
+
+			uvs[i] = new Vector2(u, v);
+		}
+
+		flatMesh.uv = uvs;
 
 		return flatMesh;
 	}

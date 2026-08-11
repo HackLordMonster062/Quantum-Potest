@@ -229,9 +229,7 @@ public class TestAbilities : MonoBehaviour {
 		Vector3 origin = LevelDataManager.instance.CurrentLevel.transform.position;
 
 		Vector3 local = point / gridSize;
-		local = new Vector3((int)local.x, (int)local.y, (int)local.z) * gridSize;
-
-		//local += new Vector3(gridSize / 2, 0, gridSize / 2);
+		local = new Vector3(Mathf.Round(local.x), Mathf.Round(local.y), Mathf.Round(local.z)) * gridSize;
 
 		return local;
 	}
@@ -293,8 +291,7 @@ public class TestAbilities : MonoBehaviour {
 					Vector3 candidate = new Vector3(x, y, z);
 					if (candidate == Vector3.zero) continue;
 
-					candidate.Normalize();
-					float dot = Vector3.Dot(dir, candidate);
+					float dot = Vector3.Dot(dir, candidate.normalized);
 					if (dot > bestDot) {
 						bestDot = dot;
 						best = candidate;
