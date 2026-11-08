@@ -1,0 +1,7 @@
+using System;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# {
+	#NOTRIM#
+}
+#ROOTNAMESPACEEND#
